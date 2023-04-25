@@ -9,15 +9,16 @@
 
 {% block content %}
 
-  <body>
     <div id="start-page">
       <h1>Start page</h1>
+      <h2>In this page you {{ request.user.username | title }}</h2>
+      <h2>can count how many calories you used</h2>
       <h2>
+        Good luck
         {% if request.user.is_authenticated %}
-        <span>Hi {{ request.user.username | title }}</span>
+        <span>{{ request.user.username | title }}</span>
         {% endif %}
       </h2>
     </div>
-  </body>
 
 {% endblock %}
