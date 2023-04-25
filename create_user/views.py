@@ -24,12 +24,11 @@ def sign_in(request):
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
             user = authenticate(request, username=username, password=password)
-            if user:
+            if user is not None:
                 login(request, user)
                 messages.success(request, f'Hi {username.title()}, welcome back!')
                 return redirect('start_page')
 
-        # form is not valid or user is not authenticated
         messages.error(request, f'Invalid username or password')
         return render(request, "create_user/login.html", {"form": form})
 
@@ -41,21 +40,13 @@ def sign_out(request):
 
 
 def sign_up(request):
-    if request.method == "GET":
-        form = RegisterForm()
-        return render(request, "create_user/register.html", {"form": form})
-
-    if request.method == 'POST':
-        form = RegisterForm(request.POST)
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.username = user.username.lower()
-            user.save()
-            messages.success(request, 'You have signed up successfully.')
-            login(request, user)
-            return redirect('start_page')
-
-    return render(request, 'create_user/register.html', {'form': form})
-
-
-
+    form = RegisterForm(request.POST)
+    if form.is_valid():
+        user = form.save(commit=False)
+        user.username = user.username.lower()
+        user.save()
+        login(request, user)
+        messages.success(request, 'You have signed up successfully.')
+        return redirect('start_page')
+    else:
+        return render(request, 'create_user/register.html', {'form': form})
