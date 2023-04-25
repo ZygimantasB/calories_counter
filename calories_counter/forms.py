@@ -1,27 +1,44 @@
-from django.forms import ModelForm
-from django.contrib.auth.forms import UserCreationForm
 from django import forms
-from django.contrib.auth.models import User
-from .models import Food, Profile
+from .models import Food, Meal, MealFood, UserProfile
 
 
-class SelectFoodForm(forms.ModelForm):
-    class Meta:
-        model = Profile
-        fields = ('food_selected', 'quantity',)
-
-    def __init__(self, user, *args, **kwargs):
-        super(SelectFoodForm, self).__init__(*args, **kwargs)
-        self.fields['food_selected'].queryset = Food.objects.filter(person_of=user)
-
-
-class AddFoodForm(forms.ModelForm):
+class FoodForm(forms.ModelForm):
     class Meta:
         model = Food
-        fields = ('name', 'quantity', 'calorie')
+        fields = ["User", "food_name", "calories"]
+        labels = {
+            "user": "User",
+            "food_name": "Food Name",
+            "calories": "Calories",
+        }
 
 
-class ProfileForm(forms.ModelForm):
+class MealForm(forms.ModelForm):
     class Meta:
-        model = Profile
-        fields = ('calorie_goal',)
+        model = Meal
+        fields = ["meal_name", "foods"]
+        labels = {
+            "meal_name": "Meal Name",
+            "foods": "Foods",
+        }
+
+
+class MealFoodForm(forms.ModelForm):
+    class Meta:
+        model = MealFood
+        fields = ["meal", "food", "quantity"]
+        labels = {
+            "meal": "Meal",
+            "food": "Food",
+            "quantity": "Quantity",
+        }
+
+
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ["user", "meals"]
+        labels = {
+            "user": "User",
+            "meals": "Meals",
+        }
