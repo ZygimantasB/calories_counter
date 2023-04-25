@@ -12,6 +12,11 @@
   <body>
     <div id="start-page">
       <h1>Start page</h1>
+      <h2>
+        {% if request.user.is_authenticated %}
+        <span>Hi {{ request.user.username | title }}</span>
+        {% endif %}
+      </h2>
     </div>
   </body>
 

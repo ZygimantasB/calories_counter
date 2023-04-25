@@ -25,6 +25,7 @@
       <list>
         <option value="$MODULE_DIR$/templates" />
         <option value="$MODULE_DIR$/calories_counter/templates" />
+        <option value="$MODULE_DIR$/create_user/templates" />
       </list>
     </option>
   </component>

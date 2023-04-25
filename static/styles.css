@@ -3,5 +3,19 @@ h1 {
 }
 
 body {
-    background-color: #37378d;
+    background-color: #b3b3f3;
+}
+
+#login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 60px;
+}
+
+#registration-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 60px;
 }

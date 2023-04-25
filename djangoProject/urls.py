@@ -20,4 +20,5 @@ from django.urls import path, include
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("calories_counter.urls")),
+    path("create_user/", include("create_user.urls")),
 ]
