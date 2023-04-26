@@ -40,28 +40,30 @@
       </li>
 
       <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
+{#        <a class="nav-link" href="{% url 'meal_create' %}">Add Meal <span class="sr-only">(current)</span></a>#}
       </li>
       {% if request.user.is_authenticated %}
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
            aria-haspopup="true" aria-expanded="false">
-          Calories Counter
+          Information about Food
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="{% url 'foods' %}">Food</a>
           <a class="dropdown-item" href="{% url 'food_create' %}">Add Food</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
         </div>
       </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+             aria-haspopup="true" aria-expanded="false">
+            Information about Food
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{% url 'foods' %}">Food</a>
+            <a class="dropdown-item" href="{% url 'food_create' %}">Add Food</a>
+          </div>
+        </li>
       {% endif %}
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#">Disabled</a>
-      </li>
     </ul>
   </div>
 </nav>

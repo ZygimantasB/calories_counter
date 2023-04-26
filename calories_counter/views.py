@@ -1,14 +1,17 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-
-from .models import Food
 from django.views import View
 from django.core.paginator import Paginator
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
+from .models import Food
+
+
+
 # Create your views here.
+
 
 
 def start_page(request):
@@ -31,4 +34,10 @@ class FoodCreate(LoginRequiredMixin, CreateView):
     template_name = "calories_counter/food_create.html"
     fields = ["user", "food_name", "calories"]
     success_url = reverse_lazy('foods')
+
+
+# class ViewMeal(LoginRequiredMixin, View):
+#     def get(self, request):
+#         meals = Meal.objects.all()
+#         return render(request, "calories_counter/meal.html", {"meals": meals})
 

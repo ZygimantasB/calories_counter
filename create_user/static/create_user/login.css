@@ -1,8 +1,4 @@
-h1  {
-    color: purple;
-}
-
-#registration-page {
+#login-page {
     max-width: 600px;
     margin: auto;
 }
@@ -20,10 +16,6 @@ h2 {
     text-align: center;
 }
 
-p {
-    margin-bottom: 10px;
-}
-
 label {
     display: block;
     font-weight: bold;
@@ -31,7 +23,6 @@ label {
 }
 
 input[type="text"],
-input[type="email"],
 input[type="password"] {
     width: 100%;
     padding: 10px;
@@ -41,8 +32,7 @@ input[type="password"] {
     box-sizing: border-box;
 }
 
-input[type="submit"],
-button.register-button {
+input[type="submit"] {
     display: block;
     width: 100%;
     padding: 10px;
@@ -54,19 +44,11 @@ button.register-button {
     font-size: 16px;
 }
 
-input[type="submit"]:hover,
-button.register-button:hover {
+input[type="submit"]:hover {
     background-color: #3e8e41;
 }
 
-.errorlist {
-    color: #cc0000;
-    margin-top: 5px;
-    margin-bottom: 10px;
-    padding-left: 0;
-}
-
-.errorlist li {
-    margin-left: 20px;
-    list-style: disc;
+#error-message {
+    color: red;
+    margin-top: 10px;
 }
