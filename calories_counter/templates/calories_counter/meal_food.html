@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css_files %}
+  <link rel="stylesheet" href="{% static 'calories_counter/meal_food.css' %}">
+{% endblock %}
+{% block title %} Meal Food {% endblock %}
+
+{% block content %}
+  <div id="user-food-meal">
+    <h1>Meal Food</h1>
+    <table class="table table-dark table-striped">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Meal</th>
+        <th>Food</th>
+        <th>Quantity</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      {% for meal_food in meal_foods %}
+        <tr>
+          <th>{{ forloop.counter }}</th>
+          <th>{{ meal_food.meal }}</th>
+          <th>{{ meal_food.food }}</th>
+          <th>{{ meal_food.quantity }}</th>
+          <th>
+            <a href="">Update</a>
+            <a href="">Delete</a>
+          </th>
+        </tr>
+      {% endfor %}
+    </table>
+  </div>
+{% endblock %}
