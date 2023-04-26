@@ -1,0 +1,9 @@
+#user-food {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding-top: 50px;
+    width: 50%;
+    margin: 0 auto;
+}
+

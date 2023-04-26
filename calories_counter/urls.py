@@ -3,4 +3,6 @@ from . import views
 
 urlpatterns = [
     path("", views.start_page, name="start_page"),
+    path("food/", views.FoodView.as_view(), name="foods"),
+
 ]

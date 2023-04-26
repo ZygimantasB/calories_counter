@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css_files %}
+  <link rel="stylesheet" href="{% static 'calories_counter/food.css' %}">
+{% endblock %}
+
+{% block title %} Food {% endblock %}
+
+{% block content %}
+  <div id="user-food">
+    <h1>Food</h1>
+    <table class="table table-dark table-striped">
+      <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">User</th>
+        <th scope="col">Food name</th>
+        <th scope="col">Calories</th>
+        <td scope="col">Actions</td>
+      </tr>
+      </thead>
+      <tbody>
+      {% for food in foods %}
+        <tr>
+          <th scope="row">{{ forloop.counter }}</th>
+          <th>{{ food.user }}</th>
+          <th>{{ food.food_name }}</th>
+          <th>{{ food.calories }}</th>
+          <th>
+            <a href="">Update</a>
+            <a href="">Delete</a>
+          </th>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+
+    <div class="pagination">
+      <span class="step-links">
+        {% if foods.has_previous %}
+          <a href="?page=1">&laquo; first</a>
+          <a href="?page={{ foods.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ foods.number }} of {{ foods.paginator.num_pages }}.
+        </span>
+
+        {% if foods.has_next %}
+          <a href="?page={{ foods.next_page_number }}">next</a>
+          <a href="?page={{ foods.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+    </div>
+
+  </div>
+{% endblock %}
