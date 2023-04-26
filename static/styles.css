@@ -19,3 +19,7 @@ body {
     align-items: center;
     margin-top: 60px;
 }
+
+.nav {
+    color: white !important;
+}

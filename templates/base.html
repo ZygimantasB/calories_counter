@@ -17,7 +17,7 @@
   {% block css_files %} {% endblock %}
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-dark">
+<nav class="navbar navbar-expand-lg navbar navbar-dark bg-primary">
   <a class="navbar-brand" href="{% url 'start_page' %}">Home page</a>
   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -53,7 +53,7 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="{% url 'foods' %}">Food</a>
-          <a class="dropdown-item" href="#">Another action</a>
+          <a class="dropdown-item" href="{% url 'food_create' %}">Add Food</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="#">Something else here</a>
         </div>
