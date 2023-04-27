@@ -24,7 +24,7 @@
           <th>{{ meal.meal_name }}</th>
           <th>
             <a href="{% url 'meal_update' meal.id %}">Update</a>
-            <a href="">Delete</a>
+            <a href="{% url 'meal_delete' meal.id %}">Delete</a>
           </th>
         </tr>
       {% endfor %}

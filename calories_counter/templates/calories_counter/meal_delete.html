@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css_files %}
+  <link rel="stylesheet" href="{% static 'calories_counter/update_meal.css' %}">
+{% endblock %}
+
+{% block title %}
+  Delete meal
+{% endblock %}
+
+{% block content %}
+  <div>
+    <h1>Delete Food</h1>
+
+
+    <form action="" method="post">
+      <p>Are you sure you want to delete "{{ object.meal_name }}"</p>
+        {% csrf_token %}
+        <input type="submit" value="Yes, delete.">
+    </form>
+
+    <a href="{% url 'meals' %}"></a>
+  </div>
+{% endblock %}
