@@ -10,7 +10,7 @@
 {% block content %}
   <div id="user-add-food">
     <h1>Add Food</h1>
-    <form action="" method="post" enctype="multipart/form-data">
+    <form action="" method="post" >
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit" class="btn btn-primary">Add Food</button>

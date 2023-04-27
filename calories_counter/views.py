@@ -39,6 +39,18 @@ class MealFoodView(LoginRequiredMixin, View):
         meal_foods = MealFood.objects.all()
         return render(request, "calories_counter/meal_food.html", {"meal_foods": meal_foods})
 
+
+class MealFoodCreate(LoginRequiredMixin, CreateView):
+    model = MealFood
+    template_name = "calories_counter/meal_food_create.html"
+    fields = ["meal", "food", "quantity"]
+    success_url = reverse_lazy('meal_food')
+
+
+# class MealFoodCreate(LoginRequiredMixin, View):
+#     template_name = "calories_counter/meal_food_create.html"
+
+
 # class ViewMeal(LoginRequiredMixin, View):
 #     def get(self, request):
 #         meals = Meal.objects.all()
