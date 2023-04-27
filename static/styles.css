@@ -23,3 +23,9 @@ body {
 .nav {
     color: white !important;
 }
+
+.logo-image {
+    width: 55px;
+    height: 55px;
+    object-fit: contain;
+}

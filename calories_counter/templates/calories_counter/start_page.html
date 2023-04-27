@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block css_files %} {% endblock %}
+{% block css_files %}
+  <link rel="stylesheet" href="{% static 'calories_counter/start_page.css' %}">
+{% endblock %}
 
 {% block title %}
   Calories start page
@@ -13,13 +15,13 @@
       <h1>Start page</h1>
       <h2>In this page you {{ request.user.username | title }}</h2>
       <h2>can count how many calories you used</h2>
-{#      <img src="{{ MEDIA_URL }}web_logo.png">#}
       <h2>
         Good luck
         {% if request.user.is_authenticated %}
         <span>{{ request.user.username | title }}</span>
         {% endif %}
       </h2>
+      <img src="{% static '/images/calories.jpg'  %}" alt="img">
     </div>
 
 {% endblock %}
