@@ -5,6 +5,8 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.core.paginator import Paginator
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.list import ListView
+
 
 from .models import Food, MealFood, Meal
 
@@ -34,6 +36,19 @@ class FoodCreate(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('foods')
 
 
+class FoodUpdate(LoginRequiredMixin, UpdateView):
+    model = Food
+    template_name = "calories_counter/food_update.html"
+    fields = ["user", "food_name", "calories"]
+    success_url = reverse_lazy('foods')
+
+
+class FoodDelete(LoginRequiredMixin, DeleteView):
+    model = Food
+    template_name = "calories_counter/food_delete.html"
+    success_url = reverse_lazy('foods')
+
+
 class MealFoodView(LoginRequiredMixin, View):
     def get(self, request):
         meal_foods = MealFood.objects.all()
@@ -52,3 +67,9 @@ class MealCreate(LoginRequiredMixin, CreateView):
     template_name = "calories_counter/meal_create.html"
     fields = "__all__"
     success_url = reverse_lazy('foods')
+
+
+class MealView(LoginRequiredMixin, ListView):
+    model = Meal
+    template_name = "calories_counter/meal.html"
+    context_object_name = "meals"

@@ -28,8 +28,8 @@
           <th>{{ food.food_name }}</th>
           <th>{{ food.calories }}</th>
           <th>
-            <a href="">Update</a>
-            <a href="">Delete</a>
+            <a href="{% url 'food_update' food.id %}">Update</a>
+            <a href="{% url 'food_delete' food.id %}">Delete</a>
           </th>
         </tr>
       {% endfor %}

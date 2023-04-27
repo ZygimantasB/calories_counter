@@ -1,0 +1,13 @@
+#user-meal-view {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding-top: 50px;
+    width: 25%;
+    margin: auto;
+}
+
+th, td {
+    text-align: center;
+    padding: 8px;
+}

@@ -13,6 +13,7 @@
       <h1>Start page</h1>
       <h2>In this page you {{ request.user.username | title }}</h2>
       <h2>can count how many calories you used</h2>
+{#      <img src="{{ MEDIA_URL }}web_logo.png">#}
       <h2>
         Good luck
         {% if request.user.is_authenticated %}
