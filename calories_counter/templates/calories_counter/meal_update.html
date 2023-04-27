@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css_files %}
+  <link rel="stylesheet" href="{% static 'calories_counter/update_meal.css' %}">
+{% endblock %}
+
+{% block content %}
+  <div id="meal-update">
+  <h1>Update meal</h1>
+
+    <form action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Update</button>
+    </form>
+  </div>
+{% endblock %}

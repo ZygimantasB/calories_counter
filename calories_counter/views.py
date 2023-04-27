@@ -73,3 +73,17 @@ class MealView(LoginRequiredMixin, ListView):
     model = Meal
     template_name = "calories_counter/meal.html"
     context_object_name = "meals"
+
+
+class MealUpdate(LoginRequiredMixin, UpdateView):
+    model = Meal
+    template_name = "calories_counter/meal_update.html"
+    fields = "__all__"
+    success_url = reverse_lazy('meals')
+
+
+class MealDelete(LoginRequiredMixin, DeleteView):
+    model = Meal
+    template_name = "calories_counter/meal_delete.html"
+    success_url = reverse_lazy('meals')
+
