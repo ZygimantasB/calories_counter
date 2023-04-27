@@ -40,7 +40,7 @@
       </li>
 
       <li class="nav-item active">
-{#        <a class="nav-link" href="{% url 'meal_create' %}">Add Meal <span class="sr-only">(current)</span></a>#}
+        <a class="nav-link" href="{% url 'meal_create' %}">Add Meal <span class="sr-only">(current)</span></a>
       </li>
       {% if request.user.is_authenticated %}
       <li class="nav-item dropdown">
@@ -59,6 +59,7 @@
             Information about meal
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#">Watch Meal Food</a>
             <a class="dropdown-item" href="{% url 'meal_food' %}">Watch Meal</a>
             <a class="dropdown-item" href="{% url 'meal_food_create' %}">Add Meal Food</a>
           </div>

@@ -16,10 +16,11 @@ class FoodForm(forms.ModelForm):
 class MealForm(forms.ModelForm):
     class Meta:
         model = Meal
-        fields = ["meal_name", "foods"]
+        fields = "__all__"
         labels = {
             "meal_name": "Meal Name",
             "foods": "Foods",
+            "quantity": "Quantity",
         }
 
 

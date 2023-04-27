@@ -24,7 +24,7 @@ class Meal(models.Model):
 class MealFood(models.Model):
     meal = models.ForeignKey(Meal, on_delete=models.CASCADE)
     food = models.ForeignKey(Food, on_delete=models.CASCADE)
-    quantity = models.FloatField()
+    quantity = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
 
     def __str__(self):
         return f"{self.meal} - {self.food} x {self.quantity}"

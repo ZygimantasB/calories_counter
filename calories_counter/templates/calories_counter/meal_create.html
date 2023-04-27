@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
+{% load static %}
 
-{% block css_files %} {% endblock %}
+{% block css_files %}
+  <link rel="stylesheet" href="{% static 'calories_counter/meal_create.css' %}">
+{% endblock %}
 
 {% block title %}
 Add Meal if needed
@@ -14,6 +17,5 @@ Add Meal if needed
       {{ form.as_p }}
       <button type="submit" class="btn btn-primary">Add (Meal - Food)</button>
     </form>
-
   </div>
 {% endblock %}

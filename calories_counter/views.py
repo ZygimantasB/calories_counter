@@ -6,7 +6,7 @@ from django.views import View
 from django.core.paginator import Paginator
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
-from .models import Food, MealFood
+from .models import Food, MealFood, Meal
 
 
 # Create your views here.
@@ -44,15 +44,11 @@ class MealFoodCreate(LoginRequiredMixin, CreateView):
     model = MealFood
     template_name = "calories_counter/meal_food_create.html"
     fields = ["meal", "food", "quantity"]
-    success_url = reverse_lazy('meal_food')
+    success_url = reverse_lazy('start_page')
 
 
-# class MealFoodCreate(LoginRequiredMixin, View):
-#     template_name = "calories_counter/meal_food_create.html"
-
-
-# class ViewMeal(LoginRequiredMixin, View):
-#     def get(self, request):
-#         meals = Meal.objects.all()
-#         return render(request, "calories_counter/meal.html", {"meals": meals})
-
+class MealCreate(LoginRequiredMixin, CreateView):
+    model = Meal
+    template_name = "calories_counter/meal_create.html"
+    fields = "__all__"
+    success_url = reverse_lazy('foods')

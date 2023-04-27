@@ -7,5 +7,5 @@ urlpatterns = [
     path("food/create/", views.FoodCreate.as_view(), name="food_create"),
     path("meal_food/", views.MealFoodView.as_view(), name="meal_food"),
     path("meal_food/create/", views.MealFoodCreate.as_view(), name="meal_food_create"),
-
+    path("meal/create/", views.MealCreate.as_view(), name="meal_create"),
 ]
