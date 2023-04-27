@@ -62,6 +62,19 @@ class MealFoodCreate(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('start_page')
 
 
+class MealFoodUpdate(LoginRequiredMixin, UpdateView):
+    model = MealFood
+    template_name = "calories_counter/meal_food_update.html"
+    fields = ["meal", "food", "quantity"]
+    success_url = reverse_lazy('meal_food')
+
+
+class MealFoodDelete(LoginRequiredMixin, DeleteView):
+    model = MealFood
+    template_name = "calories_counter/meal_food_delete.html"
+    success_url = reverse_lazy('meal_food')
+
+
 class MealCreate(LoginRequiredMixin, CreateView):
     model = Meal
     template_name = "calories_counter/meal_create.html"

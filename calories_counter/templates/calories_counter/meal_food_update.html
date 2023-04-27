@@ -5,21 +5,19 @@
   <link rel="stylesheet" href="{% static 'calories_counter/update_meal.css' %}">
 {% endblock %}
 
-{% block title %}
-  Delete meal
-{% endblock %}
+{% block title %} Update Meal Food {% endblock %}
 
 {% block content %}
   <div>
-    <h1>Delete Food</h1>
-
-
+  <h1>Update Meal Food</h1>
     <form action="" method="post">
-      <p>Are you sure you want to delete "{{ object.meal_name }}"</p>
-        {% csrf_token %}
-        <input type="submit" value="Yes, delete.">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Update</button>
+      <br>
+      <a href="{% url 'meal_food' %}">Cancel</a>
     </form>
 
-    <a href="{% url 'meals' %}"></a>
+
   </div>
 {% endblock %}

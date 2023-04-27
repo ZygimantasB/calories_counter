@@ -26,7 +26,7 @@
           <th>{{ meal_food.food }}</th>
           <th>{{ meal_food.quantity }}</th>
           <th>
-            <a href="">Update</a>
+            <a href="{% url 'meal_food_update' meal_food.id %}">Update</a>
             <a href="">Delete</a>
           </th>
         </tr>
