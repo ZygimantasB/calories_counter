@@ -8,7 +8,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 
 
-from .models import Food, MealFood, Meal
+from .models import Food, MealFood, Meal, UserProfile
 
 
 # Create your views here.
@@ -99,4 +99,11 @@ class MealDelete(LoginRequiredMixin, DeleteView):
     model = Meal
     template_name = "calories_counter/meal_delete.html"
     success_url = reverse_lazy('meals')
+
+
+class UserProfileView(LoginRequiredMixin, View):
+    def get(self, request):
+        user_profiles = UserProfile.objects.all()
+        user_calories = [(profile.user.username, profile.total_calories()) for profile in user_profiles]
+        return render(request, "calories_counter/user_profile.html", {"user_calories": user_calories})
 

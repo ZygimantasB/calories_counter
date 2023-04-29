@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.db.models import Sum, F
 
 # Create your models here.
 
@@ -33,3 +34,12 @@ class MealFood(models.Model):
 class UserProfile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     meals = models.ManyToManyField(Meal)
+
+    def total_calories(self):
+        total = 0
+        for meal in self.meals.all():
+            total += meal.foods.through.objects.filter(meal=meal).annotate(
+                total_calories=F('food__calories') * F('quantity')
+            ).aggregate(sum_calories=Sum('total_calories'))['sum_calories'] or 0
+        return total
+

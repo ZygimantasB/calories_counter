@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css_files %}
+
+{% endblock %}
+
+{% block title %}
+  Information about user calories
+{% endblock %}
+
+{% block content %}
+  <div>
+    <h1>User Calories</h1>
+    <table>
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>User</th>
+        <th>Calories</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for user, calories in user_calories %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>{{ user }}</td>
+          <td>{{ calories }}</td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="3">No users found.</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
