@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css_files %}
+<link rel="stylesheet" href="{% static 'calories_blog/all-posts.css' %}">
+{% endblock %}
+
+{% block title %} All my posts {% endblock %}
+
+{% block content %}
+  <div>
+    <section id="all-posts">
+      <h2>My Meals</h2>
+
+      <ul>
+        <li>
+          <article>
+            {% include "calories_blog/includes/post.html" %}
+          </article>
+        </li>
+      </ul>
+
+    </section>
+  </div>
+{% endblock%}

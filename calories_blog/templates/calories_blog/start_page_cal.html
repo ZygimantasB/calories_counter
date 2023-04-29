@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block css_files %}
+  <link rel="stylesheet" href="{% static 'calories_blog/post.css' %}">
   <link rel="stylesheet" href="{% static 'calories_blog/start_page.css' %}">
 {% endblock %}
 
@@ -9,7 +10,6 @@
 
 {% block content %}
   <div>
-    <h1>Welcome to my blog</h1>
     <header id="main navigator">
       <h1><a href="">My Blog</a></h1>
       <nav>
@@ -29,17 +29,7 @@
     <h2>My calories I eaten</h2>
 
     <ul>
-      <li>
-        <article class="post">
-          <a href="">
-            <img src="{% static 'images/roasted-chicken.jpg' %}" alt="">
-            <div class="post__content">
-              <h3>Food</h3>
-              <p>Breakfast</p>
-            </div>
-          </a>
-        </article>
-      </li>
+      {% include "calories_blog/includes/post.html" %}
     </ul>
   </section>
   </div>
