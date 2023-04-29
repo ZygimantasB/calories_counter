@@ -24,5 +24,5 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("calories_counter.urls")),
     path("create_user/", include("create_user.urls")),
-    path("calories_blog/", include("calories_blog.urls")),
+    path("", include("calories_blog.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

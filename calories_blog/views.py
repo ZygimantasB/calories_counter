@@ -11,5 +11,5 @@ def posts(request):
     return render(request, "calories_blog/all-posts.html")
 
 
-def post_detail(request):
-    pass
+def post_detail(request, slug):
+    return render(request, "calories_blog/post-detail.html")

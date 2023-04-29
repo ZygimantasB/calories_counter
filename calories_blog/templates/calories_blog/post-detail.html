@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css_files %}
+  <link rel="stylesheet" href="{% static 'calories_blog/post-detail.css' %}">
+{% endblock %}
+
+{% block title %}
+  This post title
+{% endblock %}
+
+{% block content %}
+  <section id="summary">
+    <h2>Post Title</h2>
+    <article>
+      <img src="{% static 'images/roasted-chicken.jpg' %}" alt="Post Title"/>
+      <address>User</address>
+      <div>
+        Last Updated on <time>Now</time>
+      </div>
+    </article>
+  </section>
+
+  <main>
+    <p>
+      loren ipsum dolor sit amet consectetur adipisicing elit.
+    </p>
+  </main>
+{% endblock %}
