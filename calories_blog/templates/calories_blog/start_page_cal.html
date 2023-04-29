@@ -6,27 +6,20 @@
   <link rel="stylesheet" href="{% static 'calories_blog/start_page.css' %}">
 {% endblock %}
 
-{% block title %} My Blog {% endblock %}
+{% block title %} Be Healthy start page {% endblock %}
 
 {% block content %}
   <div>
-    <header id="main navigator">
-      <h1><a href="">My Blog</a></h1>
-      <nav>
-        <a href="">All Posts</a>
-      </nav>
-    </header>
-
   <section id="welcome">
     <header>
       <img src="{% static '/images/food_logo.jpg' %}" alt="blog img">
-      <h2>My Info</h2>
+      <h2>Be Healthy</h2>
     </header>
-    <p>My calories information</p>
+    <p><i>Information About Food I eaten</i></p>
   </section>
 
   <section id="latest-posts">
-    <h2>My calories I eaten</h2>
+    <h2><strong>Food I eat</strong></h2>
 
     <ul>
       {% include "calories_blog/includes/post.html" %}
