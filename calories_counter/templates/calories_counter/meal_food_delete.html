@@ -12,7 +12,7 @@
 {% block content %}
   <div>
     <form action="" method="post">
-      <strong><p>Are you sure you want to delete "{{ object.meal }}"</p></strong>
+      <p><strong>Are you sure you want to delete "{{ object.meal }}"</strong></p>
       <h1>Delete Meal Food</h1>
       {% csrf_token %}
       <input type="submit" value="Confirm Delete">
