@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css_files %}
+  <link rel="stylesheet" href="{% static 'calories_blog/start_page.css' %}">
+{% endblock %}
+
+{% block title %} My Blog {% endblock %}
+
+{% block content %}
+  <div>
+    <h1>Welcome to my blog</h1>
+    <header id="main navigator">
+      <h1><a href="">My Blog</a></h1>
+      <nav>
+        <a href="">All Posts</a>
+      </nav>
+    </header>
+
+  <section id="welcome">
+    <header>
+      <img src="{% static '/images/food_logo.jpg' %}" alt="blog img">
+      <h2>My Info</h2>
+    </header>
+    <p>My calories information</p>
+  </section>
+
+  <section id="latest-posts">
+    <h2>My calories I eaten</h2>
+
+    <ul>
+      <li>
+        <article class="post">
+          <a href="">
+            <img src="{% static 'images/roasted-chicken.jpg' %}" alt="">
+            <div class="post__content">
+              <h3>Food</h3>
+              <p>Breakfast</p>
+            </div>
+          </a>
+        </article>
+      </li>
+    </ul>
+  </section>
+  </div>
+{% endblock %}
