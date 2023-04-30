@@ -11,12 +11,17 @@
 
 {% block content %}
   <section id="summary">
-    <h2>Post Title</h2>
+    <h2>{{ post.title }}</h2>
+    <div>
+      {% for tag in post_tags %}
+        <span>{{ tag.caption }}</span>
+      {% endfor %}
+    </div>
     <article>
-      <img src="{% static 'images/roasted-chicken.jpg' %}" alt="Post Title"/>
-      <address>User</address>
+      <img src="{% static 'calories_blog/images/'|add:post.image_name %}" alt="{{ post.title }}"/>
+      <address><a href="mailto:{{ post.author.email_address }}">{{ post.author }}</a></address>
       <div>
-        Last Updated on <time>Now</time>
+        Last Updated on <time>{{ post.date|date:"d M Y" }}</time>
       </div>
     </article>
   </section>

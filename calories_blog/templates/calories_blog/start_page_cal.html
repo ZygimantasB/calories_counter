@@ -12,7 +12,7 @@
   <div>
   <section id="welcome">
     <header>
-      <img src="{% static '/images/food_logo.jpg' %}" alt="blog img">
+      <img src="{% static 'calories_blog/images/food_logo.jpg' %}" alt="blog img">
       <h2>Be Healthy</h2>
     </header>
     <p><i>Information About Food I eaten</i></p>
@@ -22,7 +22,9 @@
     <h2><strong>Food I eat</strong></h2>
 
     <ul>
+      {% for post in posts %}
       {% include "calories_blog/includes/post.html" %}
+      {% endfor %}
     </ul>
   </section>
   </div>
