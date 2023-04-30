@@ -11,15 +11,13 @@
   <div>
     <section id="all-posts">
       <h2><a href="{% url 'start_page_cal' %}">My Meals</a></h2>
-
-
-      <ul>
-        <li>
-          <article>
+      <li>
+        <article>
+          {% for post in all_posts %}
             {% include "calories_blog/includes/post.html" %}
-          </article>
-        </li>
-      </ul>
+          {% endfor %}
+        </article>
+      </li>
 
     </section>
   </div>
