@@ -2,7 +2,8 @@
 {% load static %}
 
 {% block css_files %}
-<link rel="stylesheet" href="{% static 'calories_blog/all-posts.css' %}">
+  <link rel="stylesheet" href="{% static "calories_blog/post.css" %}">
+  <link rel="stylesheet" href="{% static 'calories_blog/all-posts.css' %}">
 {% endblock %}
 
 {% block title %} All my posts {% endblock %}
@@ -11,14 +12,15 @@
   <div>
     <section id="all-posts">
       <h2><a href="{% url 'start_page_cal' %}">My Meals</a></h2>
-      <li>
-        <article>
-          {% for post in all_posts %}
-            {% include "calories_blog/includes/post.html" %}
-          {% endfor %}
-        </article>
-      </li>
-
+      <ul>
+        {% for post in all_posts %}
+          <li>
+            <article>
+              {% include "calories_blog/includes/post.html" %}
+            </article>
+          </li>
+        {% endfor %}
+      </ul>
     </section>
   </div>
 {% endblock%}

@@ -15,7 +15,7 @@
 .post a:hover,
 .post a:active {
     transform: scale(1.1);
-    background-color: #390281;
+    background-color: #103d77;
     color: white;
 }
 

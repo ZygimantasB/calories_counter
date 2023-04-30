@@ -1,12 +1,13 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block css_files %}
-  <link rel="stylesheet" href="{% static 'calories_blog/post-detail.css' %}">
+{% block title %}
+  {{ post.title }}
 {% endblock %}
 
-{% block title %}
-  This post title
+{% block css_files %}
+  <link rel="stylesheet" href="{% static "calories_blog/post.css" %}">
+  <link rel="stylesheet" href="{% static "calories_blog/post-detail.css" %}">
 {% endblock %}
 
 {% block content %}
@@ -14,36 +15,40 @@
   {% if comment_form.errors %}
     <div id="alert">
       <h2>Saving the comment failed</h2>
-      <p>Please check the comment for error and fix it </p>
-      <a href="#comment-form">Fix!</a>
+      <p>Please check the comment form below the post and fix you errors</p>
+      <a href="#comment-form">Fix</a>
     </div>
   {% endif %}
 
   <section id="summary">
-    <h2>{{ post.title }}</h2>
+    <h2> {{ post.title }}</h2>
     <div>
       {% for tag in post_tags %}
-        <span>{{ tag.caption }}</span>
+        <span class="tag">{{ tag.caption }}</span>
       {% endfor %}
     </div>
     <div id="read-later">
-      <form action="{% url 'read-later' %}" method="post">
+      <form action="{% url "read-later" %}" method="post">
         <input type="hidden" value="{{ post.id }}" name="post_id">
         {% csrf_token %}
-        <button>Read Later</button>
+        <button id="read-later">
+          {% if saved_for_later %}
+            Remove from read later List
+          {% else %}
+            Read later
+          {% endif %}
+        </button>
       </form>
     </div>
     <article>
       <img src="{{ post.image.url }}" alt="{{ post.title }}"/>
-      <address><a href="mailto:{{ post.author.email_address }}">{{ post.author }}</a></address>
-      <div>
-        Last Updated on <time>{{ post.date|date:"d M Y" }}</time>
-      </div>
+      <address>By <a href="mailto:{{ post.author.email_address }}"> {{ post.author }} </a> </address>
+      <div>Last update on <time>{{ post.date|date:"d M Y" }}</time></div>
     </article>
   </section>
 
   <main>
-{{ post.content|linebreaks }}
+    {{ post.content|linebreaks }}
   </main>
 
   <section id="comments">
@@ -51,25 +56,24 @@
       {% for comment in comments %}
         <li>
           <h2>{{ comment.user_name }}</h2>
-          <p>{{ comment.text }}</p>
+          <p>{{ comment.text|linebreaks }}</p>
         </li>
       {% endfor %}
     </ul>
   </section>
 
-  <section id="comment-form" {% if form_field.errors %} Invalid {% endif %}>
-  <h2>Your Comment</h2>
-    <form action="{% url 'post-detail-page' post.slug %}" method="post">
-    {% csrf_token %}
-      <div class="form-control">
-        {% for form_field in comment_form %}
+  <section id="comment-form">
+    <h2>Your comment</h2>
+    <form action="{% url "post-detail-page" post.slug|default:"default-slug" %}" method="POST">
+      {% csrf_token %}
+      {% for form_field in comment_form %}
+        <div class="form-control"> {% if form_field.errors %}invalid{% endif %}
           {{ form_field.label_tag }}
           {{ form_field }}
           {{ form_field.errors }}
-        {% endfor %}
-      </div>
-      <button type="submit">Save Comment</button>
+        </div>
+      {% endfor %}
+      <button type="submit">Save comment</button>
     </form>
   </section>
-
 {% endblock %}
