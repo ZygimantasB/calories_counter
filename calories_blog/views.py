@@ -34,9 +34,11 @@ class SinglePostView(View):  # slug supported by default
     # model = Post
     def get(self, request, slug):
         post = Post.objects.get(slug=slug)
-        content = {"post": post,
-                   "post_tags": post.tags.all(),
-                   "comment_form": CommentForm(),
+        content = {
+                    "post": post,
+                    "post_tags": post.tags.all(),
+                    "comment_form": CommentForm(),
+                    "comments": post.comments.all().order_by("-id"),
                    }
         return render(request, "calories_blog/post-detail.html", content)
 
@@ -51,9 +53,11 @@ class SinglePostView(View):  # slug supported by default
 
             return HttpResponseRedirect(reverse("post-detail-page", args=[slug]))
 
-        content = {"post": post,
-               "post_tags": post.tags.all(),
-               "comment_form": CommentForm(),
+        content = {
+                "post": post,
+                "post_tags": post.tags.all(),
+                "comment_form": CommentForm(),
+                "comments": post.comments.all().order_by("-id"),
                }
 
         return render(request, "calories_blog/post-detail.html", content)
