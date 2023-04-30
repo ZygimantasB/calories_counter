@@ -68,3 +68,39 @@ class SinglePostView(View):  # slug supported by default
     #     context["comment_form"] = CommentForm()
     #     return context
 
+
+class ReadLaterView(View):
+    def post(self, request):
+        stored_post = request.session.get("stored_post")
+
+        if stored_post is None:
+            stored_post = []
+
+        post_id = int(request.POST["post_id"])
+
+        if post_id not in stored_post:
+            stored_post.append(post_id)
+
+        request.session["stored_post"] = stored_post
+
+        return HttpResponseRedirect("/")
+
+    def get(self, request):
+        stored_post = request.session.get("stored_post")
+
+        context = {}
+
+        if stored_post is None or len(stored_post) == 0:
+            context["posts"] = []
+            context["has_posts"] = False
+        else:
+            posts = Post.objects.filter(id__in=stored_post)
+            context["posts"] = posts
+            context["has_posts"] = True
+
+        return render(request, "calories_blog/stored-posts.html", context)
+
+
+
+
+
