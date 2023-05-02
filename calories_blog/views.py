@@ -104,10 +104,10 @@ class ReadLaterView(View):
             stored_posts.remove(post_id)
             request.session['stored_posts'] = stored_posts
 
-        return HttpResponseRedirect('/')
+        return HttpResponseRedirect('/calories_blog/')
 
 
-class PostCreateView(CreateView):
+class PostCreateView(CreateView, LoginRequiredMixin):
     model = Post
     template_name = 'calories_blog/post_create.html'
     fields = ['title', 'excerpt', 'image', 'content', 'author', 'tags']
