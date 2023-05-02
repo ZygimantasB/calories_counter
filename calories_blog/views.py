@@ -1,11 +1,12 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
-from django.urls import reverse
-from django.views.generic import ListView
+from django.urls import reverse, reverse_lazy
+from django.views.generic import ListView, CreateView
 from django.views import View
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Post, Author, Tag
-from .forms import CommentForm
+from .forms import CommentForm, PostForm
 # Create your views here.
 
 
@@ -106,6 +107,14 @@ class ReadLaterView(View):
         return HttpResponseRedirect('/')
 
 
+class PostCreateView(CreateView):
+    model = Post
+    template_name = 'calories_blog/post_create.html'
+    fields = ['title', 'excerpt', 'image', 'content', 'author', 'tags']
+    success_url = reverse_lazy('posts')
 
+    def form_valid(self, form):
+        form.instance.slug = form.instance.title.lower().replace(' ', '-')
+        return super().form_valid(form)
 
 
