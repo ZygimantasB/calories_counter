@@ -27,22 +27,22 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
 {#      <li class="nav-item active">#}
-{#        <a class="nav-link" href="{% url 'login' %}">Login <span class="sr-only">(current)</span></a>#}
+{#        <a class="nav-link" href="{% url 'login' %}">Login <span class="sr-only">()</span></a>#}
 {#      </li>#}
       <li class="nav-item active">
-        <a class="nav-link" href="{% url 'register' %}">Registration <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="{% url 'register' %}">Registration <span class="sr-only"></span></a>
       </li>
       <li class="nav-item active">
         {% if request.user.is_authenticated %}
-        <a class="nav-link" href="{% url 'logout' %}">Logout <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="{% url 'logout' %}">Logout <span class="sr-only"></span></a>
         {% else %}
-        <a class="nav-link" href="{% url 'login' %}">Login <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="{% url 'login' %}">Login <span class="sr-only"></span></a>
         {% endif %}
       </li>
 
       <li class="nav-item active">
         {% if request.user.is_authenticated %}
-        <a class="nav-link" href="{% url 'meal_create' %}">Add Meal <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="{% url 'meal_create' %}">Add Meal <span class="sr-only"></span></a>
         {% endif %}
       </li>
       {% if request.user.is_authenticated %}

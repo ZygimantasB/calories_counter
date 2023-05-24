@@ -4,6 +4,10 @@ h1 {
 
 body {
     background-color: #b3b3f3;
+    /*background-image: url('static/images/calories.jpg');*/
+    /*background-repeat: no-repeat;*/
+    /*background-attachment: fixed;*/
+    /*background-size: cover;*/
 }
 
 #login-page {
