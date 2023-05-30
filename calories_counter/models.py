@@ -8,23 +8,30 @@ from CONSTATNS.then_eaten import THEN_EATEN
 # Create your models here.
 
 
-class Foods(models.Model):
-    meals_ID = models.ForeignKey('Meals', on_delete=models.CASCADE, blank=True, null=True)
-    food_name = models.CharField(max_length=255)
-    calories = models.FloatField()
-    protein = models.FloatField()
-    fat = models.DecimalField(max_digits=5, decimal_places=2)
-    carbs = models.DecimalField(max_digits=5, decimal_places=2)
+class Food(models.Model):
+    meal = models.ForeignKey('Meal', on_delete=models.CASCADE)
+    name = models.OneToOneField('FoodName', on_delete=models.CASCADE)
+    calories = models.DecimalField(max_digits=6, decimal_places=2)
+    protein = models.DecimalField(max_digits=6, decimal_places=2)
+    fat = models.DecimalField(max_digits=6, decimal_places=2)
+    carbs = models.DecimalField(max_digits=6, decimal_places=2)
 
 
-class Meals(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+class FoodName(models.Model):
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
+
+
+class Meal(models.Model):
+    user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     meal_datetime = models.DateTimeField(auto_now_add=True)
     then_eaten = models.CharField(max_length=50, choices=THEN_EATEN, default='Snack')
 
 
 class UserInformation(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     age = models.IntegerField()
     height = models.DecimalField(max_digits=5, decimal_places=2)
     weight = models.DecimalField(max_digits=5, decimal_places=2)

@@ -4,6 +4,8 @@ from . import views
 urlpatterns = [
     path("", views.start_page, name="start_page"),
     path("foods/", views.FoodsView.as_view(), name="foods"),
+    path('food/update/<int:pk>', views.FoodUpdate.as_view(), name='food_update'),
+    path('food/delete/<int:pk>', views.FoodDelete.as_view(), name='food_delete'),
     # path("food/", views.FoodView.as_view(), name="foods"),
     # path('food/update/<int:pk>', views.FoodUpdate.as_view(), name='food_update'),
     # path('food/delete/<int:pk>', views.FoodDelete.as_view(), name='food_delete'),

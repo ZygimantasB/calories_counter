@@ -8,7 +8,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 
 
-from .models import Foods, Meals, UserInformation
+from .models import Food, Meal, FoodName, UserInformation
 
 
 # Create your views here.
@@ -18,15 +18,29 @@ def start_page(request):
     return render(request, "calories_counter/start_page.html")
 
 
-class FoodsView(LoginRequiredMixin, ListView):
+class FoodsView(LoginRequiredMixin, View):
     def get(self, request):
-        food_objects = Foods.objects.all()
+        food_objects = Food.objects.all()
         paginator = Paginator(food_objects, 10)
 
         page = request.GET.get('page')
         foods = paginator.get_page(page)
 
         return render(request, "calories_counter/foods.html", {"foods": foods})
+
+
+class FoodUpdate(LoginRequiredMixin, UpdateView):
+    model = Food
+    template_name = "calories_counter/food_update.html"
+    fields = '__all__'
+    success_url = reverse_lazy('foods')
+
+
+class FoodDelete(LoginRequiredMixin, DeleteView):
+    model = Food
+    template_name = "calories_counter/food_delete.html"
+    success_url = reverse_lazy('foods')
+
 
 # class FoodView(LoginRequiredMixin, View):
 #     def get(self, request):
