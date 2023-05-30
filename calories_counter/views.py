@@ -8,7 +8,10 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 
 
+from django.forms import inlineformset_factory
+
 from .models import Food, Meal, FoodName, UserInformation
+from .forms import FoodForm, MealForm
 
 
 # Create your views here.
@@ -40,6 +43,23 @@ class FoodDelete(LoginRequiredMixin, DeleteView):
     model = Food
     template_name = "calories_counter/food_delete.html"
     success_url = reverse_lazy('foods')
+
+
+class FoodCreate(LoginRequiredMixin, View):
+    template_name = "calories_counter/food_create.html"
+
+    def get(self, request):
+        food_form = FoodForm()
+        meal_formset = inlineformset_factory(Meal, form=MealForm, extra=1)
+        return render(request, "calories_counter/food_create.html", {"food_form": food_form})
+
+    def post(self, request):
+        food_form = FoodForm(request.POST)
+        if food_form.is_valid():
+            food_form.save()
+            return redirect('foods')
+        return render(request, "calories_counter/food_create.html", {"food_form": food_form})
+
 
 
 # class FoodView(LoginRequiredMixin, View):

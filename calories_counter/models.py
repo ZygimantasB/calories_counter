@@ -16,6 +16,9 @@ class Food(models.Model):
     fat = models.DecimalField(max_digits=6, decimal_places=2)
     carbs = models.DecimalField(max_digits=6, decimal_places=2)
 
+    def __str__(self):
+        return self.name.name
+
 
 class FoodName(models.Model):
     name = models.CharField(max_length=255)
@@ -28,6 +31,9 @@ class Meal(models.Model):
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     meal_datetime = models.DateTimeField(auto_now_add=True)
     then_eaten = models.CharField(max_length=50, choices=THEN_EATEN, default='Snack')
+
+    def __str__(self):
+        return f'{self.meal_datetime} - {self.then_eaten}'
 
 
 class UserInformation(models.Model):
