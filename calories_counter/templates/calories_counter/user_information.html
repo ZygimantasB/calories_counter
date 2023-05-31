@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css_files %}
+    <link rel="stylesheet" href="{% static 'calories_counter/user_information.css' %}">
+{% endblock %}
+
+{% block title %} 👤 User Information {% endblock %}
+
+{% block content %}
+
+    <div id="user_information">
+        <h1><b>User information</b></h1>
+        <table class="table table-hover table-dark">
+            <tbody>
+                <tr>
+                    <td>First name:</td>
+                    <td>{{ user_information.first_name }}</td>
+                </tr>
+                <tr>
+                    <td>Last name:</td>
+                    <td>{{ user_information.last_name }}</td>
+                </tr>
+                <tr>
+                    <td>Email:</td>
+                    <td>{{ user_information.email }}</td>
+                </tr>
+                <tr>
+                    <td>Age:</td>
+                    <td>{{ user_information.age }}</td>
+                </tr>
+                <tr>
+                    <td>Height:</td>
+                    <td>{{ user_information.height }}</td>
+                </tr>
+                <tr>
+                    <td>Weight:</td>
+                    <td>{{ user_information.weight }}</td>
+                </tr>
+                <tr>
+                    <td>Gender:</td>
+                    <td>{{ user_information.gender }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

@@ -1,6 +1,6 @@
 from django.db import models
-from django.conf import settings
-from django.db.models import Sum, F
+
+from django.contrib.auth.models import User
 
 from CONSTATNS.gender import GENDER
 from CONSTATNS.then_eaten import THEN_EATEN
@@ -15,6 +15,7 @@ class Food(models.Model):
     protein = models.DecimalField(max_digits=6, decimal_places=2)
     fat = models.DecimalField(max_digits=6, decimal_places=2)
     carbs = models.DecimalField(max_digits=6, decimal_places=2)
+    weight_measure = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
 
     def __str__(self):
         return self.name.name
@@ -29,19 +30,26 @@ class FoodName(models.Model):
 
 class Meal(models.Model):
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
-    meal_datetime = models.DateTimeField(auto_now_add=True)
     then_eaten = models.CharField(max_length=50, choices=THEN_EATEN, default='Snack')
+    date = models.DateField(auto_now=True)
 
     def __str__(self):
-        return f'{self.meal_datetime} - {self.then_eaten}'
+        return self.then_eaten
 
 
 class UserInformation(models.Model):
-    user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=50, blank=True, null=True)
+    last_name = models.CharField(max_length=50, blank=True, null=True)
+    email = models.EmailField(max_length=50, blank=True, null=True)
     age = models.IntegerField()
     height = models.DecimalField(max_digits=5, decimal_places=2)
     weight = models.DecimalField(max_digits=5, decimal_places=2)
     gender = models.CharField(max_length=6, choices=GENDER)
+    user_photo = models.ImageField(blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"
 
 
 # class Food(models.Model):

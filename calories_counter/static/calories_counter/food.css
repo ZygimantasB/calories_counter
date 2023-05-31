@@ -10,3 +10,9 @@
 tr, th {
     text-align: center;
 }
+
+.food_add_button {
+    width: 100px;
+    height: 40px;
+    margin-top: 15px;
+}

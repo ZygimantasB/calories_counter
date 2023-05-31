@@ -11,7 +11,7 @@ class MealForm(forms.ModelForm):
 class FoodForm(forms.ModelForm):
     class Meta:
         model = Food
-        fields = ["meal", "name", "calories", "protein", "fat", "carbs"]
+        fields = ["meal", "name", "calories", "protein", "fat", "carbs", "weight_measure"]
         labels = {
             "meal": "Meal",
             "name": "Name",
@@ -19,6 +19,7 @@ class FoodForm(forms.ModelForm):
             "protein": "Protein",
             "fat": "Fat",
             "carbs": "Carbs",
+            "weight_measure": "Weight Measure",
         }
 
 
