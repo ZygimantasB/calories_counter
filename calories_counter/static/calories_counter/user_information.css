@@ -9,7 +9,8 @@ h1  {
     text-align: center;
 }
 
-.food_add_button {
+.add_information_button, .update_information_button {
     margin-left: 80px;
     width: 15%;
 }
+

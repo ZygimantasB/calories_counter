@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
 from django.core.paginator import Paginator
@@ -70,6 +70,16 @@ class UserInformationCreate(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
+
+
+class UserInformationUpdate(LoginRequiredMixin, UpdateView):
+    model = UserInformation
+    template_name = 'calories_counter/update_user_information.html'
+    fields = ['first_name', 'last_name', 'email', 'date_of_birth', 'height', 'weight', 'gender']
+    success_url = reverse_lazy('user_information')
+
+    def get_object(self, queryset=None):
+        return get_object_or_404(UserInformation, user=self.request.user)
 
 
 # class UserProfileView(LoginRequiredMixin, View):
