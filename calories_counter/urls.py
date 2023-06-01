@@ -8,7 +8,8 @@ urlpatterns = [
     path('food/delete/<int:pk>', views.FoodDelete.as_view(), name='food_delete'),
     path("food/create/", views.FoodCreate.as_view(), name="food_create"),
 
-    path("user_information/", views.UserInformationView.as_view(), name="user_information")
+    path("user_information/", views.UserInformationView.as_view(), name="user_information"),
+    path("user_information/enter_information", views.UserInformationCreate.as_view(), name="create_user_information"),
 
 
     # path("food/", views.FoodView.as_view(), name="foods"),

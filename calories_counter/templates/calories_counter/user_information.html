@@ -14,35 +14,56 @@
         <table class="table table-hover table-dark">
             <tbody>
                 <tr>
-                    <td>First name:</td>
+                    <td><b>First name:</b></td>
                     <td>{{ user_information.first_name }}</td>
                 </tr>
                 <tr>
-                    <td>Last name:</td>
+                    <td><b>Last name:</b></td>
                     <td>{{ user_information.last_name }}</td>
                 </tr>
                 <tr>
-                    <td>Email:</td>
+                    <td><b>Email:</b></td>
                     <td>{{ user_information.email }}</td>
                 </tr>
                 <tr>
-                    <td>Age:</td>
-                    <td>{{ user_information.age }}</td>
+                    <td><b>Age:</b></td>
+                    {% if user_information.age != None %}
+                        <td>{{ user_information.age }} years</td>
+                    {% else %}
+                        <td>{{ user_information.age }}</td>
+                    {% endif %}
                 </tr>
                 <tr>
-                    <td>Height:</td>
-                    <td>{{ user_information.height }}</td>
-                </tr>
-                <tr>
-                    <td>Weight:</td>
+                    <td><b>Height:</b></td>
+                    {% if user_information.height != None %}
+                    <td>{{ user_information.height }} cm</td>
+                    {% else %}
                     <td>{{ user_information.weight }}</td>
+                    {% endif %}
                 </tr>
                 <tr>
-                    <td>Gender:</td>
-                    <td>{{ user_information.gender }}</td>
+                    <td><b>Weight:</b></td>
+                    {%  if user_information.weight != None %}
+                    <td>{{ user_information.weight }} kg</td>
+                    {% else %}
+                    <td>{{ user_information.weight }}</td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td><b>Gender:</b></td>
+                    {% if user_information.gender == 'male' %}
+                        <td>{{ user_information.gender|capfirst }} ️️♂️</td>
+                        {% elif user_information.gender == 'female' %}
+                        <td>{{ user_information.gender|capfirst }} ♀️</td>
+                        {% else %}
+                        <td>{{ user_information.gender|capfirst }} </td>
+                    {% endif %}
                 </tr>
             </tbody>
         </table>
+        {% if user_information.first_name == None %}
+        <a href="{% url 'create_user_information' %}" class="btn btn-primary food_add_button">Add User Information 👤</a>
+        {% endif %}
     </div>
 
 {% endblock %}

@@ -2,6 +2,8 @@ from django.db import models
 
 from django.contrib.auth.models import User
 
+from datetime import date
+
 from CONSTATNS.gender import GENDER
 from CONSTATNS.then_eaten import THEN_EATEN
 
@@ -38,15 +40,23 @@ class Meal(models.Model):
 
 
 class UserInformation(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     first_name = models.CharField(max_length=50, blank=True, null=True)
     last_name = models.CharField(max_length=50, blank=True, null=True)
     email = models.EmailField(max_length=50, blank=True, null=True)
-    age = models.IntegerField()
+    date_of_birth = models.DateField(blank=True, null=True)
     height = models.DecimalField(max_digits=5, decimal_places=2)
     weight = models.DecimalField(max_digits=5, decimal_places=2)
     gender = models.CharField(max_length=6, choices=GENDER)
     user_photo = models.ImageField(blank=True, null=True)
+
+    @property
+    def age(self):
+        if self.date_of_birth:
+            today = date.today()
+            born = self.date_of_birth
+            return today.year - born.year - ((today.month, today.day) < (born.month, born.day))
+        return None
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"

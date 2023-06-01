@@ -3,7 +3,13 @@ h1  {
     margin-top: 35px;
 }
 
-#user_information table {
-    width: 20%;
+.table {
+    width: 15%;
     margin-left: 80px;
+    text-align: center;
+}
+
+.food_add_button {
+    margin-left: 80px;
+    width: 15%;
 }

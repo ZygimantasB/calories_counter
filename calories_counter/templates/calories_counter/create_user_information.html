@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css_files %}
+    <link rel="stylesheet" href="{% static 'calories_counter/create_user_information.css' %}">
+{% endblock %}
+
+{% block title %} Enter User Information {% endblock %}
+
+{% block content %}
+    <div id="create-user-information">
+        <h1>Create user information</h1>
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Add Information</button>
+        </form>
+    </div>
+{% endblock %}

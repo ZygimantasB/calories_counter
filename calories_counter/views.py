@@ -11,7 +11,6 @@ from django.views.generic.list import ListView
 from django.forms import inlineformset_factory
 
 from .models import Food, Meal, FoodName, UserInformation
-from .forms import FoodForm, MealForm
 
 
 # Create your views here.
@@ -56,17 +55,21 @@ class FoodCreate(LoginRequiredMixin, CreateView):
 
 
 class UserInformationView(LoginRequiredMixin, View):
-
     def get(self, request):
-        user_information = UserInformation.objects.all()
+        user_information = UserInformation.objects.filter(user=request.user).first()
 
-        return render(request, "calories_counter/user_information.html",
-                      {'user_information_object': user_information})
+        return render(request, "calories_counter/user_information.html", {'user_information': user_information})
 
 
 class UserInformationCreate(LoginRequiredMixin, CreateView):
-    user_information = UserInformation
+    model = UserInformation
     template_name = 'calories_counter/create_user_information.html'
+    fields = ['first_name', 'last_name', 'email', 'date_of_birth', 'height', 'weight', 'gender']
+    success_url = reverse_lazy('user_information')
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
 
 # class UserProfileView(LoginRequiredMixin, View):
@@ -74,4 +77,4 @@ class UserInformationCreate(LoginRequiredMixin, CreateView):
 #         user_profiles = UserProfile.objects.all()
 #         user_calories = [(profile.user.username, profile.total_calories()) for profile in user_profiles]
 #         return render(request, "calories_counter/user_profile.html", {"user_calories": user_calories})
-#
+
