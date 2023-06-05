@@ -62,6 +62,8 @@
             </tbody>
         </table>
         <a href="{% url 'update_user_information' %}" class="btn btn-primary update_information_button">Update User Information 👤</a>
+        <br>
+        <br>
         {% if user_information.first_name == None %}
         <a href="{% url 'create_user_information' %}" class="btn btn-primary add_information_button">Add User Information 👤</a>
         {% endif %}

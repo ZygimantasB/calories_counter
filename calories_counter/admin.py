@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Food, Meal, FoodName, UserInformation
+from .models import Food, Meal, UserInformation
 
 # Register your models here.
 
@@ -12,6 +12,4 @@ class MealModelAdmin(admin.ModelAdmin):
 
 admin.site.register(Meal, MealModelAdmin)
 
-
-admin.site.register(FoodName)
 admin.site.register(UserInformation)
