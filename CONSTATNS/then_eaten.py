@@ -9,4 +9,5 @@ THEN_EATEN = {
     ('after workout', 'After Workout'),
     ('before workout', 'Before Workout'),
     ('other', 'Other'),
+    ('supplements', 'Supplements')
 }

@@ -4,6 +4,14 @@ from .models import Food, Meal, FoodName, UserInformation
 # Register your models here.
 
 admin.site.register(Food)
-admin.site.register(Meal)
+
+
+class MealModelAdmin(admin.ModelAdmin):
+    ordering = ['-then_eaten']
+
+
+admin.site.register(Meal, MealModelAdmin)
+
+
 admin.site.register(FoodName)
 admin.site.register(UserInformation)

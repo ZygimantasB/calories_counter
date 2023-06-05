@@ -8,12 +8,15 @@
 {% block title %} Add Food {% endblock %}
 
 {% block content %}
-  <div id="user-add-food">
-    <h1>Add Food</h1>
-    <form action="" method="post" >
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Add Food</button>
-    </form>
-  </div>
+    <div id="user-add-food">
+        <h1>Add Food</h1>
+        <form action="" method="post" >
+            {% csrf_token %}
+            {{ form.as_p|capfirst }}
+            {% for inline in inlines %}
+                {{ inline.as_p|capfirst }}
+            {% endfor %}
+            <button type="submit" class="btn btn-primary">Add Food</button>
+        </form>
+    </div>
 {% endblock %}

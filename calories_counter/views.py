@@ -7,8 +7,13 @@ from django.core.paginator import Paginator
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 
+from django.forms.models import inlineformset_factory
 
-from django.forms import inlineformset_factory
+from extra_views import CreateWithInlinesView, InlineFormSetFactory
+"""
+
+"""
+
 
 from .models import Food, Meal, FoodName, UserInformation
 
@@ -22,10 +27,10 @@ def start_page(request):
 
 class FoodsView(LoginRequiredMixin, View):
     def get(self, request):
-        food_objects = Food.objects.all()
+        food_objects = Food.objects.filter(user=request.user)
         paginator = Paginator(food_objects, 10)
-        meals = Meal.objects.order_by('-date')
-        foods_by_date = [(meal.date, Food.objects.filter(meal=meal)) for meal in meals]
+        meals = Meal.objects.filter(user=request.user).order_by('-date')
+        foods_by_date = [(meal.date, Food.objects.filter(meal=meal, user=request.user)) for meal in meals]
 
         page = request.GET.get('page')
         foods = paginator.get_page(page)
@@ -47,11 +52,21 @@ class FoodDelete(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('foods')
 
 
-class FoodCreate(LoginRequiredMixin, CreateView):
+class FoodNameInline(InlineFormSetFactory):
+    model = FoodName
+    fields = ['name']
+
+
+class FoodCreate(LoginRequiredMixin, CreateWithInlinesView):
     model = Food
+    inlines = [FoodNameInline]
+    fields = ['meal', 'calories', 'protein', 'fat', 'carbs', 'weight_measure']
     template_name = "calories_counter/food_create.html"
-    fields = '__all__'
     success_url = reverse_lazy('foods')
+
+    def forms_valid(self, form, inlines):
+        form.instance.user = self.request.user
+        return super().forms_valid(form, inlines)
 
 
 class UserInformationView(LoginRequiredMixin, View):
@@ -80,11 +95,3 @@ class UserInformationUpdate(LoginRequiredMixin, UpdateView):
 
     def get_object(self, queryset=None):
         return get_object_or_404(UserInformation, user=self.request.user)
-
-
-# class UserProfileView(LoginRequiredMixin, View):
-#     def get(self, request):
-#         user_profiles = UserProfile.objects.all()
-#         user_calories = [(profile.user.username, profile.total_calories()) for profile in user_profiles]
-#         return render(request, "calories_counter/user_profile.html", {"user_calories": user_calories})
-

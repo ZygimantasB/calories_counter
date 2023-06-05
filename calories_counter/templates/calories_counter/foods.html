@@ -28,7 +28,7 @@
       {% for food in foods %}
         <tr>
           <th scope="row">{{ forloop.counter }}</th>
-          <th>{{ food.name|capfirst }}</th>
+          <th>{{ food.food_name|capfirst }}</th>
           <th>{{ food.calories }}</th>
           <th>{{ food.protein }}</th>
           <th>{{ food.fat }}</th>
