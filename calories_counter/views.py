@@ -15,7 +15,7 @@ from extra_views import CreateWithInlinesView, InlineFormSetFactory
 """
 
 
-from .models import Food, Meal, FoodName, UserInformation
+from .models import Food, Meal, UserInformation
 
 
 # Create your views here.
@@ -52,21 +52,15 @@ class FoodDelete(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('foods')
 
 
-class FoodNameInline(InlineFormSetFactory):
-    model = FoodName
-    fields = ['name']
-
-
-class FoodCreate(LoginRequiredMixin, CreateWithInlinesView):
+class FoodCreate(LoginRequiredMixin, CreateView):
     model = Food
-    inlines = [FoodNameInline]
-    fields = ['meal', 'calories', 'protein', 'fat', 'carbs', 'weight_measure']
+    fields = ['meal', 'food_name', 'calories', 'protein', 'fat', 'carbs', 'weight_measure']
     template_name = "calories_counter/food_create.html"
     success_url = reverse_lazy('foods')
 
-    def forms_valid(self, form, inlines):
+    def form_valid(self, form):
         form.instance.user = self.request.user
-        return super().forms_valid(form, inlines)
+        return super().form_valid(form)
 
 
 class UserInformationView(LoginRequiredMixin, View):

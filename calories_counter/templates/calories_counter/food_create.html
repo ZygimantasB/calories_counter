@@ -13,9 +13,6 @@
         <form action="" method="post" >
             {% csrf_token %}
             {{ form.as_p|capfirst }}
-            {% for inline in inlines %}
-                {{ inline.as_p|capfirst }}
-            {% endfor %}
             <button type="submit" class="btn btn-primary">Add Food</button>
         </form>
     </div>
