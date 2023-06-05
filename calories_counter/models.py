@@ -11,7 +11,7 @@ from CONSTATNS.then_eaten import THEN_EATEN
 
 
 class Food(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
     meal = models.ForeignKey('Meal', on_delete=models.CASCADE)
     name = models.ManyToManyField('FoodName', related_name='food_name', blank=True, null=True)
     calories = models.DecimalField(max_digits=6, decimal_places=2)
