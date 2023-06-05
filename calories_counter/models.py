@@ -13,7 +13,7 @@ from CONSTATNS.then_eaten import THEN_EATEN
 class Food(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     meal = models.ForeignKey('Meal', on_delete=models.CASCADE)
-    food_name = models.ForeignKey('FoodName', related_name='food_name', blank=True, null=True, on_delete=models.CASCADE)
+    name = models.ManyToManyField('FoodName', related_name='food_name', blank=True, null=True)
     calories = models.DecimalField(max_digits=6, decimal_places=2)
     protein = models.DecimalField(max_digits=6, decimal_places=2)
     fat = models.DecimalField(max_digits=6, decimal_places=2)
@@ -21,7 +21,7 @@ class Food(models.Model):
     weight_measure = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
 
     def __str__(self):
-        return f"{self.food_name}"
+        return self.name.name
 
 
 class FoodName(models.Model):
