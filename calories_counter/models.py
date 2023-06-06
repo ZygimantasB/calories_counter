@@ -3,6 +3,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 from datetime import date
+from pygrowup import Calculator
 
 from CONSTATNS.gender import GENDER
 from CONSTATNS.then_eaten import THEN_EATEN
@@ -51,6 +52,19 @@ class UserInformation(models.Model):
             born = self.date_of_birth
             return today.year - born.year - ((today.month, today.day) < (born.month, born.day))
         return None
+
+    @property
+    def bmi_counter(self):
+        bmi_result = round((self.weight / self.height / self.height) * 10_000, 2)
+        if bmi_result < 18.5:
+            result = f'BMI: <u><b>{bmi_result}</b></u>, you are <u><b>Underweight</b></u>'
+        elif 18.5 < bmi_result < 24.9:
+            result = f'BMI: <u><b>{bmi_result}</b></u>, you are <u><b>Healthy Weight</b></u>'
+        elif 25 < bmi_result < 29.9:
+            result = f'BMI: <u><b>{bmi_result}</b></u>, you are <u><b>Overweight</b></u>'
+        else:
+            result = f'BMI: <u><b>{bmi_result}</b></u>, you are <u><b>Obesity</b></u>'
+        return result
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"

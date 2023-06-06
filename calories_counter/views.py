@@ -8,7 +8,6 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.db.models import Sum, DecimalField
 from django.db.models.functions import Coalesce
 
-
 from django.views.generic.list import ListView
 
 from django.forms.models import inlineformset_factory
@@ -44,6 +43,7 @@ class FoodsView(LoginRequiredMixin, View):
             )
 
             print(total_values)
+
             total_protein = total_values.get('total_protein', 0)
             total_fat = total_values.get('total_fat', 0)
             total_carbs = total_values.get('total_carbs', 0)
