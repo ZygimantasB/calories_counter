@@ -2,67 +2,93 @@
 {% load static %}
 
 {% block css_files %}
-  <link rel="stylesheet" href="{% static 'calories_counter/food.css' %}">
+    <link rel="stylesheet" href="{% static 'calories_counter/food.css' %}">
 {% endblock %}
 
 {% block title %} Food {% endblock %}
 
 {% block content %}
-  <div id="user-food">
-    <h1>Food</h1>
-    <table class="table table-dark table-striped">
-      <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Food name</th>
-        <th scope="col">Calories</th>
-        <th scope="col">Protein</th>
-        <th scope="col">Fat</th>
-        <th scope="col">carbs</th>
-          <td scope="col">Weight Measure (grams)</td>
-        <td scope="col">Then eaten</td>
-        <td scope="col">Actions</td>
-      </tr>
-      </thead>
-      <tbody>
-      {% for food in foods %}
-        <tr>
-          <th scope="row">{{ forloop.counter }}</th>
-          <th>{{ food.food_name|capfirst }}</th>
-          <th>{{ food.calories }}</th>
-          <th>{{ food.protein }}</th>
-          <th>{{ food.fat }}</th>
-          <th>{{ food.carbs }}</th>
-          <th>{{ food.weight_measure }} g.</th>
-          <th>{{ food.meal.then_eaten|capfirst }}</th>
-          <th>
-            <a href="{% url 'food_update' food.id %}">Update</a>
-            <a href="{% url 'food_delete' food.id %}">Delete</a>
-          </th>
-        </tr>
-      {% endfor %}
-      </tbody>
-    </table>
+    <div id="user-food">
+        <h1>Food</h1>
 
-    <div class="pagination">
+        {% for date, foods, totals in foods_by_date %}
+            <h2>{{ date }}</h2>
+            <table class="table table-dark table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Food name</th>
+                    <th scope="col">Calories</th>
+                    <th scope="col">Protein</th>
+                    <th scope="col">Fat</th>
+                    <th scope="col">Carbs</th>
+                    <th scope="col">Weight Measure (grams)</th>
+                    <th scope="col">Then eaten</th>
+                    <th scope="col">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for food in foods %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <th>{{ food.food_name|capfirst }}</th>
+                        <th>{{ food.calories }}</th>
+                        <th>{{ food.protein }}</th>
+                        <th>{{ food.fat }}</th>
+                        <th>{{ food.carbs }}</th>
+                        <th>{{ food.weight_measure }} g.</th>
+                        <th>{{ food.meal.then_eaten|capfirst }}</th>
+                        <th>
+                            <a href="{% url 'food_update' food.id %}">Update</a>
+                            <a href="{% url 'food_delete' food.id %}">Delete</a>
+                        </th>
+                    </tr>
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                <tr>
+                    <th scope="col" colspan="2">Total</th>
+                    <th scope="col">{{ totals.total_calories }}</th>
+                    <th scope="col">{{ totals.total_protein }}</th>
+                    <th scope="col">{{ totals.total_fat }}</th>
+                    <th scope="col">{{ totals.total_carbs }}</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+                <tr>
+                    <th scope="col" colspan="2">Percentage</th>
+                    <th scope="col"></th>
+                    <th scope="col">{{ totals.protein_percentage|floatformat:2 }}%</th>
+                    <th scope="col">{{ totals.fat_percentage|floatformat:2 }}%</th>
+                    <th scope="col">{{ totals.carbs_percentage|floatformat:2 }}%</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+                </tfoot>
+            </table>
+        {% endfor %}
+
+        <div class="pagination">
       <span class="step-links">
         {% if foods.has_previous %}
-          <a href="?page=1">&laquo; first</a>
-          <a href="?page={{ foods.previous_page_number }}">previous</a>
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ foods.previous_page_number }}">previous</a>
         {% endif %}
 
-        <span class="current">
+          <span class="current">
             Page {{ foods.number }} of {{ foods.paginator.num_pages }}.
         </span>
 
-        {% if foods.has_next %}
-          <a href="?page={{ foods.next_page_number }}">next</a>
-          <a href="?page={{ foods.paginator.num_pages }}">last &raquo;</a>
-        {% endif %}
+          {% if foods.has_next %}
+              <a href="?page={{ foods.next_page_number }}">next</a>
+              <a href="?page={{ foods.paginator.num_pages }}">last &raquo;</a>
+          {% endif %}
     </span>
 
-    </div>
-      <a href="{% url 'food_create' %}" class="btn btn-primary food_add_button">Add Food</a>
+        </div>
+        <a href="{% url 'food_create' %}" class="btn btn-primary food_add_button">Add Food</a>
 
-  </div>
+    </div>
 {% endblock %}

@@ -5,14 +5,18 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.core.paginator import Paginator
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.db.models import Sum
+
 from django.views.generic.list import ListView
 
 from django.forms.models import inlineformset_factory
 
 from extra_views import CreateWithInlinesView, InlineFormSetFactory
 
-
 from .models import Food, Meal, UserInformation
+
+from itertools import groupby
+from operator import attrgetter
 
 
 # Create your views here.
@@ -24,11 +28,27 @@ def start_page(request):
 
 class FoodsView(LoginRequiredMixin, View):
     def get(self, request):
-        food_objects = Food.objects.filter(user=request.user)
-        paginator = Paginator(food_objects, 10)
-        meals = Meal.objects.filter(user=request.user).order_by('-date')
-        foods_by_date = [(meal.date, Food.objects.filter(meal=meal, user=request.user)) for meal in meals]
+        meals = Meal.objects.all()
 
+        foods_by_date = []
+        for date, meals_on_date in groupby(meals, attrgetter('date')):
+            foods = Food.objects.filter(meal__in=meals_on_date, user=request.user)
+            total_values = foods.aggregate(
+                total_calories=Sum('calories'),
+                total_protein=Sum('protein'),
+                total_fat=Sum('fat'),
+                total_carbs=Sum('carbs')
+            )
+
+            total_macronutrients = total_values['total_protein'] + total_values['total_fat'] + total_values['total_carbs']
+
+            total_values['protein_percentage'] = (total_values['total_protein'] / total_macronutrients * 100) if total_values['total_calories'] else 0
+            total_values['fat_percentage'] = (total_values['total_fat'] / total_macronutrients * 100) if total_values['total_calories'] else 0
+            total_values['carbs_percentage'] = (total_values['total_carbs'] / total_macronutrients * 100) if total_values['total_calories'] else 0
+            foods_by_date.append((date, foods, total_values))
+
+        # Pagination for the foods
+        paginator = Paginator(Food.objects.filter(user=request.user), 10)
         page = request.GET.get('page')
         foods = paginator.get_page(page)
 
@@ -39,7 +59,7 @@ class FoodsView(LoginRequiredMixin, View):
 class FoodUpdate(LoginRequiredMixin, UpdateView):
     model = Food
     template_name = "calories_counter/food_update.html"
-    fields = '__all__'
+    fields = ['meal', 'food_name', 'calories', 'protein', 'fat', 'carbs', 'weight_measure']
     success_url = reverse_lazy('foods')
 
 
