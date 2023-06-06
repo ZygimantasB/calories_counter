@@ -9,10 +9,10 @@
 
 {% block content %}
     <div id="user-food">
-        <h1>Food</h1>
+        <h1>Foods I ate to achieve results</h1>
 
         {% for date, foods, totals in foods_by_date %}
-            <h2>{{ date }}</h2>
+            <h2><b>{{ date|date:"Y-m-d" }}</b></h2>
             <table class="table table-dark table-striped">
                 <thead>
                 <tr>

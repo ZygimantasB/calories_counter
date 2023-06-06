@@ -13,6 +13,8 @@
     <form method="post">
       {% csrf_token %}
       {{ form.as_p }}
+        <label for="date">Date:</label>
+        <input type="date" id="date" name="date" value="{{ food.meal.date }}">
       <button type="submit">Update</button>
     </form>
 
