@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "calories_counter",
     "create_user",
-    'calories_blog'
+    'calories_blog',
+    'food_information_app',
 ]
 
 MIDDLEWARE = [

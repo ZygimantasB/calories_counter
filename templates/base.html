@@ -26,23 +26,16 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-{#      <li class="nav-item active">#}
-{#        <a class="nav-link" href="{% url 'login' %}">Login <span class="sr-only">()</span></a>#}
-{#      </li>#}
       <li class="nav-item active">
+        {% if not request.user.is_authenticated %}
         <a class="nav-link" href="{% url 'register' %}">Registration <span class="sr-only"></span></a>
+        {% endif %}
       </li>
       <li class="nav-item active">
         {% if request.user.is_authenticated %}
         <a class="nav-link" href="{% url 'logout' %}">Logout <span class="sr-only"></span></a>
         {% else %}
         <a class="nav-link" href="{% url 'login' %}">Login <span class="sr-only"></span></a>
-        {% endif %}
-      </li>
-
-      <li class="nav-item active">
-        {% if request.user.is_authenticated %}
-        <a class="nav-link" href="">Add Meal <span class="sr-only"></span></a>
         {% endif %}
       </li>
       {% if request.user.is_authenticated %}
@@ -99,6 +92,19 @@
           <a class="nav-link" href="{% url 'create-post' %}">Add Post <span class="sr-only"></span></a>
         {% endif %}
       </li>
+      </li>
+      {% if request.user.is_authenticated and request.user.is_superuser %}
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+           aria-haspopup="true" aria-expanded="false">
+          Admin menu
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{% url 'upload_food_information' %}">Upload Food From csv</a>
+        </div>
+        {% endif %}
+      </li>
+
     </ul>
   </div>
 </nav>

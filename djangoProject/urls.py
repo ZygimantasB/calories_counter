@@ -25,4 +25,5 @@ urlpatterns = [
     path("", include("calories_counter.urls")),
     path("create_user/", include("create_user.urls")),
     path("", include("calories_blog.urls")),
+    path("", include("food_information_app.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

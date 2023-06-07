@@ -50,11 +50,18 @@ class FoodsView(LoginRequiredMixin, View):
 
             print(total_protein, total_fat, total_carbs)
 
-            total_macronutrients = total_values['total_protein'] + total_values['total_fat'] + total_values['total_carbs']
+            total_macronutrients = total_values['total_protein'] + total_values['total_fat'] + total_values[
+                'total_carbs']
 
-            total_values['protein_percentage'] = (total_values['total_protein'] / total_macronutrients * 100) if total_values['total_calories'] else 0
-            total_values['fat_percentage'] = (total_values['total_fat'] / total_macronutrients * 100) if total_values['total_calories'] else 0
-            total_values['carbs_percentage'] = (total_values['total_carbs'] / total_macronutrients * 100) if total_values['total_calories'] else 0
+            total_values['protein_percentage'] = (total_values['total_protein'] /
+                                                  total_macronutrients * 100) if total_values['total_calories'] else 0
+
+            total_values['fat_percentage'] = (total_values['total_fat'] /
+                                              total_macronutrients * 100) if total_values['total_calories'] else 0
+
+            total_values['carbs_percentage'] = (total_values['total_carbs'] /
+                                                total_macronutrients * 100) if total_values['total_calories'] else 0
+
             foods_by_date.append((date, foods, total_values))
 
         #TODO paginator are usless at this time don`t forget to delete it later
