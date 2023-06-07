@@ -1,19 +1,28 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block css_files %} {% endblock %}
+{% block css_files %}
+  <link rel="stylesheet" href="{% static 'food_information_app/upload_food_information.css' %}">
+{% endblock %}
 
 {% block title %} Upload Food Information {% endblock %}
 
 {% block content %}
 
   <div id="upload-food-information">
-    <h1>Testing</h1>
-    <form action="" method="post" enctype="multipart/form-data">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit">Upload</button>
-    </form>
+
+      <h3><b>Upload food information to the database from csv file</b></h3>
+      <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.file }}
+        <br>
+        {% if form.file.errors %}
+        <div class="alert alert-danger">
+          {{ form.file.errors }}
+        </div>
+        {% endif %}
+        <button class="btn btn-primary food_add_button" type="submit">Upload</button>
+      </form>
 
   </div>
 

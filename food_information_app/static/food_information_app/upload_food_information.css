@@ -1,3 +1,7 @@
 #upload-food-information {
-    margin-top: 25px;
+    text-align: center;
+    margin: 35px;
+    border: 1px solid black;
+    padding: 25px;
+    width: 350px;
 }
