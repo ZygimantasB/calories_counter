@@ -9,6 +9,12 @@
 
   <div id="upload-food-information">
     <h1>Testing</h1>
+    <form action="" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Upload</button>
+    </form>
+
   </div>
 
 {% endblock %}
