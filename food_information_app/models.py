@@ -10,7 +10,11 @@ class ProductInformation(models.Model):
     total_fat = models.DecimalField(max_digits=6, decimal_places=2)
     protein = models.DecimalField(max_digits=6, decimal_places=2)
     carbohydrate = models.DecimalField(max_digits=6, decimal_places=2)
+    usage_count = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name
-    
+
+    def use_product(self):
+        self.usage_count += 1
+        self.save()

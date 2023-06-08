@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css_files %}
+  <link rel="stylesheet" href="{% static 'food_information_app/count_information.css' %}">
+{% endblock %}
+
+{% block title %}
+  Web page information
+{% endblock %}
+
+{% block content %}
+  <div>
+
+    <p>{{ count_products }}</p>
+    <p>{{ count_users }}</p>
+
+  </div>
+  <h1>Testing</h1>
+
+{% endblock %}

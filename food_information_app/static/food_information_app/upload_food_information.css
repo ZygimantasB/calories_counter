@@ -1,3 +1,24 @@
+.count__information {
+    text-align: center;
+    margin-left: 435px;
+    margin-top: -260px;
+    border: 1px solid black;
+    padding: 25px;
+    width: 500px;
+}
+
+.product__information {
+    width: 500px;
+    margin-left: 1000px;
+    margin-top: -460px;
+    text-align: center;
+}
+
+.product__information h3 {
+    text-align: center;
+    color: #007bff;
+}
+
 #upload-food-information {
     text-align: center;
     margin: 35px;
