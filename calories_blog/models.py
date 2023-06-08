@@ -1,5 +1,6 @@
 from django.core.validators import MinLengthValidator
 from django.db import models
+from django.db.models import Count
 
 # Create your models here.
 
@@ -45,3 +46,7 @@ class Comment(models.Model):
 
     def __str__(self):
         return f"{self.user_name} commented {self.text[:20]} on {self.post}"
+
+    def get_user_comments_count(self):
+        user_comments_count = Comment.objects.values('user_name').annotate(count=Count('user_name')).order_by('-count')
+        return user_comments_count

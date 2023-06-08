@@ -5,6 +5,8 @@ from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 
+from django.db.models import Count
+
 from .forms import UploadFoodInformationForm
 from .models import ProductInformation
 
@@ -14,9 +16,8 @@ from calories_blog.models import Author, Comment, Post, Tag
 
 # Create your views here.
 
-
 class UploadFoodInformationView(LoginRequiredMixin, View):
-    def get(self, request):
+    def get(self, request) -> render:
         form = UploadFoodInformationForm()
         count_products = ProductInformation.objects.count()
         count_users = User.objects.count()
@@ -26,10 +27,29 @@ class UploadFoodInformationView(LoginRequiredMixin, View):
         count_author = Author.objects.count()
         count_comment = Comment.objects.count()
         count_post = Post.objects.count()
-        count_tag = Post.objects.count()
+        count_tag = Tag.objects.count()
 
         top_10_products = ProductInformation.objects.order_by('-usage_count')[:10]
         top_10_products_position = list(enumerate(top_10_products, start=1))
+
+        user_comments_count = Comment.objects.values('user_name').annotate(count=Count('user_name')).order_by('-count')
+        user_comments_count_position = list(enumerate(user_comments_count, start=1))[:10]
+
+        top_tags_count = Post.objects.annotate(num_tags=Count('tags'))
+        top_tags_count_position = list(enumerate(top_tags_count, start=1))[:10]
+
+        posts = Post.objects.all()
+        tag_usage = {}
+        for post in posts:
+            tags = post.tags.all()
+            for tag in tags:
+                if tag.caption in tag_usage:
+                    tag_usage[tag.caption] += 1
+                else:
+                    tag_usage[tag.caption] = 1
+
+        tag_usage = dict(sorted(tag_usage.items(), key=lambda value: value[1], reverse=True))
+        tag_usage = dict(list(tag_usage.items())[:10])
 
         return render(request, "food_information_app/upload_food_information.html",
                       {"form": form,
@@ -43,12 +63,13 @@ class UploadFoodInformationView(LoginRequiredMixin, View):
                        'count_post': count_post,
                        'count_tag': count_tag,
                        'top_10_products': top_10_products_position,
-
+                       'user_comments_count': user_comments_count_position,
+                       'tag_usage': tag_usage,
 
                        }
                       )
 
-    def post(self, request):
+    def post(self, request) -> render:
         form = UploadFoodInformationForm(request.POST, request.FILES)
         if form.is_valid():
             handle_upload_file(request.FILES['file'])
@@ -58,7 +79,7 @@ class UploadFoodInformationView(LoginRequiredMixin, View):
 
 
 class DetailDatabaseInformation(LoginRequiredMixin, View):
-    def get(self, request):
+    def get(self, request) -> render:
         count_products = ProductInformation.objects.count()
         count_users = User.objects.count()
         return render(request, "food_information_app/count_information.html",
@@ -67,7 +88,7 @@ class DetailDatabaseInformation(LoginRequiredMixin, View):
                       )
 
 
-def handle_upload_file(csv_file):
+def handle_upload_file(csv_file) -> None:
     read_csv = pd.read_csv(csv_file)
     for index, row in read_csv.iterrows():
         product_information = ProductInformation(
@@ -79,5 +100,3 @@ def handle_upload_file(csv_file):
             carbohydrate=row['carbohydrate']
         )
         product_information.save()
-
-

@@ -1,7 +1,11 @@
+h3  {
+    color: #007bff;
+}
+
 .count__information {
     text-align: center;
-    margin-left: 435px;
-    margin-top: -260px;
+    margin-left: 35px;
+    margin-top: 0px;
     border: 1px solid black;
     padding: 25px;
     width: 500px;
@@ -9,14 +13,27 @@
 
 .product__information {
     width: 500px;
-    margin-left: 1000px;
-    margin-top: -460px;
+    margin-left: 600px;
+    margin-top: -690px;
     text-align: center;
 }
 
 .product__information h3 {
     text-align: center;
-    color: #007bff;
+}
+
+.top_commentators_from_user {
+    width: 350px;
+    text-align: center;
+    margin-left: 1150px;
+    margin-top: -505px;
+}
+
+.most_used_tags {
+    width: 350px;
+    margin-left: 1550px;
+    margin-top: -505px;
+    text-align: center;
 }
 
 #upload-food-information {
@@ -24,5 +41,5 @@
     margin: 35px;
     border: 1px solid black;
     padding: 25px;
-    width: 350px;
+    width: 500px;
 }
