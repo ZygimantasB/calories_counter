@@ -12,4 +12,7 @@ urlpatterns = [
     path("user_information/enter_information/", views.UserInformationCreate.as_view(), name="create_user_information"),
     path("user_information/update_information/", views.UserInformationUpdate.as_view(), name="update_user_information"),
 
+    path("user_information/enter_body_volumes/", views.CreateBodyVolumes.as_view(), name="create_body_volumes"),
+
+    # path("user_information/body_volumes/", views.BodyVolumes.as_view(), name="body_volumes"),
 ]

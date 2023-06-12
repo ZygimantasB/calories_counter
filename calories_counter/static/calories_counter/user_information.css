@@ -14,3 +14,18 @@ h1  {
     width: 15%;
 }
 
+.body__volumes {
+    margin-left: 400px;
+    margin-top: -565px;
+}
+
+.body__volumes table td, table th {
+    min-width: 100px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.body__volumes a {
+    margin-left: 80px;
+}

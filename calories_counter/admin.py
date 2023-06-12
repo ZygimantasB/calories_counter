@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Food, Meal, UserInformation
+from .models import Food, Meal, UserInformation, BodyCircumferenceMeasurements
 
 # Register your models here.
 
@@ -13,3 +13,5 @@ class MealModelAdmin(admin.ModelAdmin):
 admin.site.register(Meal, MealModelAdmin)
 
 admin.site.register(UserInformation)
+
+admin.site.register(BodyCircumferenceMeasurements)

@@ -73,4 +73,50 @@
         {% endif %}
     </div>
 
+    <div class="body__volumes">
+      <h1><b>Body Volumes</b></h1>
+      <table class="table table-dark table-striped">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Date</th>
+            <th>Neck</th>
+            <th>Chest</th>
+            <th>Waist</th>
+            <th>Left Bicep</th>
+            <th>Right Bicep</th>
+            <th>Left Forearm</th>
+            <th>Right Forearm</th>
+            <th>Left Thigh</th>
+            <th>Right Thigh</th>
+            <th>Left Calf</th>
+            <th>Right Calf</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for measurements in body_volumes %}
+          <tr>
+            <th>{{ forloop.counter}}</th>
+            <th>{{ measurements.date|date:'Y-m-d' }} </th>
+            <th>{{ measurements.neck_size }} cm.</th>
+            <th>{{ measurements.chest_size }} cm.</th>
+            <th>{{ measurements.waist_size }} cm.</th>
+            <th>{{ measurements.left_bicep_size }} cm.</th>
+            <th>{{ measurements.right_bicep_size }} cm.</th>
+            <th>{{ measurements.left_forearm_size }} cm.</th>
+            <th>{{ measurements.right_forearm_size }} cm.</th>
+            <th>{{ measurements.left_thigh_size }} cm.</th>
+            <th>{{ measurements.right_thigh_size }} cm.</th>
+            <th>{{ measurements.left_calf_size }} cm.</th>
+            <th>{{ measurements.right_calf_size }} cm.</th>
+            <th>Update Delete</th>
+          </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+      <a type="button" class="btn btn-primary" href="{% url 'create_body_volumes' %}">Add Body Volumes</a>
+
+    </div>
+
 {% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css_files %}
+  <link rel="stylesheet" href="{% static 'calories_counter/create_body_volumes.css' %}">
+{% endblock %}
+
+{% block title %}
+  Create body volumes
+{% endblock %}
+
+{% block content %}
+
+  <div id="create__body_volumes">
+    <h1>Testing</h1>
+    <form action="" method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" value="Create">
+    </form>
+  </div>
+
+{% endblock %}

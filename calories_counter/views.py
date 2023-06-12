@@ -14,7 +14,7 @@ from django.forms.models import inlineformset_factory
 
 from extra_views import CreateWithInlinesView, InlineFormSetFactory
 
-from .models import Food, Meal, UserInformation
+from .models import Food, Meal, UserInformation, BodyCircumferenceMeasurements
 
 from itertools import groupby
 from operator import attrgetter
@@ -109,14 +109,29 @@ class FoodCreate(LoginRequiredMixin, CreateView):
 class UserInformationView(LoginRequiredMixin, View):
     def get(self, request):
         user_information = UserInformation.objects.filter(user=request.user).first()
+        body_volumes = BodyCircumferenceMeasurements.objects.filter(user=request.user)
 
-        return render(request, "calories_counter/user_information.html", {'user_information': user_information})
+        return render(request, "calories_counter/user_information.html", {'user_information': user_information,
+                                                                          'body_volumes': body_volumes, })
 
 
 class UserInformationCreate(LoginRequiredMixin, CreateView):
     model = UserInformation
     template_name = 'calories_counter/create_user_information.html'
     fields = ['first_name', 'last_name', 'email', 'date_of_birth', 'height', 'weight', 'gender']
+    success_url = reverse_lazy('user_information')
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+
+class CreateBodyVolumes(LoginRequiredMixin, CreateView):
+    model = BodyCircumferenceMeasurements
+    template_name = 'calories_counter/create_body_volumes.html'
+    fields = ['neck_size', 'chest_size', 'waist_size', 'left_bicep_size', 'right_bicep_size', 'left_thigh_size',
+              'left_forearm_size', 'right_forearm_size', 'left_thigh_size', 'right_thigh_size', 'left_calf_size',
+              'right_calf_size']
     success_url = reverse_lazy('user_information')
 
     def form_valid(self, form):
@@ -132,3 +147,16 @@ class UserInformationUpdate(LoginRequiredMixin, UpdateView):
 
     def get_object(self, queryset=None):
         return get_object_or_404(UserInformation, user=self.request.user)
+
+
+# class BodyVolumes(LoginRequiredMixin, View):
+#     def get(self, request):
+#         body_volumes = BodyCircumferenceMeasurements.objects.filter(user=request.user).order_by('-date')
+#         return render(request, "calories_counter/body_volumes.html", {'body_volumes': body_volumes})
+
+
+
+
+    # field = ['neck_size', 'chest_size', 'waist_size', 'left_bicep_size', 'right_bicep_size', 'left_thigh_size',
+    #          'left_forearm_size', 'right_forearm_size', 'left_thigh_size', 'right_thigh_size', 'left_calf_size',
+    #          'right_calf_size']

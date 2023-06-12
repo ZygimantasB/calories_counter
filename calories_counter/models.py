@@ -68,3 +68,22 @@ class UserInformation(models.Model):
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
+
+
+class BodyCircumferenceMeasurements(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    date = models.DateField(auto_now=True)
+    neck_size = models.DecimalField(max_digits=6, decimal_places=2)
+    chest_size = models.DecimalField(max_digits=6, decimal_places=2)
+    waist_size = models.DecimalField(max_digits=6, decimal_places=2)
+    left_bicep_size = models.DecimalField(max_digits=6, decimal_places=2)
+    right_bicep_size = models.DecimalField(max_digits=6, decimal_places=2)
+    left_forearm_size = models.DecimalField(max_digits=6, decimal_places=2)
+    right_forearm_size = models.DecimalField(max_digits=6, decimal_places=2)
+    left_thigh_size = models.DecimalField(max_digits=6, decimal_places=2)
+    right_thigh_size = models.DecimalField(max_digits=6, decimal_places=2)
+    left_calf_size = models.DecimalField(max_digits=6, decimal_places=2)
+    right_calf_size = models.DecimalField(max_digits=6, decimal_places=2)
+
+    def __str__(self):
+        return f"{self.date} - Body Circumference Measurements"
