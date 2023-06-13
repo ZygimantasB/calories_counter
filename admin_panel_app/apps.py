@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class FoodInformationAppConfig(AppConfig):
+class AdminPanelAppConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
-    name = "food_information_app"
+    name = "admin_panel_app"

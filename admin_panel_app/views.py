@@ -51,7 +51,7 @@ class UploadFoodInformationView(LoginRequiredMixin, View):
         tag_usage = dict(sorted(tag_usage.items(), key=lambda value: value[1], reverse=True))
         tag_usage = dict(list(tag_usage.items())[:10])
 
-        return render(request, "food_information_app/upload_food_information.html",
+        return render(request, "admin_panel_app/upload_food_information.html",
                       {"form": form,
                        'count_products': count_products,
                        'count_users': count_users,
@@ -75,14 +75,14 @@ class UploadFoodInformationView(LoginRequiredMixin, View):
             handle_upload_file(request.FILES['file'])
             return redirect('upload_food_information')  #TODO chage redirect dont forget
         else:
-            return render(request, "food_information_app/upload_food_information.html", {"form": form})
+            return render(request, "admin_panel_app/upload_food_information.html", {"form": form})
 
 
 class DetailDatabaseInformation(LoginRequiredMixin, View):
     def get(self, request) -> render:
         count_products = ProductInformation.objects.count()
         count_users = User.objects.count()
-        return render(request, "food_information_app/count_information.html",
+        return render(request, "admin_panel_app/count_information.html",
                       {'count_products': count_products,
                        'count_users': count_users},
                       )

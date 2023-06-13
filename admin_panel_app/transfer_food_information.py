@@ -1,6 +1,6 @@
 import pandas as pd
 from django.core.management.base import BaseCommand
-from food_information_app.models import ProductInformation
+from admin_panel_app.models import ProductInformation
 
 
 class Command(BaseCommand):
