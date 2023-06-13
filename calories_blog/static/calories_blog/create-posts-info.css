@@ -1,32 +1,63 @@
-form, h1 {
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+}
+
+#create-post {
+    width: 60%;
+    margin: 50px auto;
+    background: #ffffff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+#create-post h1 {
+    text-align: center;
+    color: #333;
+}
+
+#create-post form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 50%;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
 }
 
-input[type="text"], input[type="number"] {
-    padding: 5px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    margin: 10px 0;
+#create-post form p {
     width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
 }
 
-label {
-    font-weight: bold;
-    margin-bottom: 10px;
+#create-post form label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 1.1em;
+    color: #333;
 }
 
-button {
+#create-post form input,
+#create-post form select {
+    width: 80%;
     padding: 10px;
     border-radius: 5px;
-    border: none;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    font-size: 1em;
+}
+
+#create-post form input[type="submit"] {
+    width: 50%;
+    margin-top: 20px;
     background-color: #007bff;
     color: #fff;
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
+    font-size: 1.1em;
+    transition: all 0.3s ease-in-out;
+}
+
+#create-post form input[type="submit"]:hover {
+    background-color: #0056b3;
 }

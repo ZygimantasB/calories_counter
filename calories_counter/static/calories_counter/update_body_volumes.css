@@ -3,7 +3,7 @@ body {
     background-color: #f8f9fa;
 }
 
-#update__body__volumes {
+#create-post {
     width: 60%;
     margin: 50px auto;
     background: #ffffff;
@@ -12,32 +12,32 @@ body {
     border-radius: 10px;
 }
 
-#update__body__volumes h1 {
+#create-post h1 {
     text-align: center;
     color: #333;
 }
 
-#update__body__volumes form {
+#create-post form {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-#update__body__volumes form p {
+#create-post form p {
     width: 100%;
     padding: 10px;
     box-sizing: border-box;
 }
 
-#update__body__volumes form label {
+#create-post form label {
     display: block;
     margin-bottom: 5px;
     font-size: 1.1em;
     color: #333;
 }
 
-#update__body__volumes form input,
-#update__body__volumes form select {
+#create-post form input,
+#create-post form select {
     width: 80%;
     padding: 10px;
     border-radius: 5px;
@@ -46,7 +46,7 @@ body {
     font-size: 1em;
 }
 
-#update__body__volumes form input[type="submit"] {
+#create-post form input[type="submit"] {
     width: 50%;
     margin-top: 20px;
     background-color: #007bff;
@@ -58,6 +58,6 @@ body {
     transition: all 0.3s ease-in-out;
 }
 
-#update__body__volumes form input[type="submit"]:hover {
+#create-post form input[type="submit"]:hover {
     background-color: #0056b3;
 }

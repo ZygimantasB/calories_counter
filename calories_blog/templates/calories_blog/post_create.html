@@ -6,10 +6,13 @@
 {% endblock %}
 
 {% block content %}
-  <form method="post" enctype="multipart/form-data">
-    <h2>Add Post</h2>
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Add Post</button>
-  </form>
+  <div id="create-post">
+    <form method="post" enctype="multipart/form-data">
+      <h2>Add Post</h2>
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Add Post</button>
+    </form>
+  </div>
+
 {% endblock %}
