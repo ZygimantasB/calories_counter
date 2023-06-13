@@ -5,24 +5,40 @@
   <link rel="stylesheet" href="{% static 'admin_panel_app/upload_food_information.css' %}">
 {% endblock %}
 
-{% block title %} Upload Food Information {% endblock %}
+{% block title %} Upload Information {% endblock %}
 
 {% block content %}
 
   <div id="upload-food-information">
-      <h3><b>Upload food information to the database from csv file</b></h3>
-      <form action="" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.file }}
-        <br>
-        {% if form.file.errors %}
+    <h3><b>Upload food information to the database from csv file</b></h3>
+    <form action="" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ food_form.file }}
+      <br>
+      {% if food_form.file.errors %}
         <div class="alert alert-danger">
-          {{ form.file.errors }}
+          {{ food_form.file.errors }}
         </div>
-        {% endif %}
-        <button class="btn btn-primary food_add_button" type="submit">Upload</button>
-      </form>
+      {% endif %}
+      <button class="btn btn-primary food_add_button" type="submit" name="food_submit">Upload</button>
+    </form>
   </div>
+
+  <div id="upload-quotes">
+    <h3><b>Upload quotes to the database from csv file</b></h3>
+    <form action="" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ quotes_form.file }}
+      <br>
+      {% if quotes_form.file.errors %}
+        <div class="alert alert-danger">
+          {{ quotes_form.file.errors }}
+        </div>
+      {% endif %}
+      <button class="btn btn-primary quotes_add_button" type="submit" name="quotes_submit">Upload</button>
+    </form>
+  </div>
+
   <div  class="count__information">
     <h3><b>Information from database</b></h3>
     <p>Number of registered users: {{ count_users }}</p>
@@ -37,15 +53,15 @@
   </div>
 
   <div class="product__information">
-      <h3>Most common products</h3>
-      <table class="table table-dark table-striped">
-        <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Food name</th>
-          <th scope="col">Count</th>
-        </tr>
-        </thead>
+    <h3>Most common products</h3>
+    <table class="table table-dark table-striped">
+      <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Food name</th>
+        <th scope="col">Count</th>
+      </tr>
+      </thead>
       <tbody>
       {% for rank, product in top_10_products %}
         <tr>
@@ -55,18 +71,18 @@
         </tr>
       {% endfor %}
       </tbody>
-      </table>
+    </table>
   </div>
 
   <div class="top_commentators_from_user">
     <h3>Users by comments</h3>
     <table class="table table-dark table-striped">
       <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">User name</th>
-          <th scope="col">How many posts</th>
-        </tr>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">User name</th>
+        <th scope="col">How many posts</th>
+      </tr>
       </thead>
       <tbody>
       {% for rank, user_comment in user_comments_count  %}
@@ -82,24 +98,24 @@
 
   <div class="most_used_tags">
     <h3>Most used tags</h3>
-      <table class="table table-dark table-striped">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Tag</th>
-            <th>Usage</th>
-          </tr>
-        </thead>
-        <tbody>
-        {% for tag, count in tag_usage.items %}
-          <tr>
-            <th>{{ forloop.counter }}</th>
-            <th>{{ tag }}</th>
-            <th>{{ count }}</th>
-          </tr>
-        {% endfor %}
-        </tbody>
-      </table>
+    <table class="table table-dark table-striped">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Tag</th>
+        <th>Usage</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for tag, count in tag_usage.items %}
+        <tr>
+          <th>{{ forloop.counter }}</th>
+          <th>{{ tag }}</th>
+          <th>{{ count }}</th>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
   </div>
 
 {% endblock %}

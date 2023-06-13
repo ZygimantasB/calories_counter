@@ -36,10 +36,11 @@ h3  {
     text-align: center;
 }
 
-#upload-food-information {
+#upload-food-information, #upload-quotes {
     text-align: center;
     margin: 35px;
     border: 1px solid black;
     padding: 25px;
     width: 500px;
 }
+

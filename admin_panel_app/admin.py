@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import ProductInformation
+from .models import ProductInformation, Quote
 
 # Register your models here.
 
@@ -11,3 +11,5 @@ class ProductInformationAdmin(admin.ModelAdmin):
 
 
 admin.site.register(ProductInformation, ProductInformationAdmin)
+
+admin.site.register(Quote)

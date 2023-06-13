@@ -7,8 +7,8 @@ from django.contrib.auth.models import User
 
 from django.db.models import Count
 
-from .forms import UploadFoodInformationForm
-from .models import ProductInformation
+from .forms import UploadFoodInformationForm, UploadQuotesForm
+from .models import ProductInformation, Quote
 
 from calories_counter.models import Food, Meal, UserInformation
 from calories_blog.models import Author, Comment, Post, Tag
@@ -16,9 +16,10 @@ from calories_blog.models import Author, Comment, Post, Tag
 
 # Create your views here.
 
-class UploadFoodInformationView(LoginRequiredMixin, View):
+class UploadInformationView(LoginRequiredMixin, View):
     def get(self, request) -> render:
-        form = UploadFoodInformationForm()
+        food_form = UploadFoodInformationForm()
+        quotes_form = UploadQuotesForm()
         count_products = ProductInformation.objects.count()
         count_users = User.objects.count()
         count_food = Food.objects.count()
@@ -51,31 +52,38 @@ class UploadFoodInformationView(LoginRequiredMixin, View):
         tag_usage = dict(sorted(tag_usage.items(), key=lambda value: value[1], reverse=True))
         tag_usage = dict(list(tag_usage.items())[:10])
 
-        return render(request, "admin_panel_app/upload_food_information.html",
-                      {"form": form,
-                       'count_products': count_products,
-                       'count_users': count_users,
-                       'count_food': count_food,
-                       'count_meal': count_meal,
-                       'count_user_information': count_user_information,
-                       'count_author': count_author,
-                       'count_comment': count_comment,
-                       'count_post': count_post,
-                       'count_tag': count_tag,
-                       'top_10_products': top_10_products_position,
-                       'user_comments_count': user_comments_count_position,
-                       'tag_usage': tag_usage,
-
-                       }
-                      )
+        return render(request, "admin_panel_app/upload_information.html", {
+            "food_form": food_form,
+            "quotes_form": quotes_form,
+            'count_products': count_products,
+            'count_users': count_users,
+            'count_food': count_food,
+            'count_meal': count_meal,
+            'count_user_information': count_user_information,
+            'count_author': count_author,
+            'count_comment': count_comment,
+            'count_post': count_post,
+            'count_tag': count_tag,
+            'top_10_products': top_10_products_position,
+            'user_comments_count': user_comments_count_position,
+            'tag_usage': tag_usage,
+        })
 
     def post(self, request) -> render:
-        form = UploadFoodInformationForm(request.POST, request.FILES)
-        if form.is_valid():
-            handle_upload_file(request.FILES['file'])
-            return redirect('upload_food_information')  #TODO chage redirect dont forget
-        else:
-            return render(request, "admin_panel_app/upload_food_information.html", {"form": form})
+        if "food_submit" in request.POST:
+            form = UploadFoodInformationForm(request.POST, request.FILES)
+            if form.is_valid():
+                handle_upload_food_information(request.FILES['file'])
+                return redirect('upload_information')
+            else:
+                return render(request, "admin_panel_app/upload_information.html", {"food_form": form})
+        elif "quotes_submit" in request.POST:
+            form = UploadQuotesForm(request.POST, request.FILES)
+            if form.is_valid():
+                handle_upload_quotes(request.FILES['file'])
+                return redirect('upload_information')
+            else:
+                return render(request, "admin_panel_app/upload_information.html", {"quotes_form": form})
 
 
 class DetailDatabaseInformation(LoginRequiredMixin, View):
@@ -88,7 +96,7 @@ class DetailDatabaseInformation(LoginRequiredMixin, View):
                       )
 
 
-def handle_upload_file(csv_file) -> None:
+def handle_upload_food_information(csv_file) -> None:
     read_csv = pd.read_csv(csv_file)
     for index, row in read_csv.iterrows():
         product_information = ProductInformation(
@@ -100,3 +108,14 @@ def handle_upload_file(csv_file) -> None:
             carbohydrate=row['carbohydrate']
         )
         product_information.save()
+
+
+def handle_upload_quotes(csv_file) -> None:
+    read_csv = pd.read_csv(csv_file)
+    for index, row in read_csv.iterrows():
+        quote = Quote(
+            author=row['author'],
+            quote=row['quote']
+        )
+        quote.save()
+

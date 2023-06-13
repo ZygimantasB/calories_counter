@@ -18,3 +18,11 @@ class ProductInformation(models.Model):
     def use_product(self):
         self.usage_count += 1
         self.save()
+
+
+class Quote(models.Model):
+    author = models.CharField(max_length=255, default="Unknown", blank=True, null=True)
+    quote = models.CharField(max_length=1000, blank=True, null=True)
+
+    def __str__(self):
+        return self.quote
