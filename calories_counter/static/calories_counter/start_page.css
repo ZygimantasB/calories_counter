@@ -10,9 +10,8 @@ body {
     height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; /* Change this to adjust the vertical position of the text */
+    justify-content: flex-start;
     align-items: center;
-    /* Add a semi-transparent black background */
     background-color: rgba(0, 0, 0, 0.7);
 }
 
@@ -20,8 +19,7 @@ body {
     font-size: 4em;
     margin-bottom: 20px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    color: #ffffff; /* Update the text color to white for better contrast */
-    /* Add a semi-transparent white background to the text */
+    color: #ffffff;
     background-color: rgba(255, 255, 255, 0.5);
     padding: 10px;
 }
@@ -30,18 +28,17 @@ body {
     font-size: 2em;
     margin-bottom: 20px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    color: #ffffff; /* Update the text color to white for better contrast */
-    /* Add a semi-transparent white background to the text */
+    color: #ffffff;
     background-color: rgba(255, 255, 255, 0.5);
     padding: 10px;
 }
 
 #start-page img {
-    width: 100%; /* This will make the image width 100% of the parent container */
-    height: auto; /* This will scale the height while maintaining aspect ratio */
-    max-width: 100%; /* This will prevent the image from exceeding the width of the parent container */
-    max-height: 80vh; /* This will prevent the image from exceeding 80% of the viewport height */
-    object-fit: contain; /* This will scale the image to fit inside its box while maintaining aspect ratio */
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    max-height: 80vh;
+    object-fit: contain;
     border-radius: 15px;
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
     margin-top: 20px;
