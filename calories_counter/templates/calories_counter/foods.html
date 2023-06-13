@@ -10,7 +10,9 @@
 {% block content %}
     <div id="user-food">
         <h1>Foods I ate to achieve results</h1>
-
+        <div class="button-container">
+          <a href="{% url 'food_create' %}" class="btn btn-primary food_add_button add_food_button">Add Food</a>
+        </div>
         {% for date, foods, totals in foods_by_date %}
             <h2><b>{{ date|date:"Y-m-d" }}</b></h2>
             <table class="table table-dark table-striped">
@@ -70,25 +72,7 @@
             </table>
         {% endfor %}
 
-        <div class="pagination">
-      <span class="step-links">
-        {% if foods.has_previous %}
-            <a href="?page=1">&laquo; first</a>
-            <a href="?page={{ foods.previous_page_number }}">previous</a>
-        {% endif %}
 
-          <span class="current">
-            Page {{ foods.number }} of {{ foods.paginator.num_pages }}.
-        </span>
-
-          {% if foods.has_next %}
-              <a href="?page={{ foods.next_page_number }}">next</a>
-              <a href="?page={{ foods.paginator.num_pages }}">last &raquo;</a>
-          {% endif %}
-    </span>
-
-        </div>
-        <a href="{% url 'food_create' %}" class="btn btn-primary food_add_button">Add Food</a>
 
     </div>
 {% endblock %}

@@ -30,7 +30,7 @@ def start_page(request):
 
 class FoodsView(LoginRequiredMixin, View):
     def get(self, request):
-        meals = Meal.objects.all()
+        meals = Meal.objects.all().order_by('-date')
 
         foods_by_date = []
         for date, meals_on_date in groupby(meals, attrgetter('date')):
@@ -64,13 +64,7 @@ class FoodsView(LoginRequiredMixin, View):
 
             foods_by_date.append((date, foods, total_values))
 
-        #TODO paginator are usless at this time don`t forget to delete it later
-        paginator = Paginator(Food.objects.filter(user=request.user), 10)
-        page = request.GET.get('page')
-        foods = paginator.get_page(page)
-
-        return render(request, "calories_counter/foods.html", {"foods": foods,
-                                                               "foods_by_date": foods_by_date})
+        return render(request, "calories_counter/foods.html", {"foods_by_date": foods_by_date})
 
 
 class FoodUpdate(LoginRequiredMixin, UpdateView):
@@ -108,8 +102,12 @@ class FoodCreate(LoginRequiredMixin, CreateView):
 
 class UserInformationView(LoginRequiredMixin, View):
     def get(self, request):
+
         user_information = UserInformation.objects.filter(user=request.user).first()
-        body_volumes = BodyCircumferenceMeasurements.objects.filter(user=request.user)
+
+        paginator = Paginator(BodyCircumferenceMeasurements.objects.filter(user=request.user).order_by('-date'), 5)
+        page = request.GET.get('page')
+        body_volumes = paginator.get_page(page)
 
         return render(request, "calories_counter/user_information.html", {'user_information': user_information,
                                                                           'body_volumes': body_volumes, })
@@ -149,14 +147,22 @@ class UserInformationUpdate(LoginRequiredMixin, UpdateView):
         return get_object_or_404(UserInformation, user=self.request.user)
 
 
-# class BodyVolumes(LoginRequiredMixin, View):
-#     def get(self, request):
-#         body_volumes = BodyCircumferenceMeasurements.objects.filter(user=request.user).order_by('-date')
-#         return render(request, "calories_counter/body_volumes.html", {'body_volumes': body_volumes})
+class UpdateBodyVolumes(LoginRequiredMixin, UpdateView):
+    model = BodyCircumferenceMeasurements
+    template_name = 'calories_counter/update_body_volumes.html'
+    fields = ['neck_size', 'chest_size', 'waist_size', 'left_bicep_size', 'right_bicep_size', 'left_thigh_size',
+              'left_forearm_size', 'right_forearm_size', 'left_thigh_size', 'right_thigh_size', 'left_calf_size',
+              'right_calf_size']
+    success_url = reverse_lazy('user_information')
+
+    def get_object(self, queryset=None):
+        return get_object_or_404(BodyCircumferenceMeasurements, pk=self.kwargs.get('pk'), user=self.request.user)
 
 
+class DeleteBodyVolumes(LoginRequiredMixin, DeleteView):
+    model = BodyCircumferenceMeasurements
+    template_name = 'calories_counter/delete_body_volumes.html'
+    success_url = reverse_lazy('user_information')
 
-
-    # field = ['neck_size', 'chest_size', 'waist_size', 'left_bicep_size', 'right_bicep_size', 'left_thigh_size',
-    #          'left_forearm_size', 'right_forearm_size', 'left_thigh_size', 'right_thigh_size', 'left_calf_size',
-    #          'right_calf_size']
+    def get_object(self, queryset=None):
+        return get_object_or_404(BodyCircumferenceMeasurements, pk=self.kwargs.get('pk'), user=self.request.user)

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css_files %}
+  <link rel="stylesheet" href="{% static 'calories_counter/delete_body_voluimes.css' %}">
+{% endblock %}
+
+{% block  title %}
+  Delete Body Volumes
+{% endblock %}
+
+{% block content %}
+
+  <div>
+    <h1>Delete measurements</h1>
+
+    <p>Are you sure you want to delete"?</p>
+
+    <form method="post">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-primary">Confirm Delete</button>
+    </form>
+
+    <a class="btn btn-primary cancel__button" href="{% url 'user_information' %}">Cancel</a>
+  </div>
+
+{% endblock %}

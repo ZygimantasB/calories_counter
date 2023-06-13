@@ -22,10 +22,20 @@ h1  {
 .body__volumes table td, table th {
     min-width: 100px;
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    /*overflow: hidden;*/
+    /*text-overflow: ellipsis;*/
 }
 
-.body__volumes a {
+.add__body__volumes_anchor_tag {
+    margin-top: 20px;
     margin-left: 80px;
+}
+
+.update-link {
+    margin-right: 20px;
+}
+
+.pagination {
+    margin-left: 80px;
+    margin-top: 20px;
 }

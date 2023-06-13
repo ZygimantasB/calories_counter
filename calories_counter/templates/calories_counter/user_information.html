@@ -8,6 +8,7 @@
 {% block title %} 👤 User Information {% endblock %}
 
 {% block content %}
+  <div class="tables-container">
 
     <div id="user_information">
         <h1><b>User information</b></h1>
@@ -110,13 +111,36 @@
             <th>{{ measurements.right_thigh_size }} cm.</th>
             <th>{{ measurements.left_calf_size }} cm.</th>
             <th>{{ measurements.right_calf_size }} cm.</th>
-            <th>Update Delete</th>
+            <th>
+              <a class="update-link" href="{% url 'update_body_volumes' measurements.id %}">Update</a>
+              <a class="delete-link" href="{% url 'delete_body_volumes' measurements.id %}">Delete</a>
+            </th>
           </tr>
             {% endfor %}
         </tbody>
       </table>
-      <a type="button" class="btn btn-primary" href="{% url 'create_body_volumes' %}">Add Body Volumes</a>
+
+      <div class="pagination">
+        <span class="step-links">
+            {% if body_volumes.has_previous %}
+              <a href="?page=1">&laquo; first</a>
+              <a href="?page={{ body_volumes.previous_page_number }}">previous</a>
+            {% endif %}
+
+          <span class="current">
+                Page {{ body_volumes.number }} of {{ body_volumes.paginator.num_pages }}.
+            </span>
+
+          {% if body_volumes.has_next %}
+            <a href="?page={{ body_volumes.next_page_number }}">next</a>
+            <a href="?page={{ body_volumes.paginator.num_pages }}">last &raquo;</a>
+          {% endif %}
+        </span>
+      </div>
+
+      <a type="button" class="btn btn-primary add__body__volumes_anchor_tag" href="{% url 'create_body_volumes' %}">Add Body Volumes</a>
 
     </div>
 
+  </div>
 {% endblock %}

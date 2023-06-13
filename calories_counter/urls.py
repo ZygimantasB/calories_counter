@@ -13,6 +13,9 @@ urlpatterns = [
     path("user_information/update_information/", views.UserInformationUpdate.as_view(), name="update_user_information"),
 
     path("user_information/enter_body_volumes/", views.CreateBodyVolumes.as_view(), name="create_body_volumes"),
+    path("user_information/update_body_volumes/<int:pk>/", views.UpdateBodyVolumes.as_view(), name="update_body_volumes"),
+    path("user_information/delete_body_volumes/<int:pk>/", views.DeleteBodyVolumes.as_view(), name="delete_body_volumes"),
+
 
     # path("user_information/body_volumes/", views.BodyVolumes.as_view(), name="body_volumes"),
 ]

@@ -26,3 +26,8 @@ tr, th {
     height: 40px;
     margin-top: 15px;
 }
+
+.button-container {
+    display: flex;
+    justify-content: center;
+}
