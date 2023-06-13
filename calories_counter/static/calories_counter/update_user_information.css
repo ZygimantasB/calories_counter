@@ -1,0 +1,58 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+}
+
+#user-update-food {
+    width: 80%;
+    margin: 50px auto;
+    background: #ffffff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+#user-update-food form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#user-update-food form p {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+#user-update-food form label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 1.1em;
+    color: #333;
+}
+
+#user-update-food form input,
+#user-update-food form select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    font-size: 1em;
+}
+
+#user-update-food form button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: all 0.3s ease-in-out;
+}
+
+#user-update-food form button:hover {
+    background-color: #0056b3;
+}

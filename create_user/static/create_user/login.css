@@ -1,54 +1,58 @@
+body {
+    background-color: #f8f9fa;
+    font-family: Arial, sans-serif;
+}
+
 #login-page {
-    max-width: 600px;
-    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+    padding: 10px;
 }
 
-form {
+#login-page form {
+    background-color: white;
     padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f6f6f6;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
 }
 
-h2 {
-    font-size: 24px;
+#login-page form h2 {
     margin-bottom: 20px;
-    text-align: center;
+    color: #343a40;
 }
 
-label {
+#login-page form div {
+    margin-bottom: 10px;
+}
+
+#login-page form label {
     display: block;
-    font-weight: bold;
     margin-bottom: 5px;
+    font-weight: bold;
 }
 
-input[type="text"],
-input[type="password"] {
+#login-page form input[type="text"],
+#login-page form input[type="password"] {
     width: 100%;
     padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #37378d;
-    border-radius: 5px;
-    box-sizing: border-box;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
 }
 
-input[type="submit"] {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    background-color: #4CAF50;
-    color: #fff;
+#login-page form input[type="submit"] {
+    background-color: #007bff;
+    color: white;
     border: none;
-    border-radius: 5px;
+    padding: 10px 20px;
+    border-radius: 4px;
     cursor: pointer;
-    font-size: 16px;
-}
-
-input[type="submit"]:hover {
-    background-color: #3e8e41;
-}
-
-#error-message {
-    color: red;
     margin-top: 10px;
+}
+
+#login-page form input[type="submit"]:hover {
+    background-color: #0056b3;
 }

@@ -1,34 +1,55 @@
-form, h1 {
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+}
+
+#user-add-food {
+    width: 80%;
+    margin: 50px auto;
+    background: #ffffff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+#user-add-food h1 {
+    text-align: center;
+    color: #4a4a4a;
+    font-size: 2em;
+}
+
+#user-add-food form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 50%;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
 }
 
-input[type="text"], input[type="number"] {
-    padding: 5px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    margin: 10px 0;
-    width: 100%;
+#user-add-food form label {
+    margin-top: 20px;
+    color: #333;
+    font-size: 1.2em;
 }
 
-label {
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-button {
+#user-add-food form input[type="date"] {
+    margin-top: 10px;
     padding: 10px;
+    border: 1px solid #dee2e6;
     border-radius: 5px;
-    border: none;
-    background-color: #007bff;
-    color: #fff;
-    cursor: pointer;
+    font-size: 1em;
 }
 
+#user-add-food form button[type="submit"] {
+    margin-top: 20px;
+    padding: 10px 20px;
+    color: #ffffff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
 
+#user-add-food form button[type="submit"]:hover {
+    background-color: #0056b3;
+}

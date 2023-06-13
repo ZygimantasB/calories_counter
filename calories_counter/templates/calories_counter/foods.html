@@ -15,18 +15,18 @@
         </div>
         {% for date, foods, totals in foods_by_date %}
             <h2><b>{{ date|date:"Y-m-d" }}</b></h2>
-            <table class="table table-dark table-striped">
+            <table>
                 <thead>
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Food name</th>
-                    <th scope="col">Calories</th>
-                    <th scope="col">Protein</th>
-                    <th scope="col">Fat</th>
-                    <th scope="col">Carbs</th>
-                    <th scope="col">Weight Measure (grams)</th>
-                    <th scope="col">Then eaten</th>
-                    <th scope="col">Actions</th>
+                    <th>#</th>
+                    <th>Food name</th>
+                    <th>Calories</th>
+                    <th>Protein</th>
+                    <th>Fat</th>
+                    <th>Carbs</th>
+                    <th>Weight Measure (grams)</th>
+                    <th>Then eaten</th>
+                    <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>

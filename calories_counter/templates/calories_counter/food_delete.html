@@ -2,13 +2,13 @@
 {% load static %}
 
 {% block css_files %}
-  <link rel="stylesheet" href="{% static 'calories_counter/food.css' %}">
+  <link rel="stylesheet" href="{% static 'calories_counter/food_delete.css' %}">
 {% endblock %}
 
 {% block title %} Delete Food {% endblock %}
 
 {% block content %}
-  <div id="food-delete">
+  <div id="delete-body-volumes">
     <h1>Delete Food</h1>
 
     <p>Are you sure you want to delete "{{ object.food_name }}"?</p>

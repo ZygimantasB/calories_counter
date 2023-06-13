@@ -1,33 +1,80 @@
-h1  {
-    text-align: center;
-}
-
-h2 {
-    text-align: center;
-    margin-top: 15px;
-    margin-bottom: 25px;
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
 }
 
 #user-food {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    padding-top: 50px;
-    width: 50%;
-    margin: 0 auto;
+    width: 80%;
+    margin: 50px auto;
+    background: #ffffff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
 }
 
-tr, th {
+#user-food h1 {
     text-align: center;
+    color: #4a4a4a;
+    font-size: 2em;
 }
 
-.food_add_button {
-    width: 100px;
-    height: 40px;
-    margin-top: 15px;
+#user-food h2 {
+    margin-top: 20px;
+    color: #333;
+    font-size: 1.5em;
 }
 
 .button-container {
-    display: flex;
-    justify-content: center;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.button-container .btn {
+    padding: 10px 20px;
+    color: #ffffff;
+    background-color: #007bff;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+}
+
+.button-container .btn:hover {
+    background-color: #0056b3;
+}
+
+table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+    border-collapse: collapse;
+}
+
+table th, table td {
+    padding: 0.75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+}
+
+table thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #dee2e6;
+}
+
+table tbody+tbody {
+    border-top: 2px solid #dee2e6;
+}
+
+table .btn {
+    padding: 0.375rem 0.75rem;
+    background-color: #ffc107;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+    color: #212529;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+}
+
+table .btn:hover {
+    background-color: #e0a800;
+    color: #212529;
 }
