@@ -18,6 +18,9 @@ from calories_blog.models import Author, Comment, Post, Tag
 
 class UploadInformationView(LoginRequiredMixin, View):
     def get(self, request) -> render:
+
+        count_quotes = Quote.objects.count()
+
         food_form = UploadFoodInformationForm()
         quotes_form = UploadQuotesForm()
         count_products = ProductInformation.objects.count()
@@ -29,6 +32,7 @@ class UploadInformationView(LoginRequiredMixin, View):
         count_comment = Comment.objects.count()
         count_post = Post.objects.count()
         count_tag = Tag.objects.count()
+
 
         top_10_products = ProductInformation.objects.order_by('-usage_count')[:10]
         top_10_products_position = list(enumerate(top_10_products, start=1))
@@ -67,6 +71,7 @@ class UploadInformationView(LoginRequiredMixin, View):
             'top_10_products': top_10_products_position,
             'user_comments_count': user_comments_count_position,
             'tag_usage': tag_usage,
+            'count_quotes': count_quotes,
         })
 
     def post(self, request) -> render:

@@ -1,3 +1,5 @@
+import os
+
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect, get_object_or_404
@@ -16,16 +18,30 @@ from extra_views import CreateWithInlinesView, InlineFormSetFactory
 
 from .models import Food, Meal, UserInformation, BodyCircumferenceMeasurements
 
+from admin_panel_app.models import Quote
+
 from itertools import groupby
 from operator import attrgetter
 from datetime import datetime
+from random import choice
 
 
 # Create your views here.
 
 
 def start_page(request):
-    return render(request, "calories_counter/start_page.html")
+    image_folder = 'calories_counter/static/images/'
+    image_files = os.listdir(image_folder)
+    random_image = choice(image_files)
+    quotes = Quote.objects.order_by('?')[:1]
+    background_style = f"background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), " \
+                       f"url('/static/images/{random_image}') no-repeat center center/cover;"
+    context = {
+        'quotes': quotes,
+        'random_image': f'/static/images/{random_image}',
+    }
+    return render(request, "calories_counter/start_page.html", context)
+
 
 
 class FoodsView(LoginRequiredMixin, View):

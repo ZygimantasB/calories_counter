@@ -6,31 +6,42 @@ body {
 #start-page {
     text-align: center;
     padding: 50px 0;
-    background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('/images/calories.jpg') no-repeat center center/cover;
     color: white;
     height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start; /* Change this to adjust the vertical position of the text */
     align-items: center;
+    /* Add a semi-transparent black background */
+    background-color: rgba(0, 0, 0, 0.7);
 }
 
 #start-page h1 {
     font-size: 4em;
     margin-bottom: 20px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    color: #ffffff; /* Update the text color to white for better contrast */
+    /* Add a semi-transparent white background to the text */
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 10px;
 }
 
 #start-page h2 {
     font-size: 2em;
     margin-bottom: 20px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    color: #ffffff; /* Update the text color to white for better contrast */
+    /* Add a semi-transparent white background to the text */
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 10px;
 }
 
 #start-page img {
-    width: 100%;
-    max-width: 500px;
-    height: auto;
+    width: 100%; /* This will make the image width 100% of the parent container */
+    height: auto; /* This will scale the height while maintaining aspect ratio */
+    max-width: 100%; /* This will prevent the image from exceeding the width of the parent container */
+    max-height: 80vh; /* This will prevent the image from exceeding 80% of the viewport height */
+    object-fit: contain; /* This will scale the image to fit inside its box while maintaining aspect ratio */
     border-radius: 15px;
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
     margin-top: 20px;

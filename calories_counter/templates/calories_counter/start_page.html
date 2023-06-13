@@ -10,18 +10,18 @@
 {% endblock %}
 
 {% block content %}
+    <div id="start-page" style="background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('{{ random_image }}') no-repeat center center/cover;">>
+      {% if request.user.is_authenticated %}
+      <h1>Hello {{ request.user.username | title }} remember this quote and start your day with it </h1>
+      {% endif %}
+      {% for quote in quotes %}
+        <div class="quote">
+          <h1>{{ quote.author }}</h1>
+          <h2>{{ quote.quote }}</h2>
+        </div>
+      {% endfor %}
 
-    <div id="start-page">
-      <h1>Start page</h1>
-      <h2>In this page you {{ request.user.username | title }}</h2>
-      <h2>can count how many calories you used</h2>
-      <h2>
-        Good luck
-        {% if request.user.is_authenticated %}
-        <span>{{ request.user.username | title }}</span>
-        {% endif %}
-      </h2>
-      <img src="{% static '/images/calories.jpg'  %}" alt="img">
+{#      <img src="{% static '/images/calories.jpg'  %}" alt="img">#}
     </div>
 
 {% endblock %}
