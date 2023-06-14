@@ -33,8 +33,8 @@ class UploadInformationView(LoginRequiredMixin, View):
         count_post = Post.objects.count()
         count_tag = Tag.objects.count()
 
-        top_10_products = ProductInformation.objects.order_by('-usage_count')[:10]
-        top_10_products_position = list(enumerate(top_10_products, start=1))
+        top_10_meals = Food.objects.values('then_eaten').annotate(count=Count('then_eaten')).order_by('-count')[:10]
+        top_10_meals_position = list(enumerate(top_10_meals, start=1))
 
         user_comments_count = Comment.objects.values('user_name').annotate(count=Count('user_name')).order_by('-count')
         user_comments_count_position = list(enumerate(user_comments_count, start=1))[:10]
@@ -67,10 +67,11 @@ class UploadInformationView(LoginRequiredMixin, View):
             'count_comment': count_comment,
             'count_post': count_post,
             'count_tag': count_tag,
-            'top_10_products': top_10_products_position,
             'user_comments_count': user_comments_count_position,
             'tag_usage': tag_usage,
             'count_quotes': count_quotes,
+            'top_10_meals_position': top_10_meals_position,
+
         })
 
     def post(self, request) -> render:

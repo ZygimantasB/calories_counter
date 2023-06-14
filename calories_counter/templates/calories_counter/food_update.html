@@ -12,10 +12,24 @@
     <h1>Update Food</h1>
     <form method="post">
       {% csrf_token %}
-      {{ form.as_p }}
-        <label for="date">Date:</label>
-        <input type="date" id="date" name="date" value="{{ food.meal.date }}">
-      <button type="submit">Update</button>
+      <label for="{{ form.then_eaten.id_for_label }}">Meal</label>
+      {{ form.then_eaten }}
+      <label for="{{ form.food_name.id_for_label }}">Food</label>
+      {{ form.food_name }}
+      <label for="{{ from.calories.id_for_label }}">Calories</label>
+      {{ form.calories }}
+      <label for="{{ form.protein.id_for_label }}">Protein</label>
+      {{ form.protein }}
+      <label for="{{ form.fat.id_for_label }}">Fat</label>
+      {{ form.fat }}
+      <label for="{{ form.carbs.id_for_label }}">Carbs</label>
+      {{ form.carbs }}
+      <label for="{{ form.weight_measure.id_for_label }}">Weight Measure</label>
+      {{ form.weight_measure }}
+      <label for="{{ form.date.id_for_label }}">Date:</label>
+      <input type="date" id="{{ form.date.id_for_label }}" name="date">
+
+      <button type="submit" class="btn btn-primary">Add Food</button>
     </form>
 
   </div>

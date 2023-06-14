@@ -17,6 +17,7 @@ from django.forms.models import inlineformset_factory
 from extra_views import CreateWithInlinesView, InlineFormSetFactory
 
 from .models import Food, UserInformation, BodyCircumferenceMeasurements
+from .forms import FoodForm
 
 from admin_panel_app.models import Quote
 
@@ -75,7 +76,7 @@ class FoodsView(LoginRequiredMixin, View):
 class FoodUpdate(LoginRequiredMixin, UpdateView):
     model = Food
     template_name = "calories_counter/food_update.html"
-    fields = ['then_eaten', 'food_name', 'calories', 'protein', 'fat', 'carbs', 'weight_measure']
+    form_class = FoodForm
     success_url = reverse_lazy('foods')
 
     def form_valid(self, form):
@@ -91,7 +92,7 @@ class FoodDelete(LoginRequiredMixin, DeleteView):
 
 class FoodCreate(LoginRequiredMixin, CreateView):
     model = Food
-    fields = ['then_eaten', 'food_name', 'calories', 'protein', 'fat', 'carbs', 'weight_measure']
+    form_class = FoodForm
     template_name = "calories_counter/food_create.html"
     success_url = reverse_lazy('foods')
 

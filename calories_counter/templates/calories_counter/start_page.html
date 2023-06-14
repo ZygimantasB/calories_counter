@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block content %}
-    <div id="start-page" style="background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('{{ random_image }}') no-repeat center center/cover;">>
+    <div id="start-page" style="background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('{{ random_image }}') no-repeat center center/cover;">
       {% if request.user.is_authenticated %}
       <h1>Hello {{ request.user.username | title }} remember this quote and start your day with it </h1>
       {% endif %}

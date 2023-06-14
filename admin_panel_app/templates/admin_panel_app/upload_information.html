@@ -54,25 +54,25 @@
 
   </div>
 
-  <div class="product__information">
-    <h3>Most common products</h3>
+  <div class="meal__counter">
+    <h3>Most common meals</h3>
     <table class="table table-dark table-striped">
       <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Food name</th>
-        <th scope="col">Count</th>
-      </tr>
-      </thead>
-      <tbody>
-      {% for rank, product in top_10_products %}
         <tr>
-          <th>{{ rank }}.</th>
-          <th>{{ product.name }}</th>
-          <th>{{ product.usage_count }}</th>
+          <th>#</th>
+          <th>Meal</th>
+          <th>Usage</th>
         </tr>
-      {% endfor %}
+      </thead>
+      {% for rank, meal in top_10_meals_position %}
+      <tbody>
+        <tr>
+          <th>{{ rank }}</th>
+          <th>{{ meal.then_eaten }}</th>
+          <th>{{ meal.count }}</th>
+        </tr>
       </tbody>
+      {% endfor %}
     </table>
   </div>
 
