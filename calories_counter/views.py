@@ -23,6 +23,7 @@ from admin_panel_app.models import Quote
 from itertools import groupby
 from operator import attrgetter
 from random import choice
+from datetime import datetime
 
 
 # Create your views here.
@@ -66,7 +67,7 @@ class FoodsView(LoginRequiredMixin, View):
             total_values['carbs_percentage'] = (total_values['total_carbs'] /
                                                 total_macronutrients * 100) if total_macronutrients else 0
 
-            foods_by_date.append((date, foods, total_values))
+            foods_by_date.append((date, foods_on_date_list, total_values))
 
         return render(request, "calories_counter/foods.html", {"foods_by_date": foods_by_date})
 
@@ -74,11 +75,11 @@ class FoodsView(LoginRequiredMixin, View):
 class FoodUpdate(LoginRequiredMixin, UpdateView):
     model = Food
     template_name = "calories_counter/food_update.html"
-    fields = ['meal', 'food_name', 'calories', 'protein', 'fat', 'carbs', 'weight_measure']
+    fields = ['then_eaten', 'food_name', 'calories', 'protein', 'fat', 'carbs', 'weight_measure']
     success_url = reverse_lazy('foods')
 
     def form_valid(self, form):
-        form.instance.meal.date = self.request.POST.get('date')
+        form.instance.user = self.request.user
         return super().form_valid(form)
 
 
@@ -90,28 +91,13 @@ class FoodDelete(LoginRequiredMixin, DeleteView):
 
 class FoodCreate(LoginRequiredMixin, CreateView):
     model = Food
-    fields = ['then_eaten', 'food_name', 'calories', 'protein', 'fat', 'carbs', 'weight_measure', 'date']  # include 'then_eaten' and 'date' in fields
+    fields = ['then_eaten', 'food_name', 'calories', 'protein', 'fat', 'carbs', 'weight_measure']
     template_name = "calories_counter/food_create.html"
     success_url = reverse_lazy('foods')
 
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
-
-
-    # def form_valid(self, form):
-    #     date_str = self.request.POST.get('date')
-    #     date = datetime.strptime(date_str, "%Y-%m-%d").date()
-    #
-    #     meal_id = form.cleaned_data['meal'].id
-    #     meal = Meal.objects.get(id=meal_id)
-    #     meal.date = date
-    #     meal.user = self.request.user
-    #     meal.save()
-    #
-    #     form.instance.meal = meal
-    #     form.instance.user = self.request.user
-    #     return super().form_valid(form)
 
 
 class UserInformationView(LoginRequiredMixin, View):

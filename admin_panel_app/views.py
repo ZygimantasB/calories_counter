@@ -26,6 +26,7 @@ class UploadInformationView(LoginRequiredMixin, View):
         count_products = ProductInformation.objects.count()
         count_users = User.objects.count()
         count_food = Food.objects.count()
+        count_meals = Food.objects.values('then_eaten').count()
         count_user_information = UserInformation.objects.count()
         count_author = Author.objects.count()
         count_comment = Comment.objects.count()
@@ -60,6 +61,7 @@ class UploadInformationView(LoginRequiredMixin, View):
             'count_products': count_products,
             'count_users': count_users,
             'count_food': count_food,
+            'count_meals': count_meals,
             'count_user_information': count_user_information,
             'count_author': count_author,
             'count_comment': count_comment,
@@ -88,16 +90,6 @@ class UploadInformationView(LoginRequiredMixin, View):
                 return render(request, "admin_panel_app/upload_information.html", {"quotes_form": form})
 
 
-class DetailDatabaseInformation(LoginRequiredMixin, View):
-    def get(self, request) -> render:
-        count_products = ProductInformation.objects.count()
-        count_users = User.objects.count()
-        return render(request, "admin_panel_app/count_information.html",
-                      {'count_products': count_products,
-                       'count_users': count_users},
-                      )
-
-
 def handle_upload_food_information(csv_file) -> None:
     read_csv = pd.read_csv(csv_file)
     for index, row in read_csv.iterrows():
@@ -120,4 +112,3 @@ def handle_upload_quotes(csv_file) -> None:
             quote=row['quote']
         )
         quote.save()
-
