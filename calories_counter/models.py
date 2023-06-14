@@ -26,8 +26,8 @@ class Food(models.Model):
 
 
 class Meal(models.Model):
-    user = models.ForeignKey('auth.User', on_delete=models.CASCADE, choices=THEN_EATEN)
-    then_eaten = models.CharField(max_length=50, default='Snack')
+    user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    then_eaten = models.CharField(max_length=50)
     date = models.DateField()
 
     def __str__(self):

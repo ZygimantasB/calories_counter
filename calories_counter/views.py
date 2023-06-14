@@ -17,6 +17,7 @@ from django.forms.models import inlineformset_factory
 from extra_views import CreateWithInlinesView, InlineFormSetFactory
 
 from .models import Food, Meal, UserInformation, BodyCircumferenceMeasurements
+from .forms import FoodForm
 
 from admin_panel_app.models import Quote
 
@@ -41,7 +42,6 @@ def start_page(request):
         'random_image': f'/static/images/{random_image}',
     }
     return render(request, "calories_counter/start_page.html", context)
-
 
 
 class FoodsView(LoginRequiredMixin, View):
@@ -102,18 +102,24 @@ class FoodDelete(LoginRequiredMixin, DeleteView):
 
 class FoodCreate(LoginRequiredMixin, CreateView):
     model = Food
-    fields = ['meal', 'food_name', 'calories', 'protein', 'fat', 'carbs', 'weight_measure']
+    fields = ['meal', 'food_name', 'calories', 'protein', 'fat', 'carbs', 'weight_measure']  # revert to this line
     template_name = "calories_counter/food_create.html"
     success_url = reverse_lazy('foods')
 
     def form_valid(self, form):
         date_str = self.request.POST.get('date')
         date = datetime.strptime(date_str, "%Y-%m-%d").date()
-        meal = Meal.objects.create(date=date, user=self.request.user, then_eaten=form.cleaned_data['meal'].then_eaten)
+
+        meal_id = form.cleaned_data['meal'].id
+        meal = Meal.objects.get(id=meal_id)
+        meal.date = date
+        meal.user = self.request.user
+        meal.save()
 
         form.instance.meal = meal
         form.instance.user = self.request.user
         return super().form_valid(form)
+
 
 
 class UserInformationView(LoginRequiredMixin, View):

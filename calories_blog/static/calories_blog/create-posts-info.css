@@ -46,9 +46,10 @@ body {
     font-size: 1em;
 }
 
-#create-post form input[type="submit"] {
+#create-post form button {
     width: 50%;
     margin-top: 20px;
+    padding: 10px 20px;
     background-color: #007bff;
     color: #fff;
     border: none;
@@ -58,6 +59,6 @@ body {
     transition: all 0.3s ease-in-out;
 }
 
-#create-post form input[type="submit"]:hover {
+#create-post form button:hover {
     background-color: #0056b3;
 }
