@@ -1,35 +1,47 @@
-h1 {
-    color: black;
-}
-
 body {
-    background-color: #b3b3f3;
-    /*background-image: url('static/images/calories.jpg');*/
-    /*background-repeat: no-repeat;*/
-    /*background-attachment: fixed;*/
-    /*background-size: cover;*/
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f1f1f1;
 }
 
-#login-page {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 60px;
+.navbar {
+    background-color: #1b1b1b;
 }
 
-#registration-page {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 60px;
+.navbar-brand {
+    font-size: 24px;
+    color: #e9ecef !important;
 }
 
-.nav {
-    color: white !important;
+.nav-item a {
+    color: #e9ecef !important;
+}
+
+.nav-item a:hover {
+    color: #a6a6a6 !important;
 }
 
 .logo-image {
-    width: 75px;
-    height: 75px;
-    object-fit: contain;
+    width: 45px;
+    height: 45px;
+    margin-left: 10px;
+}
+
+.dropdown-menu {
+    background-color: #343a40;
+    border-color: #343a40;
+}
+
+.dropdown-item {
+    color: #e9ecef;
+}
+
+.dropdown-item:hover {
+    color: #a6a6a6;
+    background-color: #1b1b1b;
+}
+
+.nav-item.active > .nav-link {
+    color: #ff6600 !important;
 }
