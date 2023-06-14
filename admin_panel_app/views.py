@@ -10,7 +10,7 @@ from django.db.models import Count
 from .forms import UploadFoodInformationForm, UploadQuotesForm
 from .models import ProductInformation, Quote
 
-from calories_counter.models import Food, Meal, UserInformation
+from calories_counter.models import Food, UserInformation
 from calories_blog.models import Author, Comment, Post, Tag
 
 
@@ -26,13 +26,11 @@ class UploadInformationView(LoginRequiredMixin, View):
         count_products = ProductInformation.objects.count()
         count_users = User.objects.count()
         count_food = Food.objects.count()
-        count_meal = Meal.objects.count()
         count_user_information = UserInformation.objects.count()
         count_author = Author.objects.count()
         count_comment = Comment.objects.count()
         count_post = Post.objects.count()
         count_tag = Tag.objects.count()
-
 
         top_10_products = ProductInformation.objects.order_by('-usage_count')[:10]
         top_10_products_position = list(enumerate(top_10_products, start=1))
@@ -62,7 +60,6 @@ class UploadInformationView(LoginRequiredMixin, View):
             'count_products': count_products,
             'count_users': count_users,
             'count_food': count_food,
-            'count_meal': count_meal,
             'count_user_information': count_user_information,
             'count_author': count_author,
             'count_comment': count_comment,

@@ -1,14 +1,9 @@
 from django import forms
-from .models import Food, Meal
-
-
-class MealForm(forms.ModelForm):
-    class Meta:
-        model = Meal
-        fields = "__all__"
+from .models import Food
 
 
 class FoodForm(forms.ModelForm):
     class Meta:
         model = Food
-        fields = ['food_name', 'calories', 'protein', 'fat', 'carbs', 'weight_measure']
+        fields = ['then_eaten', 'food_name', 'calories', 'protein', 'fat', 'carbs', 'weight_measure', 'date']
+

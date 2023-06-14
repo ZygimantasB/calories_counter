@@ -16,14 +16,12 @@ from django.forms.models import inlineformset_factory
 
 from extra_views import CreateWithInlinesView, InlineFormSetFactory
 
-from .models import Food, Meal, UserInformation, BodyCircumferenceMeasurements
-from .forms import FoodForm
+from .models import Food, UserInformation, BodyCircumferenceMeasurements
 
 from admin_panel_app.models import Quote
 
 from itertools import groupby
 from operator import attrgetter
-from datetime import datetime
 from random import choice
 
 
@@ -35,8 +33,6 @@ def start_page(request):
     image_files = os.listdir(image_folder)
     random_image = choice(image_files)
     quotes = Quote.objects.order_by('?')[:1]
-    background_style = f"background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), " \
-                       f"url('/static/images/{random_image}') no-repeat center center/cover;"
     context = {
         'quotes': quotes,
         'random_image': f'/static/images/{random_image}',
@@ -46,37 +42,29 @@ def start_page(request):
 
 class FoodsView(LoginRequiredMixin, View):
     def get(self, request):
-        meals = Meal.objects.all().order_by('-date')
+        foods = Food.objects.filter(user=request.user).order_by('-date')
 
         foods_by_date = []
-        for date, meals_on_date in groupby(meals, attrgetter('date')):
-            foods = Food.objects.filter(meal__in=meals_on_date, user=request.user)
-            total_values = foods.aggregate(
-                total_calories=Coalesce(Sum('calories'), 0, output_field=DecimalField()),
-                total_protein=Coalesce(Sum('protein'), 0, output_field=DecimalField()),
-                total_fat=Coalesce(Sum('fat'), 0, output_field=DecimalField()),
-                total_carbs=Coalesce(Sum('carbs'), 0, output_field=DecimalField())
-            )
-
-            print(total_values)
-
-            total_protein = total_values.get('total_protein', 0)
-            total_fat = total_values.get('total_fat', 0)
-            total_carbs = total_values.get('total_carbs', 0)
-
-            print(total_protein, total_fat, total_carbs)
+        for date, foods_on_date in groupby(foods, attrgetter('date')):
+            foods_on_date_list = list(foods_on_date)
+            total_values = {
+                'total_calories': sum(food.calories for food in foods_on_date_list),
+                'total_protein': sum(food.protein for food in foods_on_date_list),
+                'total_fat': sum(food.fat for food in foods_on_date_list),
+                'total_carbs': sum(food.carbs for food in foods_on_date_list)
+            }
 
             total_macronutrients = total_values['total_protein'] + total_values['total_fat'] + total_values[
                 'total_carbs']
 
             total_values['protein_percentage'] = (total_values['total_protein'] /
-                                                  total_macronutrients * 100) if total_values['total_calories'] else 0
+                                                  total_macronutrients * 100) if total_macronutrients else 0
 
             total_values['fat_percentage'] = (total_values['total_fat'] /
-                                              total_macronutrients * 100) if total_values['total_calories'] else 0
+                                              total_macronutrients * 100) if total_macronutrients else 0
 
             total_values['carbs_percentage'] = (total_values['total_carbs'] /
-                                                total_macronutrients * 100) if total_values['total_calories'] else 0
+                                                total_macronutrients * 100) if total_macronutrients else 0
 
             foods_by_date.append((date, foods, total_values))
 
@@ -102,24 +90,28 @@ class FoodDelete(LoginRequiredMixin, DeleteView):
 
 class FoodCreate(LoginRequiredMixin, CreateView):
     model = Food
-    fields = ['meal', 'food_name', 'calories', 'protein', 'fat', 'carbs', 'weight_measure']  # revert to this line
+    fields = ['then_eaten', 'food_name', 'calories', 'protein', 'fat', 'carbs', 'weight_measure', 'date']  # include 'then_eaten' and 'date' in fields
     template_name = "calories_counter/food_create.html"
     success_url = reverse_lazy('foods')
 
     def form_valid(self, form):
-        date_str = self.request.POST.get('date')
-        date = datetime.strptime(date_str, "%Y-%m-%d").date()
-
-        meal_id = form.cleaned_data['meal'].id
-        meal = Meal.objects.get(id=meal_id)
-        meal.date = date
-        meal.user = self.request.user
-        meal.save()
-
-        form.instance.meal = meal
         form.instance.user = self.request.user
         return super().form_valid(form)
 
+
+    # def form_valid(self, form):
+    #     date_str = self.request.POST.get('date')
+    #     date = datetime.strptime(date_str, "%Y-%m-%d").date()
+    #
+    #     meal_id = form.cleaned_data['meal'].id
+    #     meal = Meal.objects.get(id=meal_id)
+    #     meal.date = date
+    #     meal.user = self.request.user
+    #     meal.save()
+    #
+    #     form.instance.meal = meal
+    #     form.instance.user = self.request.user
+    #     return super().form_valid(form)
 
 
 class UserInformationView(LoginRequiredMixin, View):

@@ -6,14 +6,14 @@ from datetime import date
 from pygrowup import Calculator
 
 from CONSTATNS.gender import GENDER
-from CONSTATNS.then_eaten import THEN_EATEN
 
 # Create your models here.
 
 
 class Food(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
-    meal = models.ForeignKey('Meal', on_delete=models.CASCADE)
+    then_eaten = models.CharField(max_length=50, blank=True, null=True)
+    date = models.DateField(null=True, blank=True)
     food_name = models.CharField(max_length=255, blank=True, null=True)
     calories = models.DecimalField(max_digits=6, decimal_places=2)
     protein = models.DecimalField(max_digits=6, decimal_places=2)
@@ -23,15 +23,6 @@ class Food(models.Model):
 
     def __str__(self):
         return self.food_name
-
-
-class Meal(models.Model):
-    user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
-    then_eaten = models.CharField(max_length=50)
-    date = models.DateField()
-
-    def __str__(self):
-        return f"{self.then_eaten}"
 
 
 class UserInformation(models.Model):
