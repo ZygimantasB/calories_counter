@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css_files %}
+  <link rel="stylesheet" href="{% static 'food_information_app/product_result.css' %}">
+{% endblock %}
+
+{% block title %}
+  Update Information
+{% endblock %}
+
+{% block content %}
+  <div id="product__results">
+    <h2>Search results for "{{ query }}":</h2>
+    <table class="table table-dark table-striped">
+      <thead>
+        <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Calories</th>
+        <th>Protein</th>
+        <th>Fast</th>
+        <th>Carbs</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for result in results %}
+        <tr>
+          <th>{{ forloop.counter }}</th>
+          <th>{{ result.name }}</th>
+          <th>{{ result.calories }}</th>
+          <th>{{ result.protein }}</th>
+          <th>{{ result.total_fat }}</th>
+          <th>{{ result.carbohydrate }}</th>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+  </div>
+
+
+{% endblock %}

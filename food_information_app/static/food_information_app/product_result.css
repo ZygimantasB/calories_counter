@@ -1,0 +1,43 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+}
+
+#product__results {
+    width: 80%;
+    margin: 50px auto;
+    background: #ffffff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#product__results h2 {
+    color: #333;
+    font-size: 1.5em;
+    margin-bottom: 20px;
+}
+
+#product__results table {
+    width: 100%;
+    text-align: left;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+#product__results th, #product__results td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+#product__results th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#product__results tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#product__results tr:hover {
+    background-color: #ddd;
+}
