@@ -159,11 +159,11 @@
               </tr>
             </thead>
             <tbody>
-              {% for weight in weight_histories %}
+              {% for history in weight_histories %}
               <tr>
                 <th>{{ forloop.counter}}</th>
-                <th>{{ weight.date|date:'Y-m-d' }} </th>
-                <th>{{ weight.weight }} kg.</th>
+                <th>{{ history.date|date:'Y-m-d' }} </th>
+                <th>{{ history.weight }} kg.</th>
               </tr>
                 {% endfor %}
             </tbody>

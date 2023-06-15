@@ -11,6 +11,7 @@ class CommentForm(forms.ModelForm):
                   "user_email": "Your email",
                   "text": "Your comment"}
 
+
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post

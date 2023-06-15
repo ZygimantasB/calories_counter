@@ -24,7 +24,7 @@ body {
 }
 
 #create-post form p {
-    width: 100%;
+    width: 40%;
     padding: 10px;
     box-sizing: border-box;
 }

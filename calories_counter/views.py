@@ -18,7 +18,7 @@ from django.forms.models import inlineformset_factory
 from extra_views import CreateWithInlinesView, InlineFormSetFactory
 
 from .models import Food, UserInformation, BodyCircumferenceMeasurements, WeightHistory
-from .forms import FoodForm, UpdateWeightForm
+from .forms import FoodForm, UpdateWeightForm, BodyCircumferenceMeasurementsForm
 
 from admin_panel_app.models import Quote
 
@@ -147,9 +147,7 @@ class UserInformationCreate(LoginRequiredMixin, CreateView):
 class CreateBodyVolumes(LoginRequiredMixin, CreateView):
     model = BodyCircumferenceMeasurements
     template_name = 'calories_counter/create_body_volumes.html'
-    fields = ['neck_size', 'chest_size', 'waist_size', 'left_bicep_size', 'right_bicep_size', 'left_thigh_size',
-              'left_forearm_size', 'right_forearm_size', 'left_thigh_size', 'right_thigh_size', 'left_calf_size',
-              'right_calf_size']
+    form_class = BodyCircumferenceMeasurementsForm
     success_url = reverse_lazy('user_information')
 
     def form_valid(self, form):

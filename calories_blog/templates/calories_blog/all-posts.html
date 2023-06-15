@@ -6,12 +6,12 @@
   <link rel="stylesheet" href="{% static 'calories_blog/all-posts.css' %}">
 {% endblock %}
 
-{% block title %} All my posts {% endblock %}
+{% block title %} All Users Posts {% endblock %}
 
 {% block content %}
   <div>
     <section id="all-posts">
-      <h2><a href="{% url 'start_page_cal' %}">My Meals</a></h2>
+      <h2><a href="{% url 'start_page_cal' %}">All Posts From Users</a></h2>
       <ul>
         {% for post in all_posts %}
           <li>

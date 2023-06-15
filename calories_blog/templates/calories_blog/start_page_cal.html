@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="{% static 'calories_blog/start_page.css' %}">
 {% endblock %}
 
-{% block title %} Be Healthy start page {% endblock %}
+{% block title %} Last Posts {% endblock %}
 
 {% block content %}
   <div>
@@ -15,11 +15,11 @@
       <img src="{% static 'calories_blog/images/food_logo.jpg' %}" alt="blog img">
       <h2>Be Healthy 🙂</h2>
     </header>
-    <p><i>Information About Food I eat, Be healthy and happy</i><strong>😋😋😋</strong></p>
+    <p>There you see all posts from users you can ask help and help others</p>
   </section>
 
   <section id="latest-posts">
-    <h2><strong>Healthy food I eat</strong></h2>
+    <h2><strong>Last 5 posts</strong></h2>
 
     <ul>
       {% for post in posts %}
