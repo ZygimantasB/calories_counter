@@ -77,3 +77,46 @@ table tbody th, table tbody td {
 table tbody tr:nth-child(even) {
     background: #f2f2f2;
 }
+
+.pagination {
+    display: flex;
+    align-items: center;
+    padding: 20px 0;
+    color: #666;
+}
+
+.pagination .link-step a,
+.pagination a[href*="next"],
+.pagination a[href*="last"] {
+    background-color: #009578;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background 0.3s ease;
+}
+
+.pagination .link-step a:hover,
+.pagination a[href*="next"]:hover,
+.pagination a[href*="last"]:hover {
+    background-color: #00664f;
+}
+
+.pagination .current {
+    font-weight: bold;
+    margin: 0 10px;
+}
+
+.pagination a {
+    background-color: #009578;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-right: 5px;
+    transition: background 0.3s ease;
+}
+
+.pagination a:hover {
+    background-color: #00664f;
+}

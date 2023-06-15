@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views import View
 from django.db.models import Q
 from django.views.generic import FormView
+from django.core.paginator import Paginator
 
 from admin_panel_app.models import ProductInformation
 
@@ -13,8 +14,13 @@ class ProductInformationView(FormView):
     template_name = "food_information_app/product_information.html"
 
     def get(self, request, *args, **kwargs):
+        paginator = Paginator(ProductInformation.objects.all(), 15)
+        page_number = request.GET.get('page')
+        page_object = paginator.get_page(page_number)
+
         context = super().get_context_data(**kwargs)
         context['product_information'] = ProductInformation.objects.all()[:15]
+        context['page_object'] = page_object
         return self.render_to_response(context)
 
     def form_valid(self, form):

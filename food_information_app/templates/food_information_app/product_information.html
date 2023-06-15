@@ -33,7 +33,7 @@
         </tr>
       </thead>
       <tbody>
-      {% for product in product_information %}
+      {% for product in page_object %}
       <tr>
         <th>{{ forloop.counter}}</th>
         <th>{{ product.name }}</th>
@@ -46,6 +46,27 @@
       {% endfor %}
       </tbody>
     </table>
+
+
+  <!-- Pagination -->
+    <div class="pagination">
+    <span class="link-step">
+      {% if page_object.has_previous %}
+        <a href="?page=1">First</a>
+        <a href="?page={{ page_object.previous_page_number }}">Previous</a>
+      {% endif %}
+    </span>
+
+      <span class="current">
+      Page {{ page_object.number }} of {{ page_object.paginator.num_pages }}
+    </span>
+
+      {% if page_object.has_next %}
+        <a href="?page={{ page_object.next_page_number }}">Next</a>
+        <a href="?page={{ page_object.paginator.num_pages }}">Last</a>
+      {% endif %}
+    </div>
+
   </div>
 
 {% endblock %}
