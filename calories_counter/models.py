@@ -57,8 +57,19 @@ class UserInformation(models.Model):
             result = f'BMI: <u><b>{bmi_result}</b></u>, you are <u><b>Obesity</b></u>'
         return result
 
+    def update_weight(self, new_weight):
+        self.weight = new_weight
+        self.save()
+        WeightHistory.objects.create(user_information=self, weight=new_weight)
+
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
+
+
+class WeightHistory(models.Model):
+    user_information = models.ForeignKey(UserInformation, on_delete=models.CASCADE, related_name='weight_histories')
+    date = models.DateField(auto_now_add=True)
+    weight = models.FloatField()
 
 
 class BodyCircumferenceMeasurements(models.Model):

@@ -2,11 +2,12 @@ import os
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, reverse
 from django.urls import reverse_lazy
 from django.views import View
 from django.core.paginator import Paginator
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.http import HttpResponseRedirect
 from django.db.models import Sum, DecimalField
 from django.db.models.functions import Coalesce
 
@@ -16,8 +17,8 @@ from django.forms.models import inlineformset_factory
 
 from extra_views import CreateWithInlinesView, InlineFormSetFactory
 
-from .models import Food, UserInformation, BodyCircumferenceMeasurements
-from .forms import FoodForm
+from .models import Food, UserInformation, BodyCircumferenceMeasurements, WeightHistory
+from .forms import FoodForm, UpdateWeightForm
 
 from admin_panel_app.models import Quote
 
@@ -103,15 +104,33 @@ class FoodCreate(LoginRequiredMixin, CreateView):
 
 class UserInformationView(LoginRequiredMixin, View):
     def get(self, request):
-
         user_information = UserInformation.objects.filter(user=request.user).first()
 
-        paginator = Paginator(BodyCircumferenceMeasurements.objects.filter(user=request.user).order_by('-date'), 5)
+        weight_histories = WeightHistory.objects.filter(user_information=user_information).order_by('-date')
+        paginator_weight_histories = Paginator(weight_histories, 5)
         page = request.GET.get('page')
-        body_volumes = paginator.get_page(page)
+        weight_histories = paginator_weight_histories.get_page(page)
 
-        return render(request, "calories_counter/user_information.html", {'user_information': user_information,
-                                                                          'body_volumes': body_volumes, })
+        paginator_measurements = Paginator(BodyCircumferenceMeasurements.objects.filter(user=request.user).order_by('-date'), 5)
+        page = request.GET.get('page')
+        body_volumes = paginator_measurements.get_page(page)
+
+        context = {
+            'user_information': user_information,
+            'body_volumes': body_volumes,
+            'form': UpdateWeightForm(),
+            'weight_histories': weight_histories,
+        }
+
+        return render(request, "calories_counter/user_information.html", context)
+
+    def post(self, request):
+        user_information = UserInformation.objects.filter(user=request.user).first()
+        form = UpdateWeightForm(request.POST)
+        if form.is_valid():
+            new_weight = form.cleaned_data['new_weight']
+            user_information.update_weight(new_weight)
+        return redirect('user_information')
 
 
 class UserInformationCreate(LoginRequiredMixin, CreateView):

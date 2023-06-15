@@ -17,3 +17,5 @@ class FoodForm(forms.ModelForm):
         fields = ['then_eaten', 'food_name', 'calories', 'protein', 'fat', 'carbs', 'weight_measure', 'date']
 
 
+class UpdateWeightForm(forms.Form):
+    new_weight = forms.DecimalField(max_digits=5, decimal_places=2)

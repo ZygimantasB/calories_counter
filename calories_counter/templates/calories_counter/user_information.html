@@ -120,7 +120,7 @@
         </tbody>
       </table>
 
-      <div class="pagination">
+      <div class="pagination_measurements">
         <span class="step-links">
             {% if body_volumes.has_previous %}
               <a href="?page=1">&laquo; first</a>
@@ -139,6 +139,56 @@
       </div>
 
       <a type="button" class="btn btn-primary add__body__volumes_anchor_tag" href="{% url 'create_body_volumes' %}">Add Body Volumes</a>
+
+      <div class="weight-table-view">
+
+        <h2>Weight History:</h2>
+        <form method="post">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button type="submit">Update weight</button>
+        </form>
+
+        <div class="updated-user-weight">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Date</th>
+                <th>Weight</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for weight in weight_histories %}
+              <tr>
+                <th>{{ forloop.counter}}</th>
+                <th>{{ weight.date|date:'Y-m-d' }} </th>
+                <th>{{ weight.weight }} kg.</th>
+              </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+      <div class="pagination-weight-history">
+        <span class="step-links">
+            {% if weight_histories.has_previous %}
+              <a href="?page=1">&laquo; first</a>
+              <a href="?page={{ weight_histories.previous_page_number }}">previous</a>
+            {% endif %}
+
+          <span class="current">
+                Page {{ weight_histories.number }} of {{ weight_histories.paginator.num_pages }}.
+            </span>
+
+          {% if weight_histories.has_next %}
+            <a href="?page={{ weight_histories.next_page_number }}">next</a>
+            <a href="?page={{ weight_histories.paginator.num_pages }}">last &raquo;</a>
+          {% endif %}
+        </span>
+      </div>
 
     </div>
 
