@@ -152,20 +152,22 @@
         <div class="updated-user-weight">
           <table>
             <thead>
-              <tr>
-                <th>#</th>
-                <th>Date</th>
-                <th>Weight</th>
-              </tr>
+            <tr>
+              <th>#</th>
+              <th>Date</th>
+              <th>Weight</th>
+              <th>Loose/Gain</th>
+              <th>Percentage</th>
+            </tr>
             </thead>
             <tbody>
-              {% for history in weight_histories %}
+            {% for history in weight_histories %}
               <tr>
-                <th>{{ forloop.counter}}</th>
-                <th>{{ history.date|date:'Y-m-d' }} </th>
+                <th>{{ forloop.counter }}</th>
+                <th>{{ history.date|date:'Y-m-d' }}</th>
                 <th>{{ history.weight }} kg.</th>
               </tr>
-                {% endfor %}
+            {% endfor %}
             </tbody>
           </table>
         </div>
@@ -190,6 +192,10 @@
         </span>
       </div>
 
+    </div>
+
+    <div class="Running History">
+      <h1>Running History</h1>
     </div>
 
   </div>

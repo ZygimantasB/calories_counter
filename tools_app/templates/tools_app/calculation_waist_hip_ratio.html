@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css_files %}
+  <link rel="stylesheet" href="{% static 'tools_app/calculation_waist_hip_ratio.css' %}">
+{% endblock %}
+
+{% block title %}
+  Waist Hip Ration Calculator
+{% endblock %}
+
+{% block content %}
+
+  <div class="waist-hip-calculator">
+    <img class="waist-hip-image" src="{% static '/images/waist-hip-ratio.png' %}" alt="waist-hip-calculator">
+    <form action="" method="post">
+      {% csrf_token %}
+      <div class="form-group">
+        <div class="gender-group">
+          {% for choice in form.gender %}
+            {{ choice.tag }} <label>{{ choice.choice_label }}</label>
+            <span class="checkmark"></span>
+          {% endfor %}
+        </div>
+        <p>Waist {{ form.waist }}</p>
+        <p>Hip {{ form.hip }}</p>
+        <button type="submit">Calculate</button>
+      </div>
+    </form>
+    <div class="result">
+      {% if result %}
+        <p>{{ result }}</p>
+      {% endif %}
+    </div>
+    <div class="risk-table">
+      <table>
+        <thead>
+        <tr>
+          <th></th>
+          <th>Low Risk</th>
+          <th>High risk</th>
+          <th>Increased Higher risk</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <th>Men</th>
+          <th>< 94 cm</th>
+          <th>94 - 99 cm</th>
+          <th>>100 cm</th>
+        </tr>
+        <tr>
+          <th>Women</th>
+          <th>< 80 cm</th>
+          <th> 80 - 89 cm</th>
+          <th>> 90 cm</th>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+{% endblock %}

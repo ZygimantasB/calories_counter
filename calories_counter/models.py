@@ -71,6 +71,9 @@ class WeightHistory(models.Model):
     date = models.DateField(auto_now_add=True)
     weight = models.FloatField()
 
+    def __str__(self):
+        return f"{self.user_information.first_name} {self.user_information.last_name} - {self.date}"
+
 
 class BodyCircumferenceMeasurements(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)

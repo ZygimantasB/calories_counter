@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'calories_blog',
     'admin_panel_app',
     'food_information_app',
+    'tools_app',
 ]
 
 MIDDLEWARE = [

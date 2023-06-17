@@ -110,6 +110,17 @@
         {% endif %}
       </li>
 
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+           aria-haspopup="true" aria-expanded="false">
+          Tools
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{% url 'calculate_bmi' %}">BMI Calculator</a>
+          <a class="dropdown-item" href="{% url 'calculate_waist_hip_ratio' %}">Waist Hip Ratio Calculator</a>
+        </div>
+      </li>
+
     </ul>
   </div>
 </nav>

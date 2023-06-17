@@ -120,6 +120,7 @@ class UserInformationView(LoginRequiredMixin, View):
             'body_volumes': body_volumes,
             'form': UpdateWeightForm(),
             'weight_histories': weight_histories,
+
         }
 
         return render(request, "calories_counter/user_information.html", context)

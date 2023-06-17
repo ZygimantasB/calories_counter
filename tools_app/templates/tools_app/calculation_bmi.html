@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css_files %}
+  <link rel="stylesheet" href="{% static 'tools_app/calculation_bmi.css' %}">
+{% endblock %}
+
+{% block title %}
+  Calculation Tools
+{% endblock %}
+
+{% block content %}
+  <div class="bmi-calculator">
+    <h1>BMI Calculator</h1>
+    <form action="" method="post">
+      {% csrf_token %}
+      <p>Height {{ form.height }} cm. </p>
+      <p>Weight {{ form.weight }} kg. </p>
+      <button type="submit">Calculate</button>
+    </form>
+    <div class="result">
+      {% if bmi_result %}
+        <p>Your BMI is: {{ bmi_result|safe }}</p>
+      {% endif %}
+    </div>
+    
+  <div class="bmi-table">
+    <table>
+      <thead>
+        <tr>
+          <th>Underweight</th>
+          <th>Healthy</th>
+          <th>Overweight</th>
+          <th>Obese</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>< 18.5</th>
+          <th>18.5 - 24.9</th>
+          <th>25.0 - 29.9</th>
+          <th>> 29.9</th>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  </div>
+{% endblock %}
