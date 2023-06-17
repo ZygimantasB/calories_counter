@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css_files %}
+  <link rel="stylesheet" href="{% static 'tools_app/calculation_daily_calories.css' %}">
+{% endblock%}
+
+{% block title %}
+  Daily calories
+{% endblock %}
+
+{% block content %}
+  <div class="daily-calories-counter">
+  <h1>How Many Calories Should You Eat?</h1>
+  <h3>Find out how many calories you should eat to lose, maintain or gain weight.</h3>
+    <form action="" method="post">
+      {% csrf_token %}
+      <div class="gender-group">
+        {% for choice in form.gender %}
+          {{ choice.tag }} <label>{{ choice.choice_label }}</label>
+        {% endfor %}
+      </div>
+      <div class="activity-group">
+        {% for choice in form.activity_level %}
+          {{ choice.tag }} <label>{{ choice.choice_label }}</label>
+        {% endfor %}
+      </div>
+      <p>Age {{ form.age }}</p>
+      <p>Weight {{ form.weight_kg }}</p>
+      <p>height {{ form.height_cm }}</p>
+      <button type="submit">Calculate</button>
+    </form>
+    <div class="daily-calories-result">
+      {% if daily_calories %}
+        <p>For the day you will need: <b><i>{{ daily_calories }}</i></b> calc</p>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}

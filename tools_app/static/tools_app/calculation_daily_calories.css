@@ -1,0 +1,84 @@
+body {
+    font-family: 'Helvetica Neue', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+    color: #212529;
+}
+
+.daily-calories-counter {
+    max-width: 550px;
+    margin: auto;
+    padding: 20px;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+    background-color: white;
+    margin-top: 30px;
+    border-radius: 5px;
+    border-left: 5px solid #0d6efd;
+}
+
+.daily-calories-counter h1 {
+    font-size: 2rem;
+    color: #0d6efd;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.daily-calories-counter h3 {
+    font-size: 1.25rem;
+    color: #6c757d;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+form {
+    display: grid;
+    grid-gap: 1.5rem;
+}
+
+.gender-group, .activity-group {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.gender-group label, .activity-group label {
+    display: flex;
+    align-items: center;
+    margin: 0.5rem;
+    cursor: pointer;
+}
+
+.gender-group input, .activity-group input {
+    margin-right: 0.5rem;
+}
+
+form p {
+    margin-bottom: 0.25rem;
+}
+
+button {
+    padding: 0.5rem 1rem;
+    border: none;
+    background-color: #0d6efd;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1rem;
+    margin-top: 1rem;
+    cursor: pointer;
+    border-radius: 0.25rem;
+    transition: all 0.2s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.daily-calories-result {
+    margin-top: 20px;
+    font-size: 1.5rem;
+    text-align: center;
+    color: #198754;
+}
