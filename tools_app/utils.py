@@ -1,6 +1,5 @@
-def calculate_calories_burned(activity, weight_kg, duration_minutes):
-    # MET values obtained from https://www.health.harvard.edu/diet-and-weight-loss/calories-burned-in-30-minutes-of-leisure-and-routine-activities
-    met_values = {
+class HealthCalculator:
+    MET_VALUES = {
         'sleeping': 0.9,
         'watching TV': 1,
         'writing, desk work, typing': 1.8,
@@ -12,16 +11,68 @@ def calculate_calories_burned(activity, weight_kg, duration_minutes):
         'running, 16.09 kph (3.7 min km)': 16
     }
 
-    print(f"Activity received: {activity}")
-    print(f"Activity received: {weight_kg}")
+    ACTIVITY_FACTORS = {
+        'sedentary': 1.2,
+        'lightly_active': 1.375,
+        'moderately_active': 1.55,
+        'very_active': 1.725,
+        'extra_active': 1.9
+    }
 
-    if activity not in met_values:
-        return "Invalid activity. Please choose an activity from the list of available activities."
+    def bmi_calculator(self, weight_kg, height_cm):
+        bmi = round((weight_kg / height_cm / height_cm) * 10_000, 2)
+        if bmi < 18.5:
+            bmi_result = f'BMI: <u><b>{bmi}</b></u>, you are <u><b>Underweight</b></u>'
+        elif bmi < 24.9:
+            bmi_result = f'BMI: <u><b>{bmi}</b></u>, you are <u><b>Healthy Weight</b></u>'
+        elif bmi < 29.9:
+            bmi_result = f'BMI: <u><b>{bmi}</b></u>, you are <u><b>Overweight</b></u>'
+        else:
+            bmi_result = f'BMI: <u><b>{bmi}</b></u>, you are <u><b>Obesity</b></u>'
+        return bmi_result
 
-    met = met_values[activity]
-    calories_per_minute = met * weight_kg * 3.5 / 200
-    calories_burned = round(calories_per_minute * duration_minutes, 2)
-    return calories_burned
+    def calculate_calories_burned(self, activity, weight_kg, duration_minutes):
+        if activity not in self.MET_VALUES:
+            return "Invalid activity. Please choose an activity from the list of available activities."
 
+        met = self.MET_VALUES[activity]
+        calories_per_minute = met * weight_kg * 3.5 / 200
+        calories_burned = round(calories_per_minute * duration_minutes, 2)
+        return calories_burned
 
-print(calculate_calories_burned(80, 'sleeping', 30))
+    def basal_metabolic_rate(self, gender, weight_kg, height_cm, age):
+        bmr = 0
+        if gender == 'male':
+            bmr = 10 * weight_kg + 6.25 * height_cm - 5 * age + 5
+        elif gender == 'female':
+            bmr = 10 * weight_kg + 6.25 * height_cm - 5 * age - 161
+        return abs(bmr)
+
+    def daily_calories(self, bmr, activity_level):
+        activity_factor = 0
+        if activity_level not in self.ACTIVITY_FACTORS:
+            return "Invalid activity level. Please choose an activity level from the list of available activity levels."
+        activity_factor = self.ACTIVITY_FACTORS[activity_level]
+        daily_calories = abs(round(bmr * activity_factor, 2))
+        return daily_calories
+
+    def wait_hip_ratio(self, waist, hip, gender):
+        waist_hip_ratio = waist / hip
+        waist_hip_ratio = round(waist_hip_ratio * 100, 2)
+        result = ''
+        match gender:
+            case 'male':
+                if waist_hip_ratio < 94:
+                    result = f"Your waist ratio is {waist_hip_ratio}, you are at Low Risk"
+                elif 94 <= waist_hip_ratio <= 99:
+                    result = f"Your waist ratio is {waist_hip_ratio}, you are at High Risk"
+                else:
+                    result = f"Your waist ratio is {waist_hip_ratio}, you are at Increased Higher Risk"
+            case 'female':
+                if waist_hip_ratio <= 80:
+                    result = f"Your waist ratio is {waist_hip_ratio}, you are at Low Risk"
+                elif 81 < waist_hip_ratio <= 89:
+                    result = f"Your waist ratio is {waist_hip_ratio}, you are at High Risk"
+                else:
+                    result = f"Your waist ratio is {waist_hip_ratio}, you are at Increased Higher Risk"
+        return result

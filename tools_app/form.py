@@ -32,3 +32,10 @@ class BurnedCaloriesForm(forms.Form):
     weight_kg = forms.FloatField(label='Weight in kg')
     duration_minutes = forms.IntegerField(label="Duration in min", help_text='Duration in minutes')
     activity = forms.ChoiceField(choices=CALORIES_BURNED, label='Activity Level')
+
+
+class BasalMetabolicRateForm(forms.Form):
+    weight_kg = forms.FloatField(label='Weight in kg')
+    height_cm = forms.FloatField(label="Height in cm")
+    age = forms.IntegerField(label='Age')
+    gender = forms.ChoiceField(choices=GENDER, widget=forms.RadioSelect, label='Gender')

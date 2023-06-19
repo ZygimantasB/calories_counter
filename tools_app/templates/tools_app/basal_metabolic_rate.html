@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css_files %}
+  <link rel="stylesheet" href="{% static 'tools_app/basal_metabolic_rate.css' %}">
+{% endblock %}
+
+{% block title %}
+  Basal Metabolic Rate
+{% endblock %}
+
+{% block content %}
+  <div id="basal-metabolic-rate">
+    <img src="{% static 'images/bmr_calculator.jpg' %}" alt="bmr-calculator">
+    <form action="" method="post">
+    {% csrf_token %}
+      <div class="gender-group">
+        {% for choice in form.gender %}
+          {{ choice.tag }} <label>{{ choice.choice_label }}</label>
+        {% endfor %}
+      </div>
+      <p>Enter your age: {{ form.age }}</p>
+      <p>Enter your weight: {{ form.weight_kg }} kg.</p>
+      <p>Enter your height: {{ form.height_cm }} cm.</p>
+      <button type="submit">Calculate</button>
+    </form>
+    <div class="bmr-result">
+      {% if bmr_result %}
+        <p>Your BMR is {{ bmr_result }} calories per day.</p>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}
