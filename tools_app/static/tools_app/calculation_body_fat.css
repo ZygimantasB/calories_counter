@@ -1,0 +1,57 @@
+:root {
+    --primary-color: #4a148c;
+    --secondary-color: #ff6f00;
+}
+
+#body-fat-calculate {
+    max-width: 600px;
+    margin: 0 auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#body-fat-calculate img {
+    width: 100%;
+}
+
+.gender-group {
+    display: flex;
+}
+
+.gender-group label {
+    margin-right: 10px;
+}
+
+form p {
+    margin-bottom: 10px;
+}
+
+form input[type="number"] {
+    padding: 5px;
+}
+
+form button[type="submit"] {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+form button[type="submit"]:hover {
+    background-color: var(--secondary-color);
+}
+
+.body-fat-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.body-fat-table th,
+.body-fat-table td {
+    text-align: left;
+    padding: 8px;
+}
+
+.body-fat-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}

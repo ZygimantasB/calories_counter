@@ -7,4 +7,5 @@ urlpatterns = [
     path("tool/calculate_daily_calories/", views.CalculateDailyCalories.as_view(), name="calculate_daily_calories"),
     path("tool/calculate_burned_calories/", views.CalculateBurnedCalories.as_view(), name="calculate_burned_calories"),
     path("tool/calculate_basal_metabolic_rate/", views.BasalMetabolicRate.as_view(), name="basal_metabolic_rate"),
+    path("tool/calculate_ideal_body_weight/", views.CalculateBodyFat.as_view(), name="calculate_body_fat"),
 ]

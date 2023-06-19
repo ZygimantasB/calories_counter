@@ -39,3 +39,12 @@ class BasalMetabolicRateForm(forms.Form):
     height_cm = forms.FloatField(label="Height in cm")
     age = forms.IntegerField(label='Age')
     gender = forms.ChoiceField(choices=GENDER, widget=forms.RadioSelect, label='Gender')
+
+
+class BodyFatForm(forms.Form):
+    weight_kg = forms.FloatField(label='Weight in kg')
+    height_cm = forms.FloatField(label="Height in cm")
+    waist_cm = forms.FloatField(label="Waist in cm")
+    neck_cm = forms.FloatField(label="Neck in cm")
+    hip_cm = forms.FloatField(label="Hip in cm", required=False)
+    gender = forms.ChoiceField(choices=GENDER, widget=forms.RadioSelect, label='Gender')

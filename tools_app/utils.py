@@ -1,3 +1,6 @@
+from math import log10
+
+
 class HealthCalculator:
     MET_VALUES = {
         'sleeping': 0.9,
@@ -76,3 +79,25 @@ class HealthCalculator:
                 else:
                     result = f"Your waist ratio is {waist_hip_ratio}, you are at Increased Higher Risk"
         return result
+
+    def calculate_body_fat_percentage(self, gender, weight_kg, height_cm, waist_cm, neck_cm, hip_cm=None):
+        weight_lb = weight_kg * 2.20462
+        height_in = height_cm * 0.393701
+        waist_in = waist_cm * 0.393701
+        neck_in = neck_cm * 0.393701
+        hip_in = None
+        if hip_cm:
+            hip_in = hip_cm * 0.393701
+
+        body_fat_percentage = 0
+        if waist_in <= neck_in:
+            raise ValueError("Waist measurement must be greater than neck measurement.")
+
+        match gender:
+            case 'male':
+                body_fat_percentage = 86.010 * log10(waist_in - neck_in) - 70.041 * log10(height_in) + 36.76
+            case 'female':
+                body_fat_percentage = 163.205 * log10(waist_in + hip_in - neck_in) - 97.684 * log10(height_in) - 78.387
+            case _:
+                return 'You entered wrong information. Please try again.'
+        return round(body_fat_percentage, 2)

@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css_files %}
+  <link rel="stylesheet" href="{% static 'tools_app/calculation_body_fat.css' %}">
+{% endblock %}
+
+{% block title %}
+  Calculate Body Fat
+{% endblock %}
+
+{% block content %}
+  <div id="body-fat-calculate">
+    <img src="{% static 'images/calculate_body_fat.jpg' %}" alt="">
+    <form action="" method="post">
+    {% csrf_token %}
+      <div class="gender-group">
+        {% for choice in form.gender %}
+          {{ choice.tag }} <label>{{ choice.choice_label }}</label>
+        {% endfor %}
+      </div>
+      <p>Weight kg: {{ form.weight_kg }}</p>
+      <p>Height cm {{ form.height_cm }}</p>
+      <p>Waist cm {{ form.waist_cm }}</p>
+      <p>Neck cm {{ form.neck_cm }}</p>
+      <p>Hip cm {{ form.hip_cm }} (Only For Female)</p>
+      <p></p>
+    <button type="submit">Calculate</button>
+    </form>
+
+    {% if body_fat_result %}
+      <p>Your body fat {{ body_fat_result }} %</p>
+    {% endif %}
+
+    <div class="body-fat-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Classification</th>
+            <th>Women (%)</th>
+            <th>Men (%)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Essential Fat</td>
+            <td>10-12%</td>
+            <td>2-4%</td>
+          </tr>
+          <tr>
+            <td>Athletes</td>
+            <td>14-20%</td>
+            <td>6-13%</td>
+          </tr>
+          <tr>
+            <td>Fitness</td>
+            <td>21-24%</td>
+            <td>14-17%</td>
+          </tr>
+          <tr>
+            <td>Acceptable</td>
+            <td>25-31%</td>
+            <td>18-25%</td>
+          </tr>
+          <tr>
+            <td>Obese</td>
+            <td>32%+</td>
+            <td>25%+</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+{% endblock %}

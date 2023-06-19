@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views import View
 
-from .form import BMIForm, WaitHipRatioForm, DailyCaloriesForm, BurnedCaloriesForm, BasalMetabolicRateForm
+from .form import BMIForm, WaitHipRatioForm, DailyCaloriesForm, BurnedCaloriesForm, BasalMetabolicRateForm, BodyFatForm
 
 from .utils import HealthCalculator
 
@@ -110,13 +110,35 @@ class BasalMetabolicRate(View):
             age = form.cleaned_data['age']
             gender = form.cleaned_data['gender']
 
-            print(f"Weight: {weight_kg} height_cm {height_cm} age {age} gender {gender}")
-
             bmr_result = health_calculator.basal_metabolic_rate(gender, weight_kg, height_cm, age)
 
-            print(f"BMR Result: {bmr_result}")
             return render(request, self.template_name, {'form': form,
                                                         'bmr_result': bmr_result})
         else:
             return render(request, self.template_name, {'form': form})
 
+
+class CalculateBodyFat(View):
+    template_name = "tools_app/calculation_body_fat.html"
+
+    def get(self, request):
+        form = BodyFatForm()
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request):
+        form = BodyFatForm(request.POST)
+        if form.is_valid():
+            weight_kg = form.cleaned_data['weight_kg']
+            height_cm = form.cleaned_data['height_cm']
+            waist_cm = form.cleaned_data['waist_cm']
+            neck_cm = form.cleaned_data['neck_cm']
+            gender = form.cleaned_data['gender']
+            hip_cm = 0 if gender == 'male' else form.cleaned_data['hip_cm']
+
+            body_fat_result = health_calculator.calculate_body_fat_percentage(gender, weight_kg, height_cm,
+                                                                              waist_cm, neck_cm, hip_cm)
+
+            return render(request, self.template_name, {'form': form,
+                                                        'body_fat_result': body_fat_result})
+        else:
+            return render(request, self.template_name, {'form': form})
