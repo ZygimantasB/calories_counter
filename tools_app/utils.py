@@ -2,6 +2,9 @@ from math import log10
 
 
 class HealthCalculator:
+    """
+    Statless Class recomended if I don't need to store any state in the object.
+    """
     MET_VALUES = {
         'sleeping': 0.9,
         'watching TV': 1,
@@ -23,6 +26,12 @@ class HealthCalculator:
     }
 
     def bmi_calculator(self, weight_kg, height_cm):
+        """
+        Calculates BMI
+        :param weight_kg:
+        :param height_cm:
+        :return:
+        """
         bmi = round((weight_kg / height_cm / height_cm) * 10_000, 2)
         if bmi < 18.5:
             bmi_result = f'BMI: <u><b>{bmi}</b></u>, you are <u><b>Underweight</b></u>'
@@ -90,6 +99,7 @@ class HealthCalculator:
             hip_in = hip_cm * 0.393701
 
         body_fat_percentage = 0
+
         if waist_in <= neck_in:
             raise ValueError("Waist measurement must be greater than neck measurement.")
 
