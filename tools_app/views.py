@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django.views import View
 
-from .form import BMIForm, WaitHipRatioForm, DailyCaloriesForm
+from .form import BMIForm, WaitHipRatioForm, DailyCaloriesForm, BurnedCaloriesForm
+
+from .utils import calculate_calories_burned
 
 # Create your views here.
 
@@ -108,3 +110,26 @@ class CalculateDailyCalories(View):
                                                         'activity_factor': activity_factor,
                                                         'daily_calories': daily_calories, })
         return render(request, self.template_name, {'form': form})
+
+
+class CalculateBurnedCalories(View):
+    template_name = "tools_app/calculation_burned_calories.html"
+
+    def get(self, request):
+        form = BurnedCaloriesForm()
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request):
+        form = BurnedCaloriesForm(request.POST)
+        if form.is_valid():
+            weight_kg = form.cleaned_data['weight_kg']
+            duration_minutes = form.cleaned_data['duration_minutes']
+            activity = form.cleaned_data['activity']
+
+            print(f"Form data received: Weight - {weight_kg}, Activity - {activity}, Duration - {duration_minutes}")
+            calories_burned = calculate_calories_burned(activity, weight_kg, duration_minutes)
+            return render(request, self.template_name, {'form': form,
+                                                        'calories_burned': calories_burned})
+        else:
+            return render(request, self.template_name, {'form': form})
+

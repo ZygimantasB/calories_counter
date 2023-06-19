@@ -2,6 +2,7 @@ from django import forms
 
 from CONSTATNS.gender import GENDER
 from CONSTATNS.activity_level import ACTIVITY
+from CONSTATNS.burned_calories import CALORIES_BURNED
 
 
 class BMIForm(forms.Form):
@@ -25,3 +26,9 @@ class DailyCaloriesForm(forms.Form):
     age = forms.IntegerField(label='Age')
     gender = forms.ChoiceField(choices=GENDER, widget=forms.RadioSelect, label='Gender')
     activity_level = forms.ChoiceField(choices=ACTIVITY, widget=forms.RadioSelect, label='Activity Level')
+
+
+class BurnedCaloriesForm(forms.Form):
+    weight_kg = forms.FloatField(label='Weight in kg')
+    duration_minutes = forms.IntegerField(label="Duration in min", help_text='Duration in minutes')
+    activity = forms.ChoiceField(choices=CALORIES_BURNED, label='Activity Level')

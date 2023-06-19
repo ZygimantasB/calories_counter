@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css_files %}
+  <link rel="stylesheet" href="{% static 'tools_app/calculation_burned_calories.css' %}">
+{% endblock %}
+
+{% block title %}
+  Calories Burned Today
+{% endblock %}
+
+{% block content %}
+  <div id="calories-burned-today">
+    <form action="" method="post">
+      {% csrf_token %}
+      <img src="{% static 'images/calories_burn.jpg' %}" alt="">
+      <p>{{ form.activity }}</p>
+      <p>Enter Weight: {{ form.weight_kg }}</p>
+      <p>Enter duration in minutes: {{ form.duration_minutes }}</p>
+      <button type="submit">Calculate</button>
+    </form>
+    <div class="calories-burned-result">
+      {% if calories_burned %}
+        <p>You Burner calories {{ calories_burned }} cal</p>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}
