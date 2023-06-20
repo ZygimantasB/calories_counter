@@ -30,6 +30,7 @@ class HealthCalculator:
     def validate_weight(weight_kg: float) -> None:
         """
         Validates weight input
+        :param weight_kg: weight in kg
         """
         if weight_kg <= 0:
             raise ValueError("Your are in space ? Please enter a positive number for weight.")
@@ -40,15 +41,30 @@ class HealthCalculator:
     def validate_height(height_cm: float) -> None:
         """
         Validates height input
+        :param height_cm: height in cm
         """
         if height_cm <= 0:
             raise ValueError("Your are in space ?  Please enter a positive number for height.")
         elif height_cm > 272:
             raise ValueError("Enter realistic number. Tallest person in the world was Robert Wadlow 272 cm.")
 
+    @staticmethod
+    def validate_duration_minutes(duration_minutes: int) -> None:
+        """
+        Validates duration input
+        :param duration_minutes: duration in minutes
+        """
+        if duration_minutes <= 0:
+            raise ValueError("Invalid input. Please enter a positive number for duration.")
+        elif duration_minutes > 1440:
+            raise ValueError("Enter realistic number.")
+
     def bmi_calculator(self, weight_kg: float, height_cm: float) -> str:
         """
         Calculates BMI (Body Mass Index) based on weight and height.
+        :param weight_kg: weight in kg
+        :param height_cm: height in cm
+        :return: BMI result
         """
         self.validate_weight(weight_kg)
         self.validate_height(height_cm)
@@ -65,9 +81,17 @@ class HealthCalculator:
             bmi_result = f'BMI: <u><b>{bmi}</b></u>, you are <u><b>Obesity</b></u>'
         return bmi_result
 
-    def calculate_calories_burned(self, activity, weight_kg, duration_minutes):
-        if activity not in self.MET_VALUES:
-            return "Invalid activity. Please choose an activity from the list of available activities."
+    def calculate_calories_burned(self, activity: str, weight_kg: float, duration_minutes: int) -> float:
+        """
+        Calculates calories burned based on activity, weight and duration.
+        :param activity:
+        :param weight_kg:
+        :param duration_minutes:
+        :return: calories_burned
+        """
+
+        self.validate_weight(weight_kg)
+        self.validate_duration_minutes(duration_minutes)
 
         met = self.MET_VALUES[activity]
         calories_per_minute = met * weight_kg * 3.5 / 200

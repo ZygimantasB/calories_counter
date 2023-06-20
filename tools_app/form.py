@@ -16,7 +16,8 @@ class BMIForm(forms.Form):
             if weight_kg <= 0:
                 raise forms.ValidationError("Invalid input. Please enter a positive number for weight.")
             elif weight_kg > 635:
-                raise forms.ValidationError("Enter realistic number. Heaviest person in the world was Jon Brower Minnoch 635 kg")
+                raise forms.ValidationError("Enter realistic number. Heaviest person in the world was "
+                                            "Jon Brower Minnoch 635 kg")
         return weight_kg
 
     def clean_height_cm(self):
@@ -25,7 +26,8 @@ class BMIForm(forms.Form):
             if height_cm <= 0:
                 raise forms.ValidationError("Invalid input. Please enter a positive number for height.")
             elif height_cm > 272:
-                raise forms.ValidationError("Enter realistic number. Tallest person in the world was Robert Wadlow 272 cm.")
+                raise forms.ValidationError("Enter realistic number. Tallest person in the world was "
+                                            "Robert Wadlow 272 cm.")
         return height_cm
 
 

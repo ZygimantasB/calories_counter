@@ -5,6 +5,36 @@ from .form import BMIForm
 # Create your tests here.
 
 
+# Test Functions in HealthCalculator class for validation
+
+
+class ValidateDurationMinutes(TestCase):
+
+        def setUp(self):
+            self.calculator = HealthCalculator()
+
+        def test_validate_duration_minutes_negative(self):
+            """
+            Test validate duration minutes negative
+            """
+            with self.assertRaises(ValueError):
+                self.calculator.validate_duration_minutes(-50)
+
+        def test_validate_duration_minutes_zero(self):
+            """
+            Test validate duration minutes zero
+            """
+            with self.assertRaises(ValueError):
+                self.calculator.validate_duration_minutes(0)
+
+        def test_validate_duration_minutes_boundaries_positive(self):
+            """
+            Test validate duration minutes boundaries positive
+            """
+            with self.assertRaises(ValueError):
+                self.calculator.validate_duration_minutes(1441)
+
+
 class ValidateWeightTest(TestCase):
 
     def setUp(self):
@@ -59,7 +89,43 @@ class ValidateHeightTest(TestCase):
             self.calculator.validate_height(273)
 
 
-class HealthCalculatorTest(TestCase):
+# Test Functions in HealthCalculator class
+
+class CalculateCaloriesBurned(TestCase):
+
+    def setUp(self) -> None:
+        self.calculator = HealthCalculator()
+
+    def test_calculate_calories_burned_weight_negative(self):
+        """
+        Test calculate calories burned negative weight
+        """
+        with self.assertRaises(ValueError):
+            self.calculator.calculate_calories_burned("Sleeping", -50, 50)
+
+    def test_calculate_calories_burned_weight_zero(self):
+        """
+        Test calculate calories burned zero weight
+        """
+        with self.assertRaises(ValueError):
+            self.calculator.calculate_calories_burned("Sleeping", 0, 50)
+
+    def test_calculate_calories_burned_duration_minutes_negative(self):
+        """
+        Test calculate calories burned negative duration minutes
+        """
+        with self.assertRaises(ValueError):
+            self.calculator.calculate_calories_burned("Sleeping", 50, -50)
+
+    def test_calculate_calories_burned_duration_minutes_zero(self):
+        """
+        Test calculate calories burned zero duration minutes
+        """
+        with self.assertRaises(ValueError):
+            self.calculator.calculate_calories_burned("Sleeping", 50, 0)
+
+
+class BMICalculatorTest(TestCase):
     def setUp(self):
         self.calculator = HealthCalculator()
 

@@ -20,7 +20,7 @@ class CalculateBMI(View):
         form = BMIForm()
         return render(request, self.template_name, {'form': form})
 
-    def post(self, request):
+    def post(self, request) -> render:
         form = BMIForm(request.POST)
         error_message = None
         if form.is_valid():
@@ -89,24 +89,36 @@ class CalculateDailyCalories(View):
 
 
 class CalculateBurnedCalories(View):
+    """
+    This view is for calculating burned calories for a given activity.
+    """
     template_name = "tools_app/calculation_burned_calories.html"
 
-    def get(self, request):
+    def get(self, request) -> render:
         form = BurnedCaloriesForm()
         return render(request, self.template_name, {'form': form})
 
-    def post(self, request):
+    def post(self, request) -> render:
         form = BurnedCaloriesForm(request.POST)
+        error_message = None
         if form.is_valid():
             weight_kg = form.cleaned_data['weight_kg']
             duration_minutes = form.cleaned_data['duration_minutes']
             activity = form.cleaned_data['activity']
 
-            calories_burned = health_calculator.calculate_calories_burned(activity, weight_kg, duration_minutes)
+            try:
+                calories_burned = health_calculator.calculate_calories_burned(activity, weight_kg, duration_minutes)
+            except ValueError as error_msg:
+                error_message = str(error_msg)
+                calories_burned = None
+
             return render(request, self.template_name, {'form': form,
-                                                        'calories_burned': calories_burned})
+                                                        'calories_burned': calories_burned,
+                                                        'error_message': error_message})
         else:
-            return render(request, self.template_name, {'form': form})
+            error_message = form.errors
+            return render(request, self.template_name, {'form': form,
+                                                        'error_message': error_message})
 
 
 class BasalMetabolicRate(View):
