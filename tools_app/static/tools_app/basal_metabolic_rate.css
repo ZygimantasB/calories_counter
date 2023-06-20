@@ -5,7 +5,7 @@ body {
     padding: 0;
 }
 
-#body-fat-calculate {
+#basal-metabolic-rate {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
@@ -14,23 +14,30 @@ body {
     box-shadow: 0 5px 10px rgba(0,0,0,0.1);
 }
 
-#body-fat-calculate img {
+#basal-metabolic-rate img {
     width: 100%;
     object-fit: cover;
     border-radius: 10px;
 }
 
-#body-fat-calculate form {
+#basal-metabolic-rate form {
     display: flex;
     flex-direction: column;
     margin-top: 20px;
 }
 
-#body-fat-calculate form p {
+#basal-metabolic-rate form p {
     margin-bottom: 10px;
 }
 
-#body-fat-calculate form button {
+.gender-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#basal-metabolic-rate form button {
     padding: 10px;
     margin-top: 20px;
     background-color: #4CAF50;
@@ -40,34 +47,13 @@ body {
     cursor: pointer;
 }
 
-.body-fat-table {
-    margin-top: 20px;
-    border-collapse: collapse;
-    width: 100%;
-}
-
-.body-fat-table th, .body-fat-table td {
-    padding: 10px;
-    border: 1px solid #ddd;
-    text-align: left;
-}
-
-.body-fat-table th {
-    background-color: #4CAF50;
-    color: white;
-}
-
-.body-fat-table tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
-
-.body-fat-result {
+.bmr-result {
     margin-top: 20px;
     text-align: center;
     font-size: 20px;
 }
 
-.body-fat-result p {
+.bmr-result p {
     margin: 0;
     padding: 0;
 }

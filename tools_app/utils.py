@@ -59,6 +59,17 @@ class HealthCalculator:
         elif duration_minutes > 1440:
             raise ValueError("Enter realistic number.")
 
+    @staticmethod
+    def validate_age(age: int) -> None:
+        """
+        Validates age input
+        :param age: age in years
+        """
+        if age <= 0:
+            raise ValueError("Invalid input. Please enter a positive number for age.")
+        elif age > 122:
+            raise ValueError("You can`t be that old. Oldest person in the world was Jeanne Calment 122 years.")
+
     def bmi_calculator(self, weight_kg: float, height_cm: float) -> str:
         """
         Calculates BMI (Body Mass Index) based on weight and height.
@@ -98,7 +109,19 @@ class HealthCalculator:
         calories_burned = round(calories_per_minute * duration_minutes, 2)
         return calories_burned
 
-    def basal_metabolic_rate(self, gender, weight_kg, height_cm, age):
+    def basal_metabolic_rate(self, gender: str, weight_kg: float, height_cm: float, age: int) -> float:
+        """
+        This view is for calculating Basal Metabolic Rate.
+        :param gender:
+        :param weight_kg:
+        :param height_cm:
+        :param age:
+        :return bmr:
+        """
+        self.validate_weight(weight_kg)
+        self.validate_height(height_cm)
+        self.validate_age(age)
+
         bmr = 0
         if gender == 'male':
             bmr = 10 * weight_kg + 6.25 * height_cm - 5 * age + 5

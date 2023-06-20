@@ -27,6 +27,8 @@
     <div class="bmr-result">
       {% if bmr_result %}
         <p>Your BMR is {{ bmr_result }} calories per day.</p>
+      {% elif error_message %}
+        <p>{{ error_message }}</p>
       {% endif %}
     </div>
   </div>

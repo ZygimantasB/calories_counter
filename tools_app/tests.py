@@ -7,8 +7,34 @@ from .form import BMIForm
 
 # Test Functions in HealthCalculator class for validation
 
+class ValidateAgeTest(TestCase):
 
-class ValidateDurationMinutes(TestCase):
+    def setUp(self) -> None:
+        self.calculator = HealthCalculator()
+
+    def test_validate_age_negative(self):
+        """
+        Test validate age negative
+        """
+        with self.assertRaises(ValueError):
+            self.calculator.validate_age(-50)
+
+    def test_validate_age_zero(self):
+        """
+        Test validate age zero
+        """
+        with self.assertRaises(ValueError):
+            self.calculator.validate_age(0)
+
+    def test_validate_age_boundaries_positive(self):
+        """
+        Test validate age boundaries positive
+        """
+        with self.assertRaises(ValueError):
+            self.calculator.validate_age(124)
+
+
+class ValidateDurationMinutesTest(TestCase):
 
         def setUp(self):
             self.calculator = HealthCalculator()
@@ -91,7 +117,74 @@ class ValidateHeightTest(TestCase):
 
 # Test Functions in HealthCalculator class
 
-class CalculateCaloriesBurned(TestCase):
+
+class BasalMetabolicRateTest(TestCase):
+
+    def setUp(self):
+        self.calculator = HealthCalculator()
+
+    def test_basal_metabolic_rate_weight_kg_negative(self):
+        """
+        Test basal metabolic rate negative age
+        """
+        with self.assertRaises(ValueError):
+            self.calculator.basal_metabolic_rate('male', -50, 50, 80)
+
+    def test_basal_metabolic_rate_weight_kg_zero(self):
+        """
+        Test basal metabolic rate zero age
+        """
+        with self.assertRaises(ValueError):
+            self.calculator.basal_metabolic_rate('male', 0, 50, 80)
+
+    def test_basal_metabolic_rate_weight_kg_boundaries(self):
+        """
+        Test basal metabolic rate zero age
+        """
+        with self.assertRaises(ValueError):
+            self.calculator.basal_metabolic_rate('male', 700, 50, 80)
+
+    def test_basal_metabolic_rate_height_cm_negative(self):
+        """
+        Test basal metabolic rate negative height cm
+        """
+        with self.assertRaises(ValueError):
+            self.calculator.basal_metabolic_rate('male', 50, -50, 80)
+
+    def test_basal_metabolic_rate_height_cm_zero(self):
+        """
+        Test basal metabolic rate zero height cm
+        """
+        with self.assertRaises(ValueError):
+            self.calculator.basal_metabolic_rate('male', 50, 0, 80)
+
+    def test_basal_metabolic_rate_height_cm_boundaries(self):
+        """
+        Test basal metabolic rate boundaries height cm
+        """
+        with self.assertRaises(ValueError):
+            self.calculator.basal_metabolic_rate('male', 50, 1000, 80)
+
+    def test_basal_metabolic_rate_age_negative(self):
+        """
+        Test basal metabolic rate negative age
+        """
+        with self.assertRaises(ValueError):
+            self.calculator.basal_metabolic_rate('male', 50, 50, -80)
+
+    def test_basal_metabolic_rate_age_zero(self):
+        """
+        Test basal metabolic rate zero age
+        """
+        with self.assertRaises(ValueError):
+            self.calculator.basal_metabolic_rate('male', 50, 50, 0)
+
+    def test_basal_metabolic_rate_age_boundaries(self):
+        with self.assertRaises(ValueError):
+            self.calculator.basal_metabolic_rate('male', 50, 50, 500)
+
+
+class CalculateCaloriesBurnedTest(TestCase):
 
     def setUp(self) -> None:
         self.calculator = HealthCalculator()

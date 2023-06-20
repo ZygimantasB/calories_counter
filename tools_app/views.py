@@ -122,27 +122,40 @@ class CalculateBurnedCalories(View):
 
 
 class BasalMetabolicRate(View):
+    """
+    This view is for calculating Basal Metabolic Rate.
+    """
     template_name = "tools_app/basal_metabolic_rate.html"
 
-    def get(self, request):
+    def get(self, request) -> render:
         form = BasalMetabolicRateForm()
         return render(request, self.template_name, {'form': form})
 
-    def post(self, request):
+    def post(self, request) -> render:
         form = BasalMetabolicRateForm(request.POST)
-        print(form.errors)
+        error_message = None
         if form.is_valid():
             weight_kg = form.cleaned_data['weight_kg']
             height_cm = form.cleaned_data['height_cm']
             age = form.cleaned_data['age']
             gender = form.cleaned_data['gender']
 
-            bmr_result = health_calculator.basal_metabolic_rate(gender, weight_kg, height_cm, age)
+            try:
+                bmr_result = health_calculator.basal_metabolic_rate(gender, weight_kg, height_cm, age)
+            except ValueError as error_msg:
+                error_message = str(error_msg)
+                bmr_result = None
 
             return render(request, self.template_name, {'form': form,
-                                                        'bmr_result': bmr_result})
+                                                        'bmr_result': bmr_result,
+                                                        'error_message': error_message})
         else:
-            return render(request, self.template_name, {'form': form})
+            try:
+                form.full_clean()  # This will raise ValidationError if there are any errors
+            except forms.ValidationError as error_msg:
+                error_message = str(error_msg)
+            return render(request, self.template_name, {'form': form,
+                                                        'error_message': error_message})
 
 
 class CalculateBodyFat(View):
