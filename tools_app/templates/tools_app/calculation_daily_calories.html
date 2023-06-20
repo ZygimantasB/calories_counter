@@ -33,6 +33,8 @@
     <div class="daily-calories-result">
       {% if daily_calories %}
         <p>For the day you will need: <b><i>{{ daily_calories }}</i></b> calc</p>
+      {% elif error_message %}
+        <p>{{ error_message }}</p>
       {% endif %}
     </div>
   </div>

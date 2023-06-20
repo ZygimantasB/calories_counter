@@ -63,6 +63,9 @@ class CalculateWaistHipRatio(View):
 
 
 class CalculateDailyCalories(View):
+    """
+    This class is responsible for calculating daily calories.
+    """
     template_name = "tools_app/calculation_daily_calories.html"
 
     def get(self, request):
@@ -71,6 +74,8 @@ class CalculateDailyCalories(View):
 
     def post(self, request):
         form = DailyCaloriesForm(request.POST)
+        error_message = None
+
         if form.is_valid():
             weight_kg = form.cleaned_data['weight_kg']
             height_cm = form.cleaned_data['height_cm']
@@ -78,14 +83,24 @@ class CalculateDailyCalories(View):
             gender = form.cleaned_data['gender']
             activity_level = form.cleaned_data['activity_level']
 
-            bmr = health_calculator.basal_metabolic_rate(gender, weight_kg, height_cm, age)
-
-            daily_calories = health_calculator.daily_calories(bmr, activity_level)
+            try:
+                bmr = health_calculator.basal_metabolic_rate(gender, weight_kg, height_cm, age)
+                daily_calories = health_calculator.daily_calories(bmr, activity_level)
+            except ValueError as error_msg:
+                error_message = str(error_msg)
+                bmr = daily_calories = None
 
             return render(request, self.template_name, {'form': form,
                                                         'bmr': bmr,
-                                                        'daily_calories': daily_calories, })
-        return render(request, self.template_name, {'form': form})
+                                                        'daily_calories': daily_calories,
+                                                        'error_message': error_message})
+        else:
+            try:
+                form.full_clean()
+            except forms.ValidationError as error_msg:
+                error_message = str(error_msg)
+            return render(request, self.template_name, {'form': form,
+                                                        'error_message': error_message})
 
 
 class CalculateBurnedCalories(View):

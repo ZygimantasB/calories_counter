@@ -129,10 +129,13 @@ class HealthCalculator:
             bmr = 10 * weight_kg + 6.25 * height_cm - 5 * age - 161
         return abs(bmr)
 
-    def daily_calories(self, bmr, activity_level):
-        activity_factor = 0
-        if activity_level not in self.ACTIVITY_FACTORS:
-            return "Invalid activity level. Please choose an activity level from the list of available activity levels."
+    def daily_calories(self, bmr: float, activity_level: str) -> float:
+        """
+        This view is for calculating Daily Calories.
+        :param bmr:
+        :param activity_level:
+        :return:
+        """
         activity_factor = self.ACTIVITY_FACTORS[activity_level]
         daily_calories = abs(round(bmr * activity_factor, 2))
         return daily_calories
