@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.views import View
+from django import forms
 
 from .form import BMIForm, WaitHipRatioForm, DailyCaloriesForm, BurnedCaloriesForm, BasalMetabolicRateForm, BodyFatForm
 
@@ -13,6 +14,7 @@ health_calculator = HealthCalculator()
 
 class CalculateBMI(View):
     template_name = "tools_app/calculation_bmi.html"
+    error_message = None
 
     def get(self, request):
         form = BMIForm()
@@ -20,12 +22,25 @@ class CalculateBMI(View):
 
     def post(self, request):
         form = BMIForm(request.POST)
+        error_message = None
         if form.is_valid():
-            weight = form.cleaned_data['weight']
-            height = form.cleaned_data['height']
-            bmi_result = health_calculator.bmi_calculator(weight, height)
-            return render(request, self.template_name, {'form': form, 'bmi_result': bmi_result})
-        return render(request, self.template_name, {'form': form}, )
+            weight = form.cleaned_data['weight_kg']
+            height = form.cleaned_data['height_cm']
+            try:
+                bmi_result = health_calculator.bmi_calculator(weight, height)
+            except ValueError as error_msg:
+                error_message = str(error_msg)
+                bmi_result = None
+
+            return render(request, self.template_name, {'form': form,
+                                                        'bmi_result': bmi_result,
+                                                        'error_message': error_message})
+        else:
+            try:
+                form.full_clean()  # This will raise ValidationError if there are any
+            except forms.ValidationError as error_msg:
+                error_message = str(error_msg)
+            return render(request, self.template_name, {'form': form, 'error_message': error_message})
 
 
 class CalculateWaistHipRatio(View):
