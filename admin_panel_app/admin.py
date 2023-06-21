@@ -5,6 +5,9 @@ from .models import ProductInformation, Quote
 
 
 class ProductInformationAdmin(admin.ModelAdmin):
+    """
+    This class is used to customize the admin panel for the ProductInformation model.
+    """
     list_display = ['name', 'calories', 'total_fat', 'protein', 'carbohydrate']
     list_filter = ['name', 'calories', 'total_fat', 'protein', 'carbohydrate']
     search_fields = ['name']

@@ -4,6 +4,9 @@ from django.db import models
 
 
 class ProductInformation(models.Model):
+    """
+    This class is responsible for storing information about products.
+    """
     name = models.CharField(max_length=255)
     serving_size = models.DecimalField(max_digits=6, decimal_places=2)
     calories = models.DecimalField(max_digits=6, decimal_places=2)
@@ -21,6 +24,9 @@ class ProductInformation(models.Model):
 
 
 class Quote(models.Model):
+    """
+    This class is responsible for storing quotes.
+    """
     author = models.CharField(max_length=255, default="Unknown", blank=True, null=True)
     quote = models.CharField(max_length=1000, blank=True, null=True)
 

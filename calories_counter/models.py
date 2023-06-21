@@ -11,6 +11,9 @@ from CONSTATNS.gender import GENDER
 
 
 class Food(models.Model):
+    """
+    Food model
+    """
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     then_eaten = models.CharField(max_length=50, blank=True, null=True)
     date = models.DateField(null=True, blank=True)
@@ -26,6 +29,9 @@ class Food(models.Model):
 
 
 class UserInformation(models.Model):
+    """
+    User information model
+    """
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     first_name = models.CharField(max_length=50, blank=True, null=True)
     last_name = models.CharField(max_length=50, blank=True, null=True)
@@ -38,6 +44,10 @@ class UserInformation(models.Model):
 
     @property
     def age(self):
+        """
+        Calculate age
+        :return:
+        """
         if self.date_of_birth:
             today = date.today()
             born = self.date_of_birth
@@ -46,6 +56,10 @@ class UserInformation(models.Model):
 
     @property
     def bmi_counter(self):
+        """
+        Calculate BMI
+        :return:
+        """
         bmi_result = round((self.weight / self.height / self.height) * 10_000, 2)
         if bmi_result < 18.5:
             result = f'BMI: <u><b>{bmi_result}</b></u>, you are <u><b>Underweight</b></u>'
@@ -58,6 +72,11 @@ class UserInformation(models.Model):
         return result
 
     def update_weight(self, new_weight):
+        """
+        Update weight
+        :param new_weight:
+        :return:
+        """
         self.weight = new_weight
         self.save()
         WeightHistory.objects.create(user_information=self, weight=new_weight)
@@ -67,6 +86,9 @@ class UserInformation(models.Model):
 
 
 class WeightHistory(models.Model):
+    """
+    Weight history model
+    """
     user_information = models.ForeignKey(UserInformation, on_delete=models.CASCADE, related_name='weight_histories')
     date = models.DateField(auto_now_add=True)
     weight = models.FloatField()
@@ -76,6 +98,9 @@ class WeightHistory(models.Model):
 
 
 class BodyCircumferenceMeasurements(models.Model):
+    """
+    Body circumference measurements model
+    """
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     date = models.DateField(auto_now=True)
     neck_size = models.DecimalField(max_digits=6, decimal_places=2)

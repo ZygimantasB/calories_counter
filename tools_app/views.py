@@ -82,11 +82,11 @@ class CalculateDailyCalories(View):
     """
     template_name = "tools_app/calculation_daily_calories.html"
 
-    def get(self, request):
+    def get(self, request) -> render:
         form = DailyCaloriesForm()
         return render(request, self.template_name, {'form': form})
 
-    def post(self, request):
+    def post(self, request) -> render:
         form = DailyCaloriesForm(request.POST)
         error_message = None
 
@@ -188,13 +188,16 @@ class BasalMetabolicRate(View):
 
 
 class CalculateBodyFat(View):
+    """
+    This view is for calculating body fat percentage.
+    """
     template_name = "tools_app/calculation_body_fat.html"
 
-    def get(self, request):
+    def get(self, request) -> render:
         form = BodyFatForm()
         return render(request, self.template_name, {'form': form})
 
-    def post(self, request):
+    def post(self, request) -> render:
         form = BodyFatForm(request.POST)
         if form.is_valid():
             weight_kg = form.cleaned_data['weight_kg']

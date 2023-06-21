@@ -32,6 +32,11 @@ from datetime import datetime
 
 
 def start_page(request):
+    """
+    This function is responsible for rendering start page.
+    :param request:
+    :return:
+    """
     image_folder = 'calories_counter/static/images/'
     image_files = os.listdir(image_folder)
     random_image = choice(image_files)
@@ -44,6 +49,9 @@ def start_page(request):
 
 
 class FoodsView(LoginRequiredMixin, View):
+    """
+    This class is responsible for rendering foods page.
+    """
     def get(self, request):
         foods = Food.objects.filter(user=request.user).order_by('-date')
 
@@ -75,6 +83,9 @@ class FoodsView(LoginRequiredMixin, View):
 
 
 class FoodUpdate(LoginRequiredMixin, UpdateView):
+    """
+    This class is responsible for rendering food update page.
+    """
     model = Food
     template_name = "calories_counter/food_update.html"
     form_class = FoodForm
@@ -86,12 +97,18 @@ class FoodUpdate(LoginRequiredMixin, UpdateView):
 
 
 class FoodDelete(LoginRequiredMixin, DeleteView):
+    """
+    This class is responsible for rendering food delete page.
+    """
     model = Food
     template_name = "calories_counter/food_delete.html"
     success_url = reverse_lazy('foods')
 
 
 class FoodCreate(LoginRequiredMixin, CreateView):
+    """
+    This class is responsible for rendering food create page.
+    """
     model = Food
     form_class = FoodForm
     template_name = "calories_counter/food_create.html"
@@ -103,7 +120,10 @@ class FoodCreate(LoginRequiredMixin, CreateView):
 
 
 class UserInformationView(LoginRequiredMixin, View):
-    def get(self, request):
+    """
+    This class is responsible for rendering user information page.
+    """
+    def get(self, request) -> render:
         user_information = UserInformation.objects.filter(user=request.user).first()
 
         weight_histories = WeightHistory.objects.filter(user_information=user_information).order_by('-date')
@@ -125,7 +145,7 @@ class UserInformationView(LoginRequiredMixin, View):
 
         return render(request, "calories_counter/user_information.html", context)
 
-    def post(self, request):
+    def post(self, request) -> HttpResponseRedirect:
         user_information = UserInformation.objects.filter(user=request.user).first()
         form = UpdateWeightForm(request.POST)
         if form.is_valid():
@@ -135,38 +155,50 @@ class UserInformationView(LoginRequiredMixin, View):
 
 
 class UserInformationCreate(LoginRequiredMixin, CreateView):
+    """
+    This class is responsible for rendering user information create page.
+    """
     model = UserInformation
     template_name = 'calories_counter/create_user_information.html'
     fields = ['first_name', 'last_name', 'email', 'date_of_birth', 'height', 'weight', 'gender']
     success_url = reverse_lazy('user_information')
 
-    def form_valid(self, form):
+    def form_valid(self, form) -> HttpResponseRedirect:
         form.instance.user = self.request.user
         return super().form_valid(form)
 
 
 class CreateBodyVolumes(LoginRequiredMixin, CreateView):
+    """
+    This class is responsible for rendering body volumes create page.
+    """
     model = BodyCircumferenceMeasurements
     template_name = 'calories_counter/create_body_volumes.html'
     form_class = BodyCircumferenceMeasurementsForm
     success_url = reverse_lazy('user_information')
 
-    def form_valid(self, form):
+    def form_valid(self, form) -> HttpResponseRedirect:
         form.instance.user = self.request.user
         return super().form_valid(form)
 
 
 class UserInformationUpdate(LoginRequiredMixin, UpdateView):
+    """
+    This class is responsible for rendering user information update page.
+    """
     model = UserInformation
     template_name = 'calories_counter/update_user_information.html'
     fields = ['first_name', 'last_name', 'email', 'date_of_birth', 'height', 'weight', 'gender']
     success_url = reverse_lazy('user_information')
 
-    def get_object(self, queryset=None):
+    def get_object(self, queryset=None) -> UserInformation:
         return get_object_or_404(UserInformation, user=self.request.user)
 
 
 class UpdateBodyVolumes(LoginRequiredMixin, UpdateView):
+    """
+    This class is responsible for rendering body volumes update page.
+    """
     model = BodyCircumferenceMeasurements
     template_name = 'calories_counter/update_body_volumes.html'
     fields = ['neck_size', 'chest_size', 'waist_size', 'left_bicep_size', 'right_bicep_size', 'left_thigh_size',
@@ -174,14 +206,17 @@ class UpdateBodyVolumes(LoginRequiredMixin, UpdateView):
               'right_calf_size']
     success_url = reverse_lazy('user_information')
 
-    def get_object(self, queryset=None):
+    def get_object(self, queryset=None) -> BodyCircumferenceMeasurements:
         return get_object_or_404(BodyCircumferenceMeasurements, pk=self.kwargs.get('pk'), user=self.request.user)
 
 
 class DeleteBodyVolumes(LoginRequiredMixin, DeleteView):
+    """
+    This class is responsible for rendering body volumes delete page.
+    """
     model = BodyCircumferenceMeasurements
     template_name = 'calories_counter/delete_body_volumes.html'
     success_url = reverse_lazy('user_information')
 
-    def get_object(self, queryset=None):
+    def get_object(self, queryset=None) -> BodyCircumferenceMeasurements:
         return get_object_or_404(BodyCircumferenceMeasurements, pk=self.kwargs.get('pk'), user=self.request.user)

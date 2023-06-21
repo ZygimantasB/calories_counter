@@ -6,6 +6,9 @@ from CONSTATNS.meal import THEN_EATEN
 
 
 class FoodForm(forms.ModelForm):
+    """
+    Form for adding food to database
+    """
     then_eaten = forms.ChoiceField(choices=THEN_EATEN)
     date = forms.DateField(
         input_formats=['%Y-%m-%d'],
@@ -18,10 +21,16 @@ class FoodForm(forms.ModelForm):
 
 
 class UpdateWeightForm(forms.Form):
+    """
+    Form for updating weight
+    """
     new_weight = forms.DecimalField(max_digits=5, decimal_places=2)
 
 
 class BodyCircumferenceMeasurementsForm(forms.ModelForm):
+    """
+    Form for adding body circumference measurements
+    """
     class Meta:
         model = BodyCircumferenceMeasurements
         fields = ['neck_size', 'chest_size', 'waist_size', 'left_bicep_size', 'right_bicep_size', 'left_forearm_size',

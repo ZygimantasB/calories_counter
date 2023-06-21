@@ -92,6 +92,42 @@ class HealthCalculator:
         elif hip > 300:
             raise ValueError("Enter realistic number.")
 
+    @staticmethod
+    def validate_hip_female(hip: float, gender: str = 'female') -> None:
+        """
+        Validates hip input
+        :param gender:
+        :param hip:
+        :return:
+        """
+        if hip is None:
+            hip = 1
+        elif hip <= 0 and gender == 'female':
+            hip = 1
+        elif hip > 300 and gender == 'female':
+            raise ValueError("Enter realistic number.")
+
+    @staticmethod
+    def validate_hip_male(hip: int = 1, gender: str = 'male') -> int:
+        """
+        Validates hip input
+        :param gender:
+        :param hip:
+        :return:
+        """
+        return hip
+
+    @staticmethod
+    def validate_neck(neck_cm: float) -> None:
+        """
+        Validates neck input
+        :param neck_cm: wrist in cm
+        """
+        if neck_cm <= 0:
+            raise ValueError("Invalid input. Please enter a positive number for wrist.")
+        elif neck_cm > 100:
+            raise ValueError("Enter realistic number.")
+
     def bmi_calculator(self, weight_kg: float, height_cm: float) -> str:
         """
         Calculates BMI (Body Mass Index) based on weight and height.
@@ -193,43 +229,48 @@ class HealthCalculator:
                     result = f"Your waist ratio is {waist_hip_ratio}, you are at Increased Higher Risk"
         return result
 
-    def calculate_body_fat_percentage(self, gender, weight_kg, height_cm, waist_cm, neck_cm, hip_cm=0):
+    def calculate_body_fat_percentage(self, gender: str, weight_kg: float, height_cm: float, waist_cm: float,
+                                      neck_cm: float, hip_cm: float = 0) -> float:
+        """
+        This view is for calculating Body Fat Percentage.
+        :param gender:
+        :param weight_kg:
+        :param height_cm:
+        :param waist_cm:
+        :param neck_cm:
+        :param hip_cm:
+        :return:
+        """
         weight_lb = weight_kg * 2.20462
         height_in = height_cm * 0.393701
         waist_in = waist_cm * 0.393701
         neck_in = neck_cm * 0.393701
-        hip_in = 0
+        hip_in = 1
+
+        self.validate_weight(weight_kg)
+        self.validate_height(height_cm)
+        self.validate_waist(waist_cm)
+        self.validate_neck(neck_cm)
+        self.validate_hip_female(hip_cm, gender='female')
+        self.validate_hip_male()
+
         if hip_cm:
             hip_in = hip_cm * 0.393701
 
         body_fat_percentage = 0
 
-        if waist_in <= neck_in:
-            raise ValueError("Waist measurement must be greater than neck measurement.")
+        try:
+            if waist_in - neck_in <= 0 or height_in <= 0:
+                raise ValueError("Invalid input. Please check your measurements.")
 
-        match gender:
-            case 'male':
-                body_fat_percentage = 86.010 * log10(waist_in - neck_in) - 70.041 * log10(height_in) + 36.76
-            case 'female':
-                body_fat_percentage = 163.205 * log10(waist_in + hip_in - neck_in) - 97.684 * log10(height_in) - 78.387
-            case _:
-                return 'You entered wrong information. Please try again.'
+            match gender:
+                case 'male':
+                    body_fat_percentage = 86.010 * log10(waist_in - neck_in) - 70.041 * log10(height_in) + 36.76
+                case 'female':
+                    body_fat_percentage = 163.205 * log10(waist_in + hip_in - neck_in) - 97.684 * log10(height_in) - 78.387
+
+        except ValueError as e:
+            print("Error in calculate_body_fat_percentage: ", e)
+            body_fat_percentage = 0
+
         return round(body_fat_percentage, 2)
-
-
-    #TODO I dont know I need one more calculator I have a lot of them
-    def loose_weight_calculator(self, weight_kg, height_cm, age, start_date, amount_to_lose, deficit, gender):
-        daily_calories_need = self.basal_metabolic_rate(weight_kg, height_cm, age, gender)
-
-        if gender == 'female' and daily_calories_need < 1200:
-            daily_calories_need = 1200
-        elif gender == 'male' and daily_calories_need < 1800:
-            daily_calories_need = 1800
-
-        kg_to_lose = amount_to_lose * 2.2
-        total_calories_deficit = kg_to_lose * 3500
-        days_to_goal = total_calories_deficit / deficit
-
-        target_date = datetime.strptime(start_date, '%Y-%m-%d') + timedelta(days=days_to_goal)
-
-        return daily_calories_need, target_date.strptime('%Y-%m-%d')

@@ -11,6 +11,9 @@ from .forms import CommentForm, PostForm
 
 
 class StartingPageView(ListView):
+    """
+    This class is responsible for displaying the starting page.
+    """
     template_name = "calories_blog/start_page_cal.html"
     model = Post
     ordering = ["-date"]
@@ -24,6 +27,9 @@ class StartingPageView(ListView):
 
 
 class AllPostsView(ListView):
+    """
+    This class is responsible for displaying all posts.
+    """
     model = Post
     template_name = "calories_blog/all-posts.html"
     ordering = ["-date"]
@@ -31,7 +37,10 @@ class AllPostsView(ListView):
 
 
 class SinglePostView(View):
-    def is_stored_post(self, request, post_id):
+    """
+    This class is responsible for displaying a single post.
+    """
+    def is_stored_post(self, request, post_id) -> bool:
         stored_posts = request.session.get('stored_posts')
         if stored_posts is not None:
             is_saved_for_later = post_id in stored_posts
@@ -40,7 +49,7 @@ class SinglePostView(View):
 
         return is_saved_for_later
 
-    def get(self, request, slug):
+    def get(self, request, slug) -> render:
         post = Post.objects.get(slug=slug)
 
         context = {
@@ -52,7 +61,7 @@ class SinglePostView(View):
         }
         return render(request, "calories_blog/post-detail.html", context)
 
-    def post(self, request, slug):
+    def post(self, request, slug) -> HttpResponseRedirect:
         comment_form = CommentForm(request.POST)
         post = Post.objects.get(slug=slug)
         if comment_form.is_valid():
@@ -74,7 +83,10 @@ class SinglePostView(View):
 
 
 class ReadLaterView(View):
-    def get(self, request):
+    """
+    This class is responsible for displaying posts saved for later.
+    """
+    def get(self, request) -> render:
         stored_posts = request.session.get('stored_posts')
 
         context = {}
@@ -89,7 +101,7 @@ class ReadLaterView(View):
 
         return render(request, "calories_blog/stored-posts.html", context)
 
-    def post(self, request):
+    def post(self, request) -> HttpResponseRedirect:
         stored_posts = request.session.get('stored_posts')
 
         if stored_posts is None:
@@ -108,12 +120,15 @@ class ReadLaterView(View):
 
 
 class PostCreateView(CreateView, LoginRequiredMixin):
+    """
+    This class is responsible for creating a new post.
+    """
     model = Post
     template_name = 'calories_blog/post_create.html'
     fields = ['title', 'excerpt', 'image', 'content', 'author', 'tags']
     success_url = reverse_lazy('posts')
 
-    def form_valid(self, form):
+    def form_valid(self, form) -> HttpResponseRedirect:
         form.instance.slug = form.instance.title.lower().replace(' ', '-')
         return super().form_valid(form)
 

@@ -10,26 +10,6 @@ class BMIForm(forms.Form):
     weight_kg = forms.FloatField(label='Weight in kg')
     height_cm = forms.FloatField(label="Height in cm")
 
-    def clean_weight_kg(self):
-        weight_kg = self.cleaned_data.get('weight_kg')
-        if weight_kg is not None:
-            if weight_kg <= 0:
-                raise forms.ValidationError("Invalid input. Please enter a positive number for weight.")
-            elif weight_kg > 635:
-                raise forms.ValidationError("Enter realistic number. Heaviest person in the world was "
-                                            "Jon Brower Minnoch 635 kg")
-        return weight_kg
-
-    def clean_height_cm(self):
-        height_cm = self.cleaned_data.get('height_cm')
-        if height_cm is not None:
-            if height_cm <= 0:
-                raise forms.ValidationError("Invalid input. Please enter a positive number for height.")
-            elif height_cm > 272:
-                raise forms.ValidationError("Enter realistic number. Tallest person in the world was "
-                                            "Robert Wadlow 272 cm.")
-        return height_cm
-
 
 class WaitHipRatioForm(forms.Form):
     waist = forms.FloatField(label='Waist in cm')

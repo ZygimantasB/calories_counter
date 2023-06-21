@@ -6,6 +6,9 @@ from django.db.models import Count
 
 
 class Tag(models.Model):
+    """
+    Model for tags
+    """
     caption = models.CharField(max_length=20)
 
     def __str__(self):
@@ -13,6 +16,9 @@ class Tag(models.Model):
 
 
 class Author(models.Model):
+    """
+    Model for authors
+    """
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     email_address = models.EmailField()
@@ -25,6 +31,9 @@ class Author(models.Model):
 
 
 class Post(models.Model):
+    """
+    Model for posts
+    """
     title = models.CharField(max_length=200)
     excerpt = models.CharField(max_length=250)
     image = models.ImageField(upload_to="posts", null=True)
@@ -39,6 +48,9 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
+    """
+    Model for comments
+    """
     user_name = models.CharField(max_length=100)
     user_email = models.EmailField()
     text = models.TextField(max_length=400)

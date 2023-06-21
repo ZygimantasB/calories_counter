@@ -17,6 +17,9 @@ from calories_blog.models import Author, Comment, Post, Tag
 # Create your views here.
 
 class UploadInformationView(LoginRequiredMixin, View):
+    """
+    This class is responsible for uploading information to the database.
+    """
     def get(self, request) -> render:
 
         count_quotes = Quote.objects.count()
@@ -92,6 +95,11 @@ class UploadInformationView(LoginRequiredMixin, View):
 
 
 def handle_upload_food_information(csv_file) -> None:
+    """
+    This function is responsible for uploading food information to the database.
+    :param csv_file:
+    :return:
+    """
     read_csv = pd.read_csv(csv_file)
     for index, row in read_csv.iterrows():
         product_information = ProductInformation(
@@ -106,6 +114,11 @@ def handle_upload_food_information(csv_file) -> None:
 
 
 def handle_upload_quotes(csv_file) -> None:
+    """
+    This function is responsible for uploading quotes to the database.
+    :param csv_file:
+    :return:
+    """
     read_csv = pd.read_csv(csv_file)
     for index, row in read_csv.iterrows():
         quote = Quote(

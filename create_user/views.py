@@ -8,7 +8,12 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
-def sign_in(request):
+def sign_in(request) -> render:
+    """
+    This function is responsible for signing in users.
+    :param request:
+    :return:
+    """
 
     if request.method == 'GET':
         if request.user.is_authenticated:
@@ -33,13 +38,23 @@ def sign_in(request):
         return render(request, "create_user/login.html", {"form": form})
 
 
-def sign_out(request):
+def sign_out(request) -> redirect:
+    """
+    This function is responsible for signing out users.
+    :param request:
+    :return:
+    """
     logout(request)
     messages.success(request, f'You have been logged out')
     return redirect('start_page')
 
 
-def sign_up(request):
+def sign_up(request) -> render:
+    """
+    This function is responsible for signing up users.
+    :param request:
+    :return:
+    """
     form = RegisterForm(request.POST)
     if form.is_valid():
         user = form.save(commit=False)

@@ -10,10 +10,13 @@ from .forms import ProductSearch
 
 
 class ProductInformationView(FormView):
+    """
+    This class is responsible for displaying product information.
+    """
     form_class = ProductSearch
     template_name = "food_information_app/product_information.html"
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs) -> render:
         paginator = Paginator(ProductInformation.objects.all(), 15)
         page_number = request.GET.get('page')
         page_object = paginator.get_page(page_number)
@@ -23,7 +26,7 @@ class ProductInformationView(FormView):
         context['page_object'] = page_object
         return self.render_to_response(context)
 
-    def form_valid(self, form):
+    def form_valid(self, form) -> render:
         query = form.cleaned_data.get("name_search")
         results = ProductInformation.objects.filter(
             Q(name__icontains=query) |
