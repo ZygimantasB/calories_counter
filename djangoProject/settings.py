@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'admin_panel_app',
     'food_information_app',
     'tools_app',
+    'contact_info_app',
 ]
 
 MIDDLEWARE = [

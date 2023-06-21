@@ -27,7 +27,7 @@
         <option value="$MODULE_DIR$/calories_counter/templates" />
         <option value="$MODULE_DIR$/create_user/templates" />
         <option value="$MODULE_DIR$/calories_blog/templates" />
-        <option value="$MODULE_DIR$/food_information_app/tempaltes" />
+        <option value="$MODULE_DIR$/contact_info_app/templates" />
       </list>
     </option>
   </component>
