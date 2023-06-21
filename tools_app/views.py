@@ -13,6 +13,9 @@ health_calculator = HealthCalculator()
 
 
 class CalculateBMI(View):
+    """
+    This class is responsible for calculating BMI.
+    """
     template_name = "tools_app/calculation_bmi.html"
     error_message = None
 
@@ -44,22 +47,33 @@ class CalculateBMI(View):
 
 
 class CalculateWaistHipRatio(View):
+    """
+    This class is responsible for calculating waist hip ratio.
+    """
     template_name = "tools_app/calculation_waist_hip_ratio.html"
 
-    def get(self, request):
+    def get(self, request) -> render:
         form = WaitHipRatioForm()
         return render(request, self.template_name, {'form': form})
 
-    def post(self, request):
+    def post(self, request) -> render:
         form = WaitHipRatioForm(request.POST)
+        error_message = None
         if form.is_valid():
             waist = form.cleaned_data['waist']
             hip = form.cleaned_data['hip']
             gender = form.cleaned_data['gender']
-            result = health_calculator.wait_hip_ratio(waist, hip, gender)
+            try:
+                result = health_calculator.waist_hip_ratio(waist, hip, gender)
+            except ValueError as error_msg:
+                error_message = str(error_msg)
+                result = None
 
-            return render(request, self.template_name, {'form': form, 'result': result})
-        return render(request, self.template_name, {'form': form})
+            return render(request, self.template_name, {'form': form,
+                                                        'result': result,
+                                                        'error_message': error_message})
+        return render(request, self.template_name, {'form': form,
+                                                    'error_message': error_message})
 
 
 class CalculateDailyCalories(View):

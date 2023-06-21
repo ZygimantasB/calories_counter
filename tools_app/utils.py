@@ -70,6 +70,28 @@ class HealthCalculator:
         elif age > 122:
             raise ValueError("You can`t be that old. Oldest person in the world was Jeanne Calment 122 years.")
 
+    @staticmethod
+    def validate_waist(waist: float) -> None:
+        """
+        Validates waist input
+        :param waist: waist in cm
+        """
+        if waist <= 0:
+            raise ValueError("Invalid input. Please enter a positive number for waist.")
+        elif waist > 300:
+            raise ValueError("Enter realistic number.")
+
+    @staticmethod
+    def validate_hip(hip: float) -> None:
+        """
+        Validates hip input
+        :param hip: hip in cm
+        """
+        if hip <= 0:
+            raise ValueError("Invalid input. Please enter a positive number for hip.")
+        elif hip > 300:
+            raise ValueError("Enter realistic number.")
+
     def bmi_calculator(self, weight_kg: float, height_cm: float) -> str:
         """
         Calculates BMI (Body Mass Index) based on weight and height.
@@ -140,7 +162,17 @@ class HealthCalculator:
         daily_calories = abs(round(bmr * activity_factor, 2))
         return daily_calories
 
-    def wait_hip_ratio(self, waist, hip, gender):
+    def waist_hip_ratio(self, waist: float, hip: float, gender: str) -> str:
+        """
+        This view is for calculating Waist Hip Ratio.
+        :param waist:
+        :param hip:
+        :param gender:
+        :return:
+        """
+        self.validate_waist(waist)
+        self.validate_hip(hip)
+
         waist_hip_ratio = waist / hip
         waist_hip_ratio = round(waist_hip_ratio * 100, 2)
         result = ''
@@ -148,14 +180,14 @@ class HealthCalculator:
             case 'male':
                 if waist_hip_ratio < 94:
                     result = f"Your waist ratio is {waist_hip_ratio}, you are at Low Risk"
-                elif 94 <= waist_hip_ratio <= 99:
+                elif waist_hip_ratio <= 99.99:
                     result = f"Your waist ratio is {waist_hip_ratio}, you are at High Risk"
                 else:
                     result = f"Your waist ratio is {waist_hip_ratio}, you are at Increased Higher Risk"
             case 'female':
-                if waist_hip_ratio <= 80:
+                if waist_hip_ratio < 80:
                     result = f"Your waist ratio is {waist_hip_ratio}, you are at Low Risk"
-                elif 81 < waist_hip_ratio <= 89:
+                elif waist_hip_ratio <= 89.99:
                     result = f"Your waist ratio is {waist_hip_ratio}, you are at High Risk"
                 else:
                     result = f"Your waist ratio is {waist_hip_ratio}, you are at Increased Higher Risk"

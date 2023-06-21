@@ -7,6 +7,60 @@ from .form import BMIForm
 
 # Test Functions in HealthCalculator class for validation
 
+class ValidateWaistTest(TestCase):
+
+    def setUp(self) -> None:
+        self.calculator = HealthCalculator()
+
+    def test_validate_waist_negative(self):
+        """
+        Test validate waist negative
+        """
+        with self.assertRaises(ValueError):
+            self.calculator.validate_waist(-50)
+
+    def test_validate_waist_zero(self):
+        """
+        Test validate waist zero
+        """
+        with self.assertRaises(ValueError):
+            self.calculator.validate_waist(0)
+
+    def test_validate_waist_boundaries_positive(self):
+        """
+        Test validate waist boundaries positive
+        """
+        with self.assertRaises(ValueError):
+            self.calculator.validate_waist(301)
+
+
+class ValidateHipTest(TestCase):
+
+    def setUp(self) -> None:
+        self.calculator = HealthCalculator()
+
+    def test_validate_hip_negative(self):
+        """
+        Test validate hip negative
+        """
+        with self.assertRaises(ValueError):
+            self.calculator.validate_hip(-50)
+
+    def test_validate_hip_zero(self):
+        """
+        Test validate hip zero
+        """
+        with self.assertRaises(ValueError):
+            self.calculator.validate_hip(0)
+
+    def test_validate_hip_boundaries_positive(self):
+        """
+        Test validate hip boundaries positive
+        """
+        with self.assertRaises(ValueError):
+            self.calculator.validate_hip(301)
+
+
 class ValidateAgeTest(TestCase):
 
     def setUp(self) -> None:
@@ -116,6 +170,96 @@ class ValidateHeightTest(TestCase):
 
 
 # Test Functions in HealthCalculator class
+
+
+class WaistHipRatioTest(TestCase):
+
+    def setUp(self):
+        self.calculator = HealthCalculator()
+
+    def test_waist_hip_ratio_waist_cm_negative(self):
+        """
+        Test waist hip ratio negative waist cm
+        """
+        with self.assertRaises(ValueError):
+            self.calculator.waist_hip_ratio(-50, 50, 'male')
+
+    def test_waist_hip_ratio_waist_cm_zero(self):
+        """
+        Test waist hip ratio zero waist cm
+        """
+        with self.assertRaises(ValueError):
+            self.calculator.waist_hip_ratio(0, 50, 'male')
+
+    def test_waist_hip_ratio_waist_cm_low_risk_boundaries_male(self):
+        """
+        Test waist hip ratio boundaries result 94 cm for Higher Risk (male)
+        """
+        result = self.calculator.waist_hip_ratio(93.81, 99.8, 'male')
+        self.assertEqual(result, 'Your waist ratio is 94.0, you are at High Risk')
+
+    def test_waist_hip_ratio_waist_cm_high_risk_male(self):
+        """
+        Test waist hip ratio for High Risk (male)
+        """
+        result = self.calculator.waist_hip_ratio(waist=98, hip=100, gender='male')
+        self.assertEqual(result, 'Your waist ratio is 98.0, you are at High Risk')
+
+    def test_waist_hip_ratio_waist_cm_high_risk_male_boundaries(self):
+        """
+        Test waist hip ratio boundaries result 99.99 cm for Higher Risk (male)
+        """
+        result = self.calculator.waist_hip_ratio(waist=99.98, hip=99.99, gender='male')
+        self.assertEqual(result, 'Your waist ratio is 99.99, you are at High Risk')
+
+    def test_waist_hip_ratio_waist_cm_increased_high_risk_male_boundaries(self):
+        """
+        Test waist hip ratio boundaries result 100 cm for Higher Risk (male)
+        """
+        result = self.calculator.waist_hip_ratio(waist=100, hip=100, gender='male')
+        self.assertEqual(result, 'Your waist ratio is 100.0, you are at Increased Higher Risk')
+
+    def test_waist_hip_ratio_low_risk_female(self):
+        """
+        Test waist hip ratio Low Risk (female)
+        """
+        result = self.calculator.waist_hip_ratio(waist=80, hip=110, gender='female')
+        self.assertEqual(result, 'Your waist ratio is 72.73, you are at Low Risk')
+
+    def test_waist_hip_ratio_high_risk_female_boundaries(self):
+        """
+        Test waist hip ratio boundaries result 80.0 cm for High Risk (female)
+        """
+        result = self.calculator.waist_hip_ratio(waist=80.24, hip=100.3, gender='female')
+        self.assertEqual(result, 'Your waist ratio is 80.0, you are at High Risk')
+
+    def test_waist_hip_ratio_high_risk_female(self):
+        """
+        Test waist hip ratio High Risk (female)
+        """
+        result = self.calculator.waist_hip_ratio(waist=80.24, hip=95, gender='female')
+        self.assertEqual(result, 'Your waist ratio is 84.46, you are at High Risk')
+
+    def test_waist_hip_ratio_increased_high_risk_female_boundaries(self):
+        """
+        Test waist hip ratio boundaries result 80.0 cm for Increased Higher Risk (female)
+        """
+        result = self.calculator.waist_hip_ratio(waist=80.24, hip=100.3, gender='female')
+        self.assertEqual(result, 'Your waist ratio is 80.0, you are at High Risk')
+
+    def test_waist_hip_ratio_increased_high_risk_female_boundaries_(self):
+        """
+        Test waist hip ratio boundaries result 89.99 cm for High risk(female)
+        """
+        result = self.calculator.waist_hip_ratio(waist=89.99, hip=100, gender='female')
+        self.assertEqual(result, 'Your waist ratio is 89.99, you are at High Risk')
+
+    def test_waist_hip_ratio_increased_high_risk_female(self):
+        """
+        Test waist hip ratio Increased Higher Risk (female)
+        """
+        result = self.calculator.waist_hip_ratio(waist=90, hip=89, gender='female')
+        self.assertEqual(result, 'Your waist ratio is 101.12, you are at Increased Higher Risk')
 
 
 class BasalMetabolicRateTest(TestCase):
@@ -261,8 +405,8 @@ class BMICalculatorTest(TestCase):
         """
         Test BMI calculator for obesity boundaries
         """
-        boundary_result = self.calculator.bmi_calculator(weight_kg=96.88, height_cm=180)
-        self.assertEqual(boundary_result, 'BMI: <u><b>29.9</b></u>, you are <u><b>Obesity</b></u>')
+        boundary_result = self.calculator.bmi_calculator(weight_kg=96.97, height_cm=179.81)
+        self.assertEqual(boundary_result, 'BMI: <u><b>29.99</b></u>, you are <u><b>Obesity</b></u>')
 
     def test_bmi_calculator_obesity(self):
         """

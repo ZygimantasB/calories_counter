@@ -30,6 +30,8 @@
     <div class="result">
       {% if result %}
         <p>{{ result }}</p>
+      {% elif error_message %}
+        <p>{{ error_message }}</p>
       {% endif %}
     </div>
     <div class="risk-table">
