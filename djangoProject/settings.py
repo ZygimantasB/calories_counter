@@ -57,6 +57,64 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'main_formatter': {
+            'format': '{asctime} - {levelname} - {module} - {message}',
+            'style': '{',
+        }
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'main_formatter',
+            'level': 'WARNING',
+        },
+        'file_warning': {
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': 'logs/djangoProject_warning.log',
+            'maxBytes': 1024*1024*5,  # 5 MB
+            'backupCount': 5,
+            'formatter': 'main_formatter',
+            'level': 'WARNING',
+        },
+        'file_info': {
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': 'logs/djangoProject_info.log',
+            'maxBytes': 1024*1024*5,  # 5 MB
+            'backupCount': 5,
+            'formatter': 'main_formatter',
+            'level': 'INFO',
+        },
+        'file_debug': {
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': 'logs/djangoProject_debug.log',
+            'maxBytes': 1024*1024*5,  # 5 MB
+            'backupCount': 5,
+            'formatter': 'main_formatter',
+            'level': 'DEBUG',
+        },
+
+    },
+    'loggers': {
+        'main': {
+            'handlers': ['console', 'file_warning', 'file_info', 'file_debug'],
+            'level': 'DEBUG',
+        },
+        'django': {
+            'handlers': ['console', 'file_warning', 'file_info', 'file_debug'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+    },
+    'root': {
+        'handlers': ['console', 'file_warning'],
+        'level': 'WARNING',
+    },
+}
+
 ROOT_URLCONF = "djangoProject.urls"
 
 TEMPLATES = [
