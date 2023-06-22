@@ -12,7 +12,58 @@
 {% block content %}
 
   <div id="about-project">
-    <h1>Testing</h1>
+    <h3>Welcome to the "Calories Counter" page - your one-stop
+      destination for tracking and managing your dietary needs and health goals.</h3>
+  <h5>On this page, you can:</h5>
+  <p>1. <b>Count Your Calories:</b> Utilize our comprehensive calorie counter tool to easily track the number of
+    calories you consume each day. This tool aids in managing your diet by allowing you to log all your
+    meals and snacks.
+  </p>
+  <p>2. <b>Track Your Progress:</b> You can keep a close watch on your nutrition and weight loss journey
+    by monitoring your progress over time. Our system records and analyzes your data to provide a clear
+    and concise overview of your journey.
+  </p>
+  <p>3. <b>Use Body Analysis Tools:</b> We offer a range of tools that help you to know more about your body,
+    like BMI calculator, ideal weight calculator, and more. These tools can help you set and reach your
+    personalized health goals.
+  </p>
+  <p> 4. <b>Get Motivated:</b> Staying motivated is key to a successful health and fitness journey.
+    Our page features a selection of inspiring quotes that will keep you motivated and focused on your goals.
+  </p>
+  <p>5. <b>Food Search:</b>  Not sure about the nutritional value of the food you're eating? Use our food search
+    feature to get comprehensive information about various foods, including their calorie content and other
+    nutritional facts.
+  </p>
+  <p>
+    Our goal is to provide you with the tools and resources you need to lead a healthier lifestyle.
+    Remember, every step, no matter how small, brings you closer to your health goals. Start your
+    journey today with our "Calories Counter" page!
+  </p>
+  <p>.6. <b>Get In Touch:</b>  Have a question or feedback? We'd love to hear from you! Use our contact form to
+  get in touch with us.
+  </p>
   </div>
+
+  <div id="contact">
+    <h2>Contact Information</h2>
+    <p>
+      <strong>Healthy  Food</strong><br>
+      1234 Main Street<br>
+      Vilnius, 12345<br>
+      <a href="tel:+1234567890">Phone: +1 234-567-890</a><br>
+      <a href="mailto:info@company.com">Email: info@company.com</a>
+    </p>
+  </div>
+
+  <div id="map_locations" class="clearfix">
+    <h3>This is map for healthy food you can buy</h3>
+    <div id="map_section">
+      <div id="map">
+        {% include 'contact_info_app/map.html' %}
+      </div>
+    </div>
+  </div>
+
+
 
 {% endblock %}

@@ -1,0 +1,82 @@
+body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f5f5f5;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#about-project, #contact, #map_locations {
+    margin: 2rem auto;
+    max-width: 1000px;
+    padding: 2rem;
+    background: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border-radius: 10px;
+}
+
+/* Styling for headings */
+h2, h3, h5 {
+    color: #307765;
+    margin-bottom: 1rem;
+}
+
+h3 {
+    font-size: 1.8rem;
+}
+
+h5, h2 {
+    font-size: 1.4rem;
+}
+
+p {
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+    text-align: justify;
+}
+
+p b {
+    color: #307765;
+    font-weight: 600;
+}
+
+#contact p {
+    font-size: 1.2rem;
+    font-weight: 300;
+}
+
+#contact a {
+    color: #307765;
+    text-decoration: none;
+}
+
+#contact a:hover {
+    text-decoration: underline;
+}
+
+#map {
+    height: 500px;
+    width: 900px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 900px;
+    margin-left: 600px;
+}
+
+.clearfix::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+#map_section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+}

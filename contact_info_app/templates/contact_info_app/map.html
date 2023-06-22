@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_f13a1aab65d4300883d8a2bf648bf43f {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_f13a1aab65d4300883d8a2bf648bf43f" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_f13a1aab65d4300883d8a2bf648bf43f = L.map(
+                "map_f13a1aab65d4300883d8a2bf648bf43f",
+                {
+                    center: [54.6877410077157, 25.283378174997512],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 6,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_a8b3270e239ad8e9fb4d7eff0abab21f = L.tileLayer(
+                "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "Data by \u0026copy; \u003ca target=\"_blank\" href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target=\"_blank\" href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            ).addTo(map_f13a1aab65d4300883d8a2bf648bf43f);
+        
+    
+            var marker_1d7b8fb85ac2f7bc48b7f4cd1f333f38 = L.marker(
+                [54.899572230498976, 23.90833610389087],
+                {}
+            ).addTo(map_f13a1aab65d4300883d8a2bf648bf43f);
+        
+    
+            var icon_cfa2c27b6a31cbcfb4b816aa93b0abfc = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_1d7b8fb85ac2f7bc48b7f4cd1f333f38.setIcon(icon_cfa2c27b6a31cbcfb4b816aa93b0abfc);
+        
+    
+        var popup_2cd516ee2c5b57aa11bdca81639a85ad = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_8bf92838a9f92666965747b877eadcad = $(`<div id="html_8bf92838a9f92666965747b877eadcad" style="width: 100.0%; height: 100.0%;"><i>Healthy Food Store</i></div>`)[0];
+                popup_2cd516ee2c5b57aa11bdca81639a85ad.setContent(html_8bf92838a9f92666965747b877eadcad);
+            
+        
+
+        marker_1d7b8fb85ac2f7bc48b7f4cd1f333f38.bindPopup(popup_2cd516ee2c5b57aa11bdca81639a85ad)
+        ;
+
+        
+    
+    
+            var marker_2f53a93a3a018d6ba6c8f8f82e82c7f0 = L.marker(
+                [54.6877410077157, 25.283378174997512],
+                {}
+            ).addTo(map_f13a1aab65d4300883d8a2bf648bf43f);
+        
+    
+            var icon_09e5d51d659c29277610a410024b7070 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_2f53a93a3a018d6ba6c8f8f82e82c7f0.setIcon(icon_09e5d51d659c29277610a410024b7070);
+        
+    
+        var popup_5d331b371fa343d3ef80a79a0d810757 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_35e9dcef2d1b50db874454bb564b598e = $(`<div id="html_35e9dcef2d1b50db874454bb564b598e" style="width: 100.0%; height: 100.0%;"><i>Healthy Food Store</i></div>`)[0];
+                popup_5d331b371fa343d3ef80a79a0d810757.setContent(html_35e9dcef2d1b50db874454bb564b598e);
+            
+        
+
+        marker_2f53a93a3a018d6ba6c8f8f82e82c7f0.bindPopup(popup_5d331b371fa343d3ef80a79a0d810757)
+        ;
+
+        
+    
+    
+            var marker_164ee38657a9865875232a64217914a6 = L.marker(
+                [55.70781449602359, 21.170957775607707],
+                {}
+            ).addTo(map_f13a1aab65d4300883d8a2bf648bf43f);
+        
+    
+            var icon_3029834be86d94f7e1d64b55455f4647 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_164ee38657a9865875232a64217914a6.setIcon(icon_3029834be86d94f7e1d64b55455f4647);
+        
+    
+        var popup_262ec4c5873cac78547ff6dfa9633c11 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_1dbe09d19ae879bf75a7e7f5863b75b8 = $(`<div id="html_1dbe09d19ae879bf75a7e7f5863b75b8" style="width: 100.0%; height: 100.0%;"><i>Healthy Food Store</i></div>`)[0];
+                popup_262ec4c5873cac78547ff6dfa9633c11.setContent(html_1dbe09d19ae879bf75a7e7f5863b75b8);
+            
+        
+
+        marker_164ee38657a9865875232a64217914a6.bindPopup(popup_262ec4c5873cac78547ff6dfa9633c11)
+        ;
+
+        
+    
+    
+            var marker_35f225f54b3f27cfe67d668bd53be588 = L.marker(
+                [55.92050275116782, 23.339913888681366],
+                {}
+            ).addTo(map_f13a1aab65d4300883d8a2bf648bf43f);
+        
+    
+            var icon_f0e1ee301a7f334434353c52b207deb9 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_35f225f54b3f27cfe67d668bd53be588.setIcon(icon_f0e1ee301a7f334434353c52b207deb9);
+        
+    
+        var popup_04300822fc7060daa17dacf0ba495a37 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_c9b067bc2922caf217e18d433188d5ce = $(`<div id="html_c9b067bc2922caf217e18d433188d5ce" style="width: 100.0%; height: 100.0%;"><i>Healthy Food Store</i></div>`)[0];
+                popup_04300822fc7060daa17dacf0ba495a37.setContent(html_c9b067bc2922caf217e18d433188d5ce);
+            
+        
+
+        marker_35f225f54b3f27cfe67d668bd53be588.bindPopup(popup_04300822fc7060daa17dacf0ba495a37)
+        ;
+
+        
+    
+    
+            var marker_98c16c59416626d9d06b29b0727be7d9 = L.marker(
+                [55.745983221205684, 24.31741416887826],
+                {}
+            ).addTo(map_f13a1aab65d4300883d8a2bf648bf43f);
+        
+    
+            var icon_fd0b99ce38bcf5d94691b900ba77b954 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_98c16c59416626d9d06b29b0727be7d9.setIcon(icon_fd0b99ce38bcf5d94691b900ba77b954);
+        
+    
+        var popup_9df160373cbc01ada330a786123f88b4 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_69202f4165089625a65fb3882732b4b5 = $(`<div id="html_69202f4165089625a65fb3882732b4b5" style="width: 100.0%; height: 100.0%;"><i>Healthy Food Store</i></div>`)[0];
+                popup_9df160373cbc01ada330a786123f88b4.setContent(html_69202f4165089625a65fb3882732b4b5);
+            
+        
+
+        marker_98c16c59416626d9d06b29b0727be7d9.bindPopup(popup_9df160373cbc01ada330a786123f88b4)
+        ;
+
+        
+    
+</script>
+</html>
