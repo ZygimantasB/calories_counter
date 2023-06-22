@@ -199,6 +199,7 @@ class CalculateBodyFat(View):
 
     def post(self, request) -> render:
         form = BodyFatForm(request.POST)
+        error_message = None
         if form.is_valid():
             weight_kg = form.cleaned_data['weight_kg']
             height_cm = form.cleaned_data['height_cm']
@@ -206,11 +207,20 @@ class CalculateBodyFat(View):
             neck_cm = form.cleaned_data['neck_cm']
             gender = form.cleaned_data['gender']
             hip_cm = 0 if gender == 'male' else form.cleaned_data['hip_cm']
-
-            body_fat_result = health_calculator.calculate_body_fat_percentage(gender, weight_kg, height_cm,
-                                                                              waist_cm, neck_cm, hip_cm)
+            try:
+                body_fat_result = health_calculator.calculate_body_fat_percentage(gender, weight_kg, height_cm,
+                                                                                  waist_cm, neck_cm, hip_cm)
+            except ValueError as error_msg:
+                error_message = str(error_msg)
+                body_fat_result = None
 
             return render(request, self.template_name, {'form': form,
-                                                        'body_fat_result': body_fat_result})
+                                                        'body_fat_result': body_fat_result,
+                                                        'error_message': error_message})
         else:
-            return render(request, self.template_name, {'form': form})
+            try:
+                form.full_clean()
+            except forms.ValidationError as error_msg:
+                error_message = str(error_msg)
+            return render(request, self.template_name, {'form': form,
+                                                        'error_message': error_message})

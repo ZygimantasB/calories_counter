@@ -128,6 +128,25 @@ class HealthCalculator:
         elif neck_cm > 100:
             raise ValueError("Enter realistic number.")
 
+    @staticmethod
+    def unit_conversion(weight_lb: float, height_in: float, waist_in: float, neck_in: float,
+                        hip_in: float = 0) -> tuple:
+        """
+        This view is for converting units.
+        :param weight_lb:
+        :param height_in:
+        :param waist_in:
+        :param neck_in:
+        :param hip_in:
+        :return:
+        """
+        weight_kg = weight_lb / 2.20462
+        height_cm = height_in / 0.393701
+        waist_cm = waist_in / 0.393701
+        neck_cm = neck_in / 0.393701
+        hip_cm = hip_in / 0.393701
+        return weight_kg, height_cm, waist_cm, neck_cm, hip_cm
+
     def bmi_calculator(self, weight_kg: float, height_cm: float) -> str:
         """
         Calculates BMI (Body Mass Index) based on weight and height.
@@ -241,11 +260,8 @@ class HealthCalculator:
         :param hip_cm:
         :return:
         """
-        weight_lb = weight_kg * 2.20462
-        height_in = height_cm * 0.393701
-        waist_in = waist_cm * 0.393701
-        neck_in = neck_cm * 0.393701
-        hip_in = 1
+        weight_lb, height_in, waist_in, neck_in, hip_in = self.unit_conversion(weight_kg, height_cm, waist_cm, neck_cm,
+                                                                               hip_cm)
 
         self.validate_weight(weight_kg)
         self.validate_height(height_cm)
@@ -267,7 +283,8 @@ class HealthCalculator:
                 case 'male':
                     body_fat_percentage = 86.010 * log10(waist_in - neck_in) - 70.041 * log10(height_in) + 36.76
                 case 'female':
-                    body_fat_percentage = 163.205 * log10(waist_in + hip_in - neck_in) - 97.684 * log10(height_in) - 78.387
+                    body_fat_percentage = 163.205 * log10(waist_in + hip_in - neck_in) - 97.684 * log10(height_in) \
+                                          - 78.387
 
         except ValueError as e:
             print("Error in calculate_body_fat_percentage: ", e)

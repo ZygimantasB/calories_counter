@@ -30,6 +30,8 @@
 
     {% if body_fat_result %}
       <p>Your body fat {{ body_fat_result }} %</p>
+    {% elif error_message %}
+      <p>{{ error_message }}</p>
     {% endif %}
 
     <div class="body-fat-table">
