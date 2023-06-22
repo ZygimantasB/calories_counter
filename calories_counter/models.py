@@ -101,7 +101,7 @@ class BodyCircumferenceMeasurements(models.Model):
     """
     Body circumference measurements model
     """
-    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField(auto_now=True)
     neck_size = models.DecimalField(max_digits=6, decimal_places=2)
     chest_size = models.DecimalField(max_digits=6, decimal_places=2)
@@ -116,4 +116,4 @@ class BodyCircumferenceMeasurements(models.Model):
     right_calf_size = models.DecimalField(max_digits=6, decimal_places=2)
 
     def __str__(self):
-        return f"{self.date} - Body Circumference Measurements"
+        return f"{self.date} {self.user.username}"

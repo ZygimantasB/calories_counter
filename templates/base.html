@@ -125,9 +125,16 @@
         </div>
       </li>
 
-      <li class="nav-item">
-          <a class="nav-link" href="{% url 'about_project' %}">About Project</a>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-bs-toggle="dropdown"
+           aria-haspopup="true" aria-expanded="false">
+          Additional Information
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{% url 'about_project' %}">About Project</a>
+        </div>
       </li>
+
     </ul>
   </div>
 </nav>
