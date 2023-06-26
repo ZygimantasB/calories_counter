@@ -9,9 +9,14 @@
 
 {% block content %}
   <div class="tables-container">
+  <div class="content-row">
+
 
     <div id="user_information">
         <h1><b>User information</b></h1>
+        <div class="user_information">
+
+        </div>
         <table class="table table-hover table-dark">
             <tbody>
                 <tr>
@@ -72,6 +77,56 @@
         {% if user_information.first_name == None %}
         <a href="{% url 'create_user_information' %}" class="btn btn-primary add_information_button">Add User Information 👤</a>
         {% endif %}
+    </div>
+
+    <div class="weight-table-view">
+
+      <h2>Weight History:</h2>
+      <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-primary" type="submit">Update weight</button>
+      </form>
+
+      <div class="updated-user-weight">
+        <table>
+          <thead>
+          <tr>
+            <th>#</th>
+            <th>Date</th>
+            <th>Weight</th>
+          </tr>
+          </thead>
+          <tbody>
+          {% for history in weight_histories %}
+            <tr>
+              <th>{{ forloop.counter }}</th>
+              <th>{{ history.date|date:'Y-m-d' }}</th>
+              <th>{{ history.weight }} kg.</th>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="pagination-weight-history">
+        <span class="step-links">
+            {% if weight_histories.has_previous %}
+              <a href="?page=1">&laquo; first</a>
+              <a href="?page={{ weight_histories.previous_page_number }}">previous</a>
+            {% endif %}
+
+          <span class="current">
+                Page {{ weight_histories.number }} of {{ weight_histories.paginator.num_pages }}.
+            </span>
+
+          {% if weight_histories.has_next %}
+            <a href="?page={{ weight_histories.next_page_number }}">next</a>
+            <a href="?page={{ weight_histories.paginator.num_pages }}">last &raquo;</a>
+          {% endif %}
+        </span>
+      </div>
+
     </div>
 
     <div class="body__volumes">
@@ -138,65 +193,11 @@
         </span>
       </div>
 
-      <a type="button" class="btn btn-primary add__body__volumes_anchor_tag" href="{% url 'create_body_volumes' %}">Add Body Volumes</a>
+      <a type="button" class="btn btn-primary add__body__volumes_anchor_tag"
+         href="{% url 'create_body_volumes' %}">Add Body Volumes</a>
 
-      <div class="weight-table-view">
-
-        <h2>Weight History:</h2>
-        <form method="post">
-          {% csrf_token %}
-          {{ form.as_p }}
-          <button type="submit">Update weight</button>
-        </form>
-
-        <div class="updated-user-weight">
-          <table>
-            <thead>
-            <tr>
-              <th>#</th>
-              <th>Date</th>
-              <th>Weight</th>
-              <th>Loose/Gain</th>
-              <th>Percentage</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for history in weight_histories %}
-              <tr>
-                <th>{{ forloop.counter }}</th>
-                <th>{{ history.date|date:'Y-m-d' }}</th>
-                <th>{{ history.weight }} kg.</th>
-              </tr>
-            {% endfor %}
-            </tbody>
-          </table>
-        </div>
-
-      </div>
-
-      <div class="pagination-weight-history">
-        <span class="step-links">
-            {% if weight_histories.has_previous %}
-              <a href="?page=1">&laquo; first</a>
-              <a href="?page={{ weight_histories.previous_page_number }}">previous</a>
-            {% endif %}
-
-          <span class="current">
-                Page {{ weight_histories.number }} of {{ weight_histories.paginator.num_pages }}.
-            </span>
-
-          {% if weight_histories.has_next %}
-            <a href="?page={{ weight_histories.next_page_number }}">next</a>
-            <a href="?page={{ weight_histories.paginator.num_pages }}">last &raquo;</a>
-          {% endif %}
-        </span>
-      </div>
 
     </div>
-
-    <div class="Running History">
-      <h1>Running History</h1>
-    </div>
-
+  </div>
   </div>
 {% endblock %}

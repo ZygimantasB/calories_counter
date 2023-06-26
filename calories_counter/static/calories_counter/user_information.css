@@ -1,34 +1,33 @@
 h1  {
-    margin-left: 80px;
-    margin-top: 35px;
+    text-align: center;
+    padding: 20px;
 }
 
 .table {
-    width: 15%;
-    margin-left: 80px;
+    width: 80%;
+    margin: 0 auto;
     text-align: center;
 }
 
 .add_information_button, .update_information_button {
-    margin-left: 80px;
-    width: 15%;
+    display: block;
+    width: 80%;
+    margin: 20px auto;
 }
 
 .body__volumes {
-    margin-left: 400px;
-    margin-top: -565px;
+    width: 80%;
+    margin: 0 auto;
 }
 
 .body__volumes table td, table th {
-    min-width: 100px;
-    white-space: nowrap;
-    /*overflow: hidden;*/
-    /*text-overflow: ellipsis;*/
+    padding: 10px;
 }
 
 .add__body__volumes_anchor_tag {
-    margin-top: 20px;
-    margin-left: 80px;
+    display: block;
+    width: 80%;
+    margin: 20px auto;
 }
 
 .update-link {
@@ -36,6 +35,15 @@ h1  {
 }
 
 .pagination_measurements {
-    margin-left: 80px;
-    margin-top: 20px;
+    text-align: center;
+    padding: 20px;
+}
+
+.pagination-weight-history {
+    padding: 20px;
+}
+
+.weight-table-view {
+    width: 50%;
+    margin-left: 900px;
 }
