@@ -1,4 +1,5 @@
 import pandas as pd
+from django.core.exceptions import ValidationError
 
 from django.shortcuts import render, redirect
 from django.views import View
@@ -13,19 +14,19 @@ from .models import ProductInformation, Quote
 from calories_counter.models import Food, UserInformation
 from calories_blog.models import Author, Comment, Post, Tag
 
+from .utils import AdminPanelUtils
+
 
 # Create your views here.
 
+
 class UploadInformationView(LoginRequiredMixin, View):
-    """
-    This class is responsible for uploading information to the database.
-    """
-    def get(self, request) -> render:
 
-        count_quotes = Quote.objects.count()
-
-        food_form = UploadFoodInformationForm()
-        quotes_form = UploadQuotesForm()
+    def get_context_data(self) -> dict:
+        """
+        This function is responsible for getting the context data.
+        :return:
+        """
         count_products = ProductInformation.objects.count()
         count_users = User.objects.count()
         count_food = Food.objects.count()
@@ -35,6 +36,7 @@ class UploadInformationView(LoginRequiredMixin, View):
         count_comment = Comment.objects.count()
         count_post = Post.objects.count()
         count_tag = Tag.objects.count()
+        count_quotes = Quote.objects.count()
 
         top_10_meals = Food.objects.values('then_eaten').annotate(count=Count('then_eaten')).order_by('-count')[:10]
         top_10_meals_position = list(enumerate(top_10_meals, start=1))
@@ -58,9 +60,9 @@ class UploadInformationView(LoginRequiredMixin, View):
         tag_usage = dict(sorted(tag_usage.items(), key=lambda value: value[1], reverse=True))
         tag_usage = dict(list(tag_usage.items())[:10])
 
-        return render(request, "admin_panel_app/upload_information.html", {
-            "food_form": food_form,
-            "quotes_form": quotes_form,
+        return {
+            "food_form": UploadFoodInformationForm(),
+            "quotes_form": UploadQuotesForm(),
             'count_products': count_products,
             'count_users': count_users,
             'count_food': count_food,
@@ -74,24 +76,47 @@ class UploadInformationView(LoginRequiredMixin, View):
             'tag_usage': tag_usage,
             'count_quotes': count_quotes,
             'top_10_meals_position': top_10_meals_position,
+        }
 
-        })
+    def get(self, request) -> render:
+        return render(request, "admin_panel_app/upload_information.html", self.get_context_data())
 
     def post(self, request) -> render:
+
+        csv_validator = AdminPanelUtils()
         if "food_submit" in request.POST:
             form = UploadFoodInformationForm(request.POST, request.FILES)
             if form.is_valid():
+                try:
+                    csv_validator.validate_file_extension(request.FILES['file'])
+                except ValidationError as error_message:
+                    form.add_error('file', error_message)
+                    context = self.get_context_data()
+                    context.update({"food_form": form})
+                    return render(request, "admin_panel_app/upload_information.html", context)
                 handle_upload_food_information(request.FILES['file'])
                 return redirect('upload_information')
             else:
-                return render(request, "admin_panel_app/upload_information.html", {"food_form": form})
+                context = self.get_context_data()
+                context.update({"food_form": form})
+                return render(request, "admin_panel_app/upload_information.html", context)
+
         elif "quotes_submit" in request.POST:
             form = UploadQuotesForm(request.POST, request.FILES)
             if form.is_valid():
+                try:
+                    csv_validator.validate_file_extension(request.FILES['file'])
+                except ValidationError as error_message:
+                    form.add_error('file', error_message)
+                    context = self.get_context_data()
+                    context.update({"quotes_form": form})
+                    return render(request, "admin_panel_app/upload_information.html", context)
                 handle_upload_quotes(request.FILES['file'])
                 return redirect('upload_information')
             else:
-                return render(request, "admin_panel_app/upload_information.html", {"quotes_form": form})
+                context = self.get_context_data()
+                context.update({"quotes_form": form})
+                return render(request, "admin_panel_app/upload_information.html", context)
 
 
 def handle_upload_food_information(csv_file) -> None:
@@ -100,6 +125,7 @@ def handle_upload_food_information(csv_file) -> None:
     :param csv_file:
     :return:
     """
+
     read_csv = pd.read_csv(csv_file)
     for index, row in read_csv.iterrows():
         product_information = ProductInformation(

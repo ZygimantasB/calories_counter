@@ -17,7 +17,7 @@
       <br>
       {% if food_form.file.errors %}
         <div class="alert alert-danger">
-          {{ food_form.file.errors }}
+          {{ food_form.errors }}
         </div>
       {% endif %}
       <button class="btn btn-primary food_add_button" type="submit" name="food_submit">Upload</button>
