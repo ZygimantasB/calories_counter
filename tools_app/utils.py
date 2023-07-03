@@ -1,5 +1,4 @@
 from math import log10
-from datetime import datetime, timedelta
 
 
 class HealthCalculator:

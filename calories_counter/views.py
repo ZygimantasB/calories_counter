@@ -1,21 +1,12 @@
 import os
 
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render, redirect, get_object_or_404, reverse
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
 from django.core.paginator import Paginator
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.http import HttpResponseRedirect
-from django.db.models import Sum, DecimalField
-from django.db.models.functions import Coalesce
-
-from django.views.generic.list import ListView
-
-from django.forms.models import inlineformset_factory
-
-from extra_views import CreateWithInlinesView, InlineFormSetFactory
 
 from .models import Food, UserInformation, BodyCircumferenceMeasurements, WeightHistory
 from .forms import FoodForm, UpdateWeightForm, BodyCircumferenceMeasurementsForm
@@ -25,7 +16,6 @@ from admin_panel_app.models import Quote
 from itertools import groupby
 from operator import attrgetter
 from random import choice
-from datetime import datetime
 
 
 # Create your views here.

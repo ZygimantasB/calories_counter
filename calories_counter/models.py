@@ -3,7 +3,6 @@ from django.db import models
 from django.contrib.auth.models import User
 
 from datetime import date
-from pygrowup import Calculator
 
 from CONSTATNS.gender import GENDER
 

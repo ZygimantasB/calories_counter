@@ -73,12 +73,12 @@ LOGGING = {
         'console': {
             'class': 'logging.StreamHandler',
             'formatter': 'main_formatter',
-            'level': 'INFO',  # TODO change to WARNING the you deploy the project all and remove DEBUG, INFO
+            'level': 'INFO',
         },
         'file_warning': {
             'class': 'logging.handlers.RotatingFileHandler',
             'filename': 'logs/djangoProject_warning.log',
-            'maxBytes': 1024*1024*5,  # 5 MB
+            'maxBytes': 1024*1024*5,
             'backupCount': 5,
             'formatter': 'main_formatter',
             'level': 'WARNING',
@@ -86,20 +86,11 @@ LOGGING = {
         'file_info': {
             'class': 'logging.handlers.RotatingFileHandler',
             'filename': 'logs/djangoProject_info.log',
-            'maxBytes': 1024*1024*5,  # 5 MB
+            'maxBytes': 1024*1024*5,
             'backupCount': 5,
             'formatter': 'main_formatter',
             'level': 'INFO',
         },
-        # 'file_debug': {
-        #     'class': 'logging.handlers.RotatingFileHandler',
-        #     'filename': 'logs/djangoProject_debug.log',
-        #     'maxBytes': 1024*1024*5,  # 5 MB
-        #     'backupCount': 5,
-        #     'formatter': 'main_formatter',
-        #     'level': 'DEBUG',
-        # },
-
     },
     'loggers': {
         'main': {

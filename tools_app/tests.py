@@ -1,11 +1,8 @@
 from django.test import TestCase
 from .utils import HealthCalculator
-from .form import BMIForm
 
 # Create your tests here.
 
-
-# Test Functions in HealthCalculator class for validation
 
 class ValidateWaistTest(TestCase):
 
@@ -167,9 +164,6 @@ class ValidateHeightTest(TestCase):
         """
         with self.assertRaises(ValueError):
             self.calculator.validate_height(273)
-
-
-# Test Functions in HealthCalculator class
 
 
 class WaistHipRatioTest(TestCase):

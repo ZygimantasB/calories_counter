@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from django.views import View
 from django.db.models import Q
 from django.views.generic import FormView
 from django.core.paginator import Paginator

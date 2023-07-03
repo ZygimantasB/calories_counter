@@ -1,12 +1,13 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic import ListView, CreateView
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .models import Post, Author, Tag
-from .forms import CommentForm, PostForm
+from .models import Post
+from .forms import CommentForm
+
 # Create your views here.
 
 
@@ -17,7 +18,7 @@ class StartingPageView(ListView):
     template_name = "calories_blog/start_page_cal.html"
     model = Post
     ordering = ["-date"]
-    context_object_name = "posts"  # default name lists
+    context_object_name = "posts"
     paginate_by = 5
 
     def get_queryset(self):
