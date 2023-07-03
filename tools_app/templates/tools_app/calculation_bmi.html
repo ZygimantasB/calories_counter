@@ -14,8 +14,8 @@
     <img src="{% static 'images/bmi_calculator.jpg' %}" alt="bmi_calculator">
     <form action="" method="post">
       {% csrf_token %}
-      <p>Height {{ form.height_cm }} cm. </p>
-      <p>Weight {{ form.weight_kg }} kg. </p>
+      <p>Height: {{ form.height_cm }} cm. </p>
+      <p>Weight: {{ form.weight_kg }} kg. </p>
       <button type="submit">Calculate</button>
     </form>
     <div class="result">

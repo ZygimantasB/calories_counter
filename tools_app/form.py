@@ -43,5 +43,5 @@ class BodyFatForm(forms.Form):
     height_cm = forms.FloatField(label="Height in cm")
     waist_cm = forms.FloatField(label="Waist in cm")
     neck_cm = forms.FloatField(label="Neck in cm")
-    hip_cm = forms.FloatField(label="Hip in cm", required=False)
+    hip_cm = forms.FloatField(label="Hip in cm", initial=1, required=True)
     gender = forms.ChoiceField(choices=GENDER, widget=forms.RadioSelect, label='Gender')

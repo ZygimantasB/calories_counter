@@ -19,11 +19,11 @@
           {{ choice.tag }} <label>{{ choice.choice_label }}</label>
         {% endfor %}
       </div>
-      <p>Weight kg: {{ form.weight_kg }}</p>
-      <p>Height cm {{ form.height_cm }}</p>
-      <p>Waist cm {{ form.waist_cm }}</p>
-      <p>Neck cm {{ form.neck_cm }}</p>
-      <p>Hip cm {{ form.hip_cm }} (Only For Female)</p>
+      <p>Weight {{ form.weight_kg }} kg</p>
+      <p>Height {{ form.height_cm }} cm</p>
+      <p>Waist {{ form.waist_cm }} cm</p>
+      <p>Neck {{ form.neck_cm }} cm</p>
+      <p>Hip {{ form.hip_cm }} cm (Only For Female), for male enter 1 </p>
       <p></p>
     <button type="submit">Calculate</button>
     </form>
