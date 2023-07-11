@@ -97,7 +97,7 @@ python manage.py runserver
 pip install -r requirements.txt
 ```
 
-## 🗃️ Setting Up a MySQL Database
+## 🗃️Setting Up a MySQL Database
 
 1. Download MySQL Server:
 
