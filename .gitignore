@@ -1,5 +1,1 @@
-.env
-db.sqlite3
-/calories_counter/static/images/*
-/logs/*
-``
+/calories_counter/.idea/vcs.xml
